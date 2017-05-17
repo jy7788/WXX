@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport"
+	content="width=device-width,07.initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
+<link rel="stylesheet"
+	href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-validate/1.16.0/additional-methods.js"></script>
+<script
+	src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+	
+    <script type="text/javascript" language="javascript">
+    window.onload = init;
+    function init() {
+    	//var btn = document.getElementById("getData");
+    	getData();
+    }
+    function getData() {
+    	//1、创建XMLHttpRequest对象
+    	//var xhr = new XMLHttpRequest();
+    	//通过createXmlHttpRequest来屏蔽不同浏览器之间的对象创建
+    	var xhr = createXmlHttpRequest();
+    	//2、检测XMLHttpRequest对象的状态，在合适的时候处理
+    	//通过xhr.open方法确定要访问的页面
+    	//第一个参数表示请求类型，第二个参数表示提交的地址，第三个参数表示是否是异步
+    	xhr.open("GET","http://1d6289976g.imwork.net/wx/session/getUser",true);
+    	//在onreadstatechange事件中处理请求
+    	xhr.onreadystatechange = function() {
+    		//onreadystatechange会在每个步骤都进行响应 ，一般仅仅只是在状态为4(请求结束)并且status=200(请求没有错误)时才处理
+    		if(xhr.readyState==4&&xhr.status==200) {
+    			//获取相应的文本:通过xhr的responseText可以获取文本信息，包括xml的标签
+    			//通过responseXML可以获取xml的信息，只能xml对象
+    			//document.getElementById("serverData").innerHTML = xhr.responseText;
+    			var json = xhr.responseText;
+    			var ps = eval("(" + json + ")");
+    			if(ps.username!= null) 
+    			document.getElementById("username").innerHTML=ps.username;
+    			if(ps.password!= null) 
+    			document.getElementById("password").innerHTML=ps.password;
+    			if(ps.nickname!= null) 
+    			document.getElementById("nickname").innerHTML=ps.nickname;
+    			if(ps.sex!= null) 
+    			document.getElementById("sex").innerHTML=ps.sex;
+    			if(ps.phoneNum!= null) 
+    			document.getElementById("phoneNum").innerHTML=ps.phoneNum;
+    			if(ps.area!= null) 
+    			document.getElementById("area").innerHTML=ps.area;
+    			if(ps.email!= null) 
+    			document.getElementById("email").innerHTML=ps.email;
+    			if(ps.birthday!= null) 
+    			document.getElementById("birthday").innerHTML=ps.birthday;
+    			if(ps.imgUrl!=null) 
+    			document.getElementById("img").setAttribute("src", ps.imgUrl);
+    			if(ps.role!=null) 
+    			document.getElementById("role").innerHTML=ps.role;
+    		}
+    	}
+    	//3、发送请求
+    	//发送请求，send中可以传入相应的参数，这个参数只有在POST请求的时候有效
+    	//GET的参数直接在请求地址中通过？来传递
+    	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    	xhr.send();
+    }
+
+    function createXmlHttpRequest() {
+    	if(window.XMLHttpRequest) {
+    		//针对其他主流浏览器
+    		return new XMLHttpRequest();
+    	} else if(window.ActiveXObject) {
+    		//针对IE5和IE6
+    		return new ActiveXObject("Microsoft.XMLHTTP");
+    	} else {
+    		alert("你使用的浏览器不支持XMLHttpRequest，请换一个浏览器再试！");
+    		return null;
+    	}
+    }
+    </script>
+	
+</head>
+<body>
+
+	<div data-role="page" id="page1">
+		<!--  page  -->
+
+		<div data-role="header">
+			<h1>五本书院</h1>
+		</div>
+		<!-- 頁眉 End  -->
+		<br />
+		<div >
+			<h1>院士申请</h1>
+		</div>
+		<div data-role="fieldcontain">
+		
+			尊敬的    <h3 id="nickname"></h3></br>
+			恭喜您成为五本书院士
+			<img width="120" id="img" src=""/></br>
+			院士身份:&nbsp;&nbsp; <label  id="username" ></label>   </br>
+			昵称:&nbsp;&nbsp;    <label id="nickname"></label></br>
+			密码:&nbsp;&nbsp;    <label id="password"></label></br>
+			性别:&nbsp;&nbsp;    <label id="sex"></label></br>
+			角色:&nbsp;&nbsp;    <label id="role"></label></br>
+			地域: &nbsp;&nbsp;   <label id="area"></label></br>
+			手机号:&nbsp;&nbsp;    <label id="phoneNum"></label></br>
+			安全邮箱:&nbsp;&nbsp;    <label id="email"></label></br>
+			出生日期:&nbsp;&nbsp;    <label id="birthday"></label></br>
+			
+		</div>
+		<br /> 
+
+		<div data-role="footer" class="ui-btn">
+			<div data-role="controlgroup" data-type="horizontal">
+				<a href="http://1d6289976g.imwork.net/wx/fiveBookUser/redirect" data-role="button" data-ajax="false">院士登录</a> 
+				<a href="http://1d6289976g.imwork.net/wx/fiveBookUser/regist" data-corners="false" data-role="button" data-ajax="false">院外访客</a>
+			</div>
+		</div>
+		</div>
+		<!--page end -->
+</body>
+</html>

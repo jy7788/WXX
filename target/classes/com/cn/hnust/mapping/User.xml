@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.model.User" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="open_id" property="openid" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="bind" property="bind" jdbcType="INTEGER" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, username, password, nickname, open_id, status, sex, bind, img_url
+  </sql>
+  
+  <insert id="add" parameterType="com.cn.hnust.model.User">
+		insert into t_user 
+		(username, password, nickname, open_id, status, sex, bind, img_url)
+		values
+		(#{username}, #{password}, #{nickname}, #{openid}, 
+		 #{status},   #{sex},      #{bind},     #{imgUrl})
+  </insert>
+  
+  <select id="load" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="loadByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where open_id = #{openid,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="loadByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <update id="update" parameterType="com.cn.hnust.model.User" >
+    update t_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      open_id = #{openid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      bind = #{bind,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="UserFindAll" resultMap="BaseResultMap" parameterType="Map">
+		select * from t_user
+		<where>
+			<if test="name!= null">username like #{name} or nickname like #{name}</if>
+		</where>
+		<if test="sort != null">order by ${sort} 
+			<if test="order!= null">
+				${order,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="offSet != null"> 
+		limit #{offSet,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="find_count" parameterType="map" resultType="int">
+		select count(*) from t_user 
+		<if test="name !=null"> where (username like #{name} or nickname like #{name})</if>
+	</select>
+</mapper>

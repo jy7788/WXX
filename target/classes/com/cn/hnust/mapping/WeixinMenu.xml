@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.model.WeixinMenu" >
+  <resultMap id="MenuBaseResultMap" type="com.cn.hnust.model.WeixinMenu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="menu_key" property="menuKey" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="resp_type" property="respType" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, name, content, url, menu_key, pid, type
+  </sql>
+  
+   <insert id="add" parameterType="com.cn.hnust.model.WeixinMenu">
+		insert into t_weixin_menu (name, content, url, menu_key, pid, type, resp_type) values
+		(#{name}, #{content}, #{url}, #{menuKey}, #{pid}, #{type}, #{respType})
+  </insert>
+  
+  <select id="load" resultMap="MenuBaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from t_weixin_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectMenuByKey" resultMap="MenuBaseResultMap" parameterType="java.lang.String" >
+    select 
+    *
+    from t_weixin_menu
+    where menu_key = #{menuKey,jdbcType=VARCHAR}
+  </select>
+  <!--
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from t_person
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+   -->
+  <update id="update" parameterType="com.cn.hnust.model.WeixinMenu" >
+    update t_weixin_menu
+    set name = #{name,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      menu_key = #{menuKey,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="WeixinMenuFindAll" resultMap="MenuBaseResultMap" parameterType="Map">
+		select * from t_weixin_menu
+		<where>
+			<if test="name!= null">content like #{name}</if>
+		</where>
+		<if test="sort != null">order by ${sort} 
+			<if test="order!= null">
+				${order,jdbcType=VARCHAR}
+			</if>
+		</if>
+	</select>
+	
+	<select id="find_count" parameterType="map" resultType="int">
+		select count(*) from t_weixin_menu 
+	</select>
+</mapper>

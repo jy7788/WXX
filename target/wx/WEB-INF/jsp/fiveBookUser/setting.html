@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<script type="text/javascript" language="javascript">
+	function isBind() {
+		alert("as");
+		getData();
+	}
+    window.onload = init;
+    function init() {
+    	getData();
+    }
+    function getData() {
+    	var xhr = createXmlHttpRequest();
+    	xhr.open("POST","/fiveBookUser/bindUser",true);
+    	xhr.onreadystatechange = function() {
+    		if(xhr.readyState==4&&xhr.status==200) {
+    			//获取相应的文本:通过xhr的responseText可以获取文本信息，包括xml的标签
+    			//通过responseXML可以获取xml的信息，只能xml对象
+    			//document.getElementById("serverData").innerHTML = xhr.responseText;
+    			var resp = xhr.responseText;
+    			if(resp.indexOf("binded") > 0) {
+    				document.getElemetnById("bindButton").disabled = true;
+    			}
+    			if(resp.indexOf("success") > 0) {
+    				changeState("绑定成功");
+    			}
+    			if(resp.indexOf("failed") > 0) {
+    				changeState("绑定失败");
+    			}
+    		}
+    	}
+    	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    	xhr.send();
+    }
+    
+    function changeState(data) {
+    	document.getElemetnById("bindResult").innerHTML(data);
+    }
+
+    function createXmlHttpRequest() {
+    	if(window.XMLHttpRequest) {
+    		//针对其他主流浏览器
+    		return new XMLHttpRequest();
+    	} else if(window.ActiveXObject) {
+    		//针对IE5和IE6
+    		return new ActiveXObject("Microsoft.XMLHTTP");
+    	} else {
+    		alert("你使用的浏览器不支持XMLHttpRequest，请换一个浏览器再试！");
+    		return null;
+    	}
+    }
+    
+    </script>
+</head>
+<body>
+	<h3 id="bindResult"></h3>
+	<input type="button" id="bindButton" onclick="isBind()" value="绑定微信" >
+	邮箱：<input type="text" id="email" name="email"/><button id="bindEmail" value="绑定邮箱" onclick="bindEmail"></button>
+</body>
+</html>
