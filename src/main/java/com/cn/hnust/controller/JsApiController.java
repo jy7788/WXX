@@ -59,13 +59,13 @@ public class JsApiController {
 			out = new DataOutputStream(socket.getOutputStream());
 			out.write("daaa".getBytes("utf-8"));
 			out.flush();
-//			byte[] buf = new byte[1024];
-//			StringBuffer result = null;
-//			if(in.read(buf, 0, buf.length) != -1) {
-//				result.append(buf);
-//			}
-//			System.out.println(new String(buf));
-//			System.out.println("send end");
+			byte[] buf = new byte[10000];
+			StringBuffer result = null;
+			int totalLen = 0, len = 0;
+			if((len = in.read(buf, totalLen, 1000)) != -1) {
+				totalLen += len;
+			}
+			System.out.println(new String(buf));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
