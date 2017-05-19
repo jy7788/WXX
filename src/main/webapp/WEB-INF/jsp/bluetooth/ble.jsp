@@ -53,7 +53,7 @@ session.setAttribute("basePath",basePath);
             <button class="weui_btn  weui_btn_primary" id="lightClose" >关灯</button>
 			<button class="weui_btn  weui_btn_primary" id="sendMessage" >发送数据</button>
 			<button class="weui_btn  weui_btn_primary" id="startScan" >扫一扫</button>
-  
+  			<input type="text" hidden="true" value="connectStatus" id="connectState"/>
         </div>
   
     </div>
@@ -179,22 +179,47 @@ session.setAttribute("basePath",basePath);
   $("#icFuWei").on("click",function(e){
          //alert("设备名称： "+C_DEVICEID);
          var Bytes=CheckBalance();
-         var x=senddataBytes(Bytes,C_DEVICEID);
+         my_getWXDeviceInfos();
+         if($("#connectStatus").innerHTML == "connected" ) {
+	         BleSendMessage(Bytes);
+         } else {
+        	 SocketSendMessage();
+         }
+         /* var x=senddataBytes(Bytes,C_DEVICEID);
          //alert(Bytes);
          if(x===0){$("#lbInfo").html('x.完成')}
-         else {$("#lbInfo").html('x.查询失败')};
-    });
+         else {$("#lbInfo").html('x.查询失败')}; */
+  });
+ 
+  function BleSendMessage(Bytes) {
+	  var x=senddataBytes(Bytes,C_DEVICEID);
+      //alert(Bytes);
+      if(x===0){$("#lbInfo").html('x.完成')}
+      else {$("#lbInfo").html('x.查询失败')};
+  }
+  
+  function SocketSendMessage() {
+	  $.ajax({
+	        type : "GET",
+	        url : "/sendDeviceMessage",
+	        data : "message=" + "msggg",
+	        dataType : "xml",
+	        success : callback
+	  }); 
+  }
  
   $("#lightClose").on("click",function(e){
       //alert("设备名称： "+C_DEVICEID);
       var Bytes=CheckBalance2();
-      var x=senddataBytes(Bytes,C_DEVICEID);
-      if(x===0){$("#lbInfo").html('x.完成')}
-      else {$("#lbInfo").html('x.查询失败')};
+      my_getWXDeviceInfos();
+      if($("#connectStatus").innerHTML == "connected" ) {
+	     BleSendMessage(Bytes);
+      } else {
+     	 SocketSendMessage();
+      }
   });
   
   $('#startScan').on("click", function(e){
-	  alert("scan");
 	  wx.scanQRCode({
 		    needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
 		    scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
@@ -324,11 +349,11 @@ function my_getWXDeviceInfos(){
               C_DEVICEID = res.deviceInfos[i].deviceId;
               $("#lbInfo").html("2.设备已成功连接");
               $("#lbInfo").css({color:"green"});
-              
+              $("#connectStatus").html("connected");
               break;   
             }  
          }
-            
+        $("#connectStatus").html("disconnected");
     }); 
   return;    
 }
@@ -380,13 +405,11 @@ function senddataBytes(cmdBytes,selDeviceID){
                 //alert("向微信发送指令数据返回的状态"+res.err_msg);
             if(res.err_msg=='sendDataToWXDevice:ok')
                {
-                  
                  x=0;
                  alert("数据发送成功");
                }  
             else
                {
-                  
                  x=1; 
                  alert("数据发送失败");
                } 
@@ -404,7 +427,6 @@ function senddataBytes(cmdBytes,selDeviceID){
 function my_onReceiveDataFromWXDevice(){
       
     WeixinJSBridge.on('onReceiveDataFromWXDevice', function(argv) {
-    alert("aaa");
      var unicode= BASE64.decoder(argv.base64Data);//返回会解码后的unicode码数组。
     //mlog("接收的数据-->"+argv.base64Data);
     mlog("接收的数据-->"+argv.base64Data + unicode);
