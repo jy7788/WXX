@@ -230,7 +230,6 @@ session.setAttribute("basePath",basePath);
 	        }
 	  });  
   });
-     
    
  });
   
