@@ -46,6 +46,7 @@ D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\dao\IFiveBookUserDao.jav
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\controller\WeixinAuthController.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\dao\WeixinMenuDao.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\exception\WXException.java
+D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\model\DeviceJson.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\controller\WeixinMenuController.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\kit\kit\WeixinMessageKit.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\socket\MultiThreadClient.java

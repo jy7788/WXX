@@ -5,16 +5,21 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cn.hnust.kit.kit.WeixinBasicKit;
+import com.cn.hnust.model.DeviceJson;
 import com.cn.hnust.model.JsapiTicket;
 import com.cn.hnust.model.WeixinContext;
 import com.cn.hnust.model.WeixinFinalValue;
@@ -22,6 +27,8 @@ import com.cn.hnust.model.WeixinFinalValue;
 @Controller
 public class JsApiController {
 	
+	private byte[] bufs;
+
 	@RequestMapping(value="/jsapi")  
 	public ModelAndView jsapi(HttpServletRequest request,HttpServletResponse resp){
 		String appId=WeixinContext.getInstance().getAppId();//应用id  
@@ -48,24 +55,31 @@ public class JsApiController {
    return new ModelAndView("bluetooth/ble");  
    }
 	
-	@RequestMapping("/sendDeviceMessage")
+	@RequestMapping(value="/sendDeviceMessage" ,method={RequestMethod.GET})
+	@ResponseBody  
 	public void sendDeviceMessage(HttpServletRequest request, HttpServletResponse response) {
+//		System.out.println("size " + map.size());
+//		System.out.println("json" + json.get(0).getMsg() + json.get(0).getIp());
+		String mssg = request.getParameter("msg");
+		String ip = request.getParameter("ip");
+		System.out.println(ip);
+		System.out.println(mssg);
 		Socket socket = null;
 		DataInputStream in = null;
 		DataOutputStream out = null;
 		try {
-			socket  = new Socket("192.168.1.121", 9090);
+			socket  = new Socket(ip, 9090);
 			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
-			out.write("daaa".getBytes("utf-8"));
+			out.write(mssg.getBytes("utf-8"));
 			out.flush();
-			byte[] buf = new byte[10000];
+			bufs = new byte[10000];
 			StringBuffer result = null;
 			int totalLen = 0, len = 0;
-			if((len = in.read(buf, totalLen, 1000)) != -1) {
+			if((len = in.read(bufs, totalLen, 1000)) != -1) {
 				totalLen += len;
 			}
-			System.out.println(new String(buf));
+			System.out.println(new String(bufs));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -95,13 +109,13 @@ public class JsApiController {
 		}
 		
 		try {
-            response.setContentType("text/xml;charset=utf-8");
+            response.setContentType("text/json;charset=utf-8");
             PrintWriter pw = response.getWriter();
-            String msg = request.getParameter("message");
-            System.out.println("msg" + msg);
             StringBuilder builder = new StringBuilder();
             builder.append("<message>");
-            builder.append(msg).append("</message>");
+            if(bufs!= null && bufs.length != 0) {
+            	builder.append(new String(bufs)).append("</message>");
+            }
             pw.write(builder.toString());
             pw.flush();
             pw.close();

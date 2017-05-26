@@ -48,12 +48,13 @@ session.setAttribute("basePath",basePath);
  
         <div class="weui_btn_area weui">
              
+            <input type="text" value="192.168.1.104" id="ip" />
             <button class="weui_btn weui_btn weui_btn_warn" id="CallGetWXrefresh">获取设备</button><br>
             <button class="weui_btn  weui_btn_primary" id="icFuWei" >开灯</button>
             <button class="weui_btn  weui_btn_primary" id="lightClose" >关灯</button>
 			<button class="weui_btn  weui_btn_primary" id="sendMessage" >发送数据</button>
 			<button class="weui_btn  weui_btn_primary" id="startScan" >扫一扫</button>
-  			<input type="text" hidden="true" value="connectStatus" id="connectState"/>
+  			<input type="text" hidden="true" value="connectStatus" id="connectStatus"/>
         </div>
   
     </div>
@@ -165,11 +166,9 @@ session.setAttribute("basePath",basePath);
  });
  
  function callback(data) {
-    var jqueryObj = $(data);
-    var message = jqueryObj.children();
-    var text = message.text();
+	 alert("success" + data);
     var resultObj = $("#logtext");
-    resultObj.html(text);
+    resultObj.html(data);
  }
  //点击获取设备按钮的函数 结束 
   
@@ -183,7 +182,7 @@ session.setAttribute("basePath",basePath);
          if($("#connectStatus").innerHTML == "connected" ) {
 	         BleSendMessage(Bytes);
          } else {
-        	 SocketSendMessage();
+        	 SocketSendMessage(Bytes);
          }
          /* var x=senddataBytes(Bytes,C_DEVICEID);
          //alert(Bytes);
@@ -198,16 +197,19 @@ session.setAttribute("basePath",basePath);
       else {$("#lbInfo").html('x.查询失败')};
   }
   
-  function SocketSendMessage() {
+  function SocketSendMessage(Bytes) {
+	  
+  	  var ip = $("#ip").val();
+  	  alert("msg=" + Bytes + "&ip=" + ip);
 	  $.ajax({
 	        type : "GET",
 	        url : "/sendDeviceMessage",
-	        data : "message=" + "msggg",
-	        dataType : "xml",
+	        data : "msg=" + Bytes + "&ip=" + ip,
+	        dataType:"text",      
 	        success : callback
 	  }); 
   }
- 
+  
   $("#lightClose").on("click",function(e){
       //alert("设备名称： "+C_DEVICEID);
       var Bytes=CheckBalance2();
