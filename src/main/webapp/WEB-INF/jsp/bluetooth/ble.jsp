@@ -10,13 +10,28 @@ session.setAttribute("basePath",basePath);
 <head>
 <meta charset="utf-8">
   <title>微信蓝牙设备</title>
+  <style type="text/css">/*<![CDATA[*/
+	body{margin:0;padding:0;font-family:Times New Roman, serif}
+	p{margin:0;padding:0}
+	html,body{
+	    width:100%;
+	    height:100%;
+	}
+	#map_container{height:100%; border: 1px solid #999;height:300px;}
+	
+	@media print{
+	  #notes{display:none}
+	  #map_container{margin:0}
+	}
+  /*]]>*/</style>
+  
   <meta name="viewport" content="width=320.1,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
   
   <link rel="stylesheet" href="<%=basePath %>resource/device/weui.min.css?what=0">
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
   <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"> </script>
   <script type="text/javascript" src="js/base64.js"></script>
-  
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=5oX8kCKjSuBebgQGEAe8M2mjWkcGHGyK" type="text/javascript"></script>
 </head>
 <body ontouchstart>
 <!--标题行-->
@@ -48,11 +63,10 @@ session.setAttribute("basePath",basePath);
  
         <div class="weui_btn_area weui">
              
-            <input type="text" value="192.168.1.104" id="ip" />
+            <!-- <input type="text" value="115.159.194.138" id="ip" /> -->
             <button class="weui_btn weui_btn weui_btn_warn" id="CallGetWXrefresh">获取设备</button><br>
             <button class="weui_btn  weui_btn_primary" id="icFuWei" >开灯</button>
             <button class="weui_btn  weui_btn_primary" id="lightClose" >关灯</button>
-			<button class="weui_btn  weui_btn_primary" id="sendMessage" >发送数据</button>
 			<button class="weui_btn  weui_btn_primary" id="startScan" >扫一扫</button>
   			<input type="text" hidden="true" value="connectStatus" id="connectStatus"/>
         </div>
@@ -129,6 +143,25 @@ session.setAttribute("basePath",basePath);
         </div>
     </div>
     <!--END dialog2-->
+    
+    <!-- 百度地图 -->
+    <div id="searchBox"></div>
+	<div id="map_container"></div>
+	<div id="test_container">
+	检索类型
+	<select id="selectType" name="">
+	    <option value="1">周边检索</option>
+	    <option value="2">公交检索</option>
+	    <option value="3">驾车检索</option>
+	    </select>
+	</div>
+	
+	<div id="allmap"></div>
+	<div id="r-result">
+		经度: <input id="longitude" type="text" style="width:100px; margin-right:10px;" />
+		纬度: <input id="latitude" type="text" style="width:100px; margin-right:10px;" />
+		<input type="button" value="查询" onclick="theLocation()" />
+	</div>
 </div>
  
 <div id="myparams" style="display: none">
@@ -155,7 +188,7 @@ session.setAttribute("basePath",basePath);
      my_onReceiveDataFromWXDevice();
  });
  
- $("#sendMessage").on("click", function(e) {
+/*  $("#sendMessage").on("click", function(e) {
 	 $.ajax({
         type : "GET",
         url : "/sendDeviceMessage",
@@ -163,7 +196,7 @@ session.setAttribute("basePath",basePath);
         dataType : "xml",
         success : callback
      }); 
- });
+ }); */
  
  function callback(data) {
 	 alert("success" + data);
@@ -178,12 +211,7 @@ session.setAttribute("basePath",basePath);
   $("#icFuWei").on("click",function(e){
          //alert("设备名称： "+C_DEVICEID);
          var Bytes=CheckBalance();
-         my_getWXDeviceInfos();
-         if($("#connectStatus").innerHTML == "connected" ) {
-	         BleSendMessage(Bytes);
-         } else {
-        	 SocketSendMessage(Bytes);
-         }
+         sendMessage(Bytes);
          /* var x=senddataBytes(Bytes,C_DEVICEID);
          //alert(Bytes);
          if(x===0){$("#lbInfo").html('x.完成')}
@@ -199,12 +227,10 @@ session.setAttribute("basePath",basePath);
   
   function SocketSendMessage(Bytes) {
 	  
-  	  var ip = $("#ip").val();
-  	  alert("msg=" + Bytes + "&ip=" + ip);
 	  $.ajax({
 	        type : "GET",
 	        url : "/sendDeviceMessage",
-	        data : "msg=" + Bytes + "&ip=" + ip,
+	        data : "msg=" + Bytes,
 	        dataType:"text",      
 	        success : callback
 	  }); 
@@ -213,22 +239,26 @@ session.setAttribute("basePath",basePath);
   $("#lightClose").on("click",function(e){
       //alert("设备名称： "+C_DEVICEID);
       var Bytes=CheckBalance2();
-      my_getWXDeviceInfos();
+      sendMessage(Bytes);
+  });
+  function sendMessage(Bytes) {
+	  my_getWXDeviceInfos();
       if($("#connectStatus").innerHTML == "connected" ) {
 	     BleSendMessage(Bytes);
       } else {
-     	 SocketSendMessage();
+     	 SocketSendMessage(Bytes);
       }
-  });
+  }
   
   $('#startScan').on("click", function(e){
 	  wx.scanQRCode({
-		    needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+		    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
 		    scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
 		    success: function (res) {
 		    	var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-		   	 	var resultObj = $("#logtext");
-		    	resultObj.html(result);	    
+		   	 	//var resultObj = $("#logtext");
+		    	//resultObj.html(result);	    
+		    	sendMessage("mac-" + result);
 	        }
 	  });  
   });
@@ -244,7 +274,7 @@ function loadXMLDoc()
     var signature=jQuery("#signature").text();
     wx.config({
              beta: true,
-              debug: true,// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+              debug: false,// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
               appId: appId, 
               timestamp: timestamp,
               nonceStr: nonceStr,
@@ -325,10 +355,6 @@ function my_openWXDeviceLib(){
     });
    return x;  //0表示成功 1表示失败
 }
- 
- 
- 
- 
  
 /**********************************************
 * 取得微信设备信息
@@ -451,17 +477,12 @@ function stringToBytes( str ) {
 	  // return an array of bytes  
 	  return re;  
 	} 
- 
- 
       
     function CheckBalance(){
      var Bytes=new Array();
-      
         /* Bytes[0]=0x2A;
-          
         Bytes[1]=0x00;
         Bytes[2]=0x1B;
-          
         Bytes[3]=0xCF;
         Bytes[4]=0xFE; */
         Bytes[0]=0xFE;
@@ -547,9 +568,71 @@ function bytes_array_to_base64(array) {
     }
   
     return result + endChar;
-}
+  }
   
   
+//创建地图对象并初始化
+var mp = new BMap.Map("map_container",{
+    enableHighResolution: true //是否开启高清
+});
+var point = new BMap.Point(116.404, 39.915);
+mp.centerAndZoom(point, 14); //初始化地图
+mp.enableInertialDragging(); //开启关系拖拽
+mp.enableScrollWheelZoom();  //开启鼠标滚动缩放
+
+// 添加定位控件
+var geoCtrl = new BMap.GeolocationControl({
+    showAddressBar       : true //是否显示
+    , enableAutoLocation : false //首次是否进行自动定位
+    , offset             : new BMap.Size(0,25) 
+    //, locationIcon     : icon //定位的icon图标
+});
+
+//监听定位成功事件
+geoCtrl.addEventListener("locationSuccess",function(e){
+        console.log(e);
+});
+
+//监听定位失败事件
+geoCtrl.addEventListener("locationError",function(e){
+        console.log(e);
+});
+
+// 将定位控件添加到地图
+mp.addControl(geoCtrl);
+
+//检索类型
+var type = "";
+type = LOCAL_SEARCH ;   //周边检索
+//type = TRANSIT_ROUTE; //公交检索
+//type = DRIVING_ROUTE; //驾车检索
+
+//创建鱼骨控件
+var navCtrl = new BMap.NavigationControl({
+        anchor: BMAP_ANCHOR_TOP_LEFT //设置鱼骨控件的位置
+});
+// 将鱼骨添加到地图当中
+mp.addControl(navCtrl);
+
+
+//创建检索控件
+var searchControl = new BMapLib.SearchControl({
+    container : "searchBox" //存放检索控件的容器
+    , map     : mp          //检索的关联地图
+    , type    : type        //检索类型
+});
+
+document.getElementById("selectType").onchange = function () {
+    searchControl.setType(this.value);
+};
+
+  
+//添加路况控件
+var ctrl = new BMapLib.TrafficControl({
+   showPanel: false //是否显示路况提示面板
+});      
+mp.addControl(ctrl);
+ctrl.setAnchor(BMAP_ANCHOR_TOP_RIGHT);
     
 </script>
 </html>

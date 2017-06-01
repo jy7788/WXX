@@ -5,21 +5,19 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cn.hnust.kit.kit.WeixinBasicKit;
-import com.cn.hnust.model.DeviceJson;
 import com.cn.hnust.model.JsapiTicket;
 import com.cn.hnust.model.WeixinContext;
 import com.cn.hnust.model.WeixinFinalValue;
@@ -28,6 +26,10 @@ import com.cn.hnust.model.WeixinFinalValue;
 public class JsApiController {
 	
 	private byte[] bufs;
+	
+	private String SERVER_URL = "192.168.1.124";
+	
+	private String SERVER_PORT = "8888";
 
 	@RequestMapping(value="/jsapi")  
 	public ModelAndView jsapi(HttpServletRequest request,HttpServletResponse resp){
@@ -55,23 +57,15 @@ public class JsApiController {
    return new ModelAndView("bluetooth/ble");  
    }
 	
-	@RequestMapping(value="/sendDeviceMessage" ,method={RequestMethod.GET})
-	@ResponseBody  
-	public void sendDeviceMessage(HttpServletRequest request, HttpServletResponse response) {
-//		System.out.println("size " + map.size());
-//		System.out.println("json" + json.get(0).getMsg() + json.get(0).getIp());
-		String mssg = request.getParameter("msg");
-		String ip = request.getParameter("ip");
-		System.out.println(ip);
-		System.out.println(mssg);
+	public void sendMessage(String msg) {
 		Socket socket = null;
 		DataInputStream in = null;
 		DataOutputStream out = null;
 		try {
-			socket  = new Socket(ip, 9090);
+			socket  = new Socket(SERVER_URL, Integer.parseInt(SERVER_PORT));
 			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
-			out.write(mssg.getBytes("utf-8"));
+			out.write(msg.getBytes("utf-8"));
 			out.flush();
 			bufs = new byte[10000];
 			StringBuffer result = null;
@@ -106,6 +100,21 @@ public class JsApiController {
 					e.printStackTrace();
 				}
 			}
+		}
+	}
+	
+	@RequestMapping(value="/sendDeviceMessage" ,method={RequestMethod.GET})
+	@ResponseBody  
+	public void sendDeviceMessage(HttpServletRequest request, HttpServletResponse response) {
+//		System.out.println("size " + map.size());
+//		System.out.println("json" + json.get(0).getMsg() + json.get(0).getIp());
+		String mssg = request.getParameter("msg");
+		System.out.println(mssg);
+		if(mssg.contains("mac")) {
+			String[] mac = mssg.split("-");
+			sendMessage(mac[0]);
+		}else {
+			sendMessage(mssg);
 		}
 		
 		try {
