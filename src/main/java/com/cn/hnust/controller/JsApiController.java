@@ -27,9 +27,11 @@ public class JsApiController {
 	
 	private byte[] bufs;
 	
-	private String SERVER_URL = "192.168.1.124";
+	private String SERVER_URL = "192.168.1.122";
 	
 	private String SERVER_PORT = "8888";
+	
+	private String TEST_MAC = "78A5045528D3";
 
 	@RequestMapping(value="/jsapi")  
 	public ModelAndView jsapi(HttpServletRequest request,HttpServletResponse resp){
@@ -112,7 +114,9 @@ public class JsApiController {
 		System.out.println(mssg);
 		if(mssg.contains("mac")) {
 			String[] mac = mssg.split("-");
-			sendMessage(mac[0]);
+			if(TEST_MAC.equals(mac[1])) {
+				sendMessage(mac[1]);
+			}
 		}else {
 			sendMessage(mssg);
 		}
