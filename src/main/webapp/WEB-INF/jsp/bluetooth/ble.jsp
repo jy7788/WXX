@@ -68,7 +68,8 @@ session.setAttribute("basePath",basePath);
             <button class="weui_btn  weui_btn_primary" id="icFuWei" >开灯</button>
             <button class="weui_btn  weui_btn_primary" id="lightClose" >关灯</button>
 			<button class="weui_btn  weui_btn_primary" id="startScan" >扫一扫</button>
-  			<input type="text" hidden="true" value="connectStatus" id="connectStatus"/>
+  			<!-- <input type="text" value="connectStatus" id="connectStatus"/> -->
+  			<label id="connectStatus" class="weui_label" style="width: auto;">connectStatus</label>
         </div>
   
     </div>
@@ -243,7 +244,8 @@ session.setAttribute("basePath",basePath);
   });
   function sendMessage(Bytes) {
 	  my_getWXDeviceInfos();
-      if($("#connectStatus").innerHTML == "connected" ) {
+	  alert($("#connectStatus").html());
+      if($("#connectStatus").html() == "connected" ) {
 	     BleSendMessage(Bytes);
       } else {
      	 SocketSendMessage(Bytes);
@@ -380,7 +382,7 @@ function my_getWXDeviceInfos(){
               break;   
             }  
          }
-        $("#connectStatus").html("disconnected");
+        //$("#connectStatus").html("disconnected");
     }); 
   return;    
 }

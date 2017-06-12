@@ -27,7 +27,7 @@ public class JsApiController {
 	
 	private byte[] bufs;
 	
-	private String SERVER_URL = "192.168.1.122";
+	private String SERVER_URL = "115.159.194.138";
 	
 	private String SERVER_PORT = "8888";
 	

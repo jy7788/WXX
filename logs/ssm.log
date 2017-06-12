@@ -22062,3 +22062,251 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'SE
 [INFO] [2017-06-12 12:32:42][org.springframework.web.servlet.DispatcherServlet]FrameworkServlet 'SpringMVC': initialization completed in 443 ms
 [INFO] [2017-06-12 12:32:45][org.quartz.utils.UpdateChecker]New Quartz update(s) found: 2.1.7 [http://www.terracotta.org/kit/reflector?kitID=default&pageID=QuartzChangeLog]
 [WARN] [2017-06-12 12:33:06][org.springframework.web.servlet.PageNotFound]No mapping found for HTTP request with URI [/] in DispatcherServlet with name 'SpringMVC'
+[INFO] [2017-06-12 19:48:21][org.springframework.web.context.ContextLoader]Root WebApplicationContext: initialization started
+[INFO] [2017-06-12 19:48:21][org.springframework.web.context.support.XmlWebApplicationContext]Refreshing Root WebApplicationContext: startup date [Mon Jun 12 19:48:21 CST 2017]; root of context hierarchy
+[INFO] [2017-06-12 19:48:21][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+[INFO] [2017-06-12 19:48:23][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [jdbc.properties]
+[INFO] [2017-06-12 19:48:23][org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor]JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+[INFO] [2017-06-12 19:48:26][org.springframework.web.context.ContextLoader]Root WebApplicationContext: initialization completed in 5381 ms
+[INFO] [2017-06-12 19:48:26][org.springframework.web.servlet.DispatcherServlet]FrameworkServlet 'SpringMVC': initialization started
+[INFO] [2017-06-12 19:48:26][org.springframework.web.context.support.XmlWebApplicationContext]Refreshing WebApplicationContext for namespace 'SpringMVC-servlet': startup date [Mon Jun 12 19:48:26 CST 2017]; parent: Root WebApplicationContext
+[INFO] [2017-06-12 19:48:26][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mvc.xml]
+[INFO] [2017-06-12 19:48:26][org.springframework.context.support.PropertySourcesPlaceholderConfigurer]Loading properties file from file [D:\hibernate_works\WXXFANFTE\target\classes\resource\server.properties]
+[INFO] [2017-06-12 19:48:26][org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor]JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+[INFO] [2017-06-12 19:48:28][org.quartz.core.SchedulerSignalerImpl]Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO] [2017-06-12 19:48:28][org.quartz.core.QuartzScheduler]Quartz Scheduler v.2.0.0 created.
+[INFO] [2017-06-12 19:48:28][org.quartz.simpl.RAMJobStore]RAMJobStore initialized.
+[INFO] [2017-06-12 19:48:28][org.quartz.core.QuartzScheduler]Scheduler meta-data: Quartz Scheduler (v2.0.0) 'startQuertz' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO] [2017-06-12 19:48:28][org.quartz.impl.StdSchedulerFactory]Quartz scheduler 'startQuertz' initialized from an externally provided properties instance.
+[INFO] [2017-06-12 19:48:28][org.quartz.impl.StdSchedulerFactory]Quartz scheduler version: 2.0.0
+[INFO] [2017-06-12 19:48:28][org.quartz.core.QuartzScheduler]JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@6775c0d1
+[INFO] [2017-06-12 19:48:29][org.springframework.context.support.DefaultLifecycleProcessor]Starting beans in phase 2147483647
+[INFO] [2017-06-12 19:48:29][org.springframework.scheduling.quartz.SchedulerFactoryBean]Starting Quartz Scheduler now
+[INFO] [2017-06-12 19:48:29][org.quartz.core.QuartzScheduler]Scheduler startQuertz_$_NON_CLUSTERED started.
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/class/list] onto handler 'classController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/class/list.*] onto handler 'classController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/class/list/] onto handler 'classController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/class/steam] onto handler 'classController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/class/steam.*] onto handler 'classController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/class/steam/] onto handler 'classController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceList] onto handler 'deviceController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceList.*] onto handler 'deviceController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceList/] onto handler 'deviceController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceControl] onto handler 'deviceController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceControl.*] onto handler 'deviceController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceControl/] onto handler 'deviceController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceOper] onto handler 'deviceController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceOper.*] onto handler 'deviceController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceOper/] onto handler 'deviceController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/list] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/list.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/list/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/manage] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/manage.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/manage/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/login] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/login.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/login/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/adminLogin] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/adminLogin.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/adminLogin/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/bindUser] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/bindUser.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/bindUser/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/regist] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/regist.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/regist/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/registResult] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/registResult.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/registResult/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/redirect] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/redirect.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/redirect/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/init] onto handler 'initController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/init.*] onto handler 'initController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/init/] onto handler 'initController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/sendDeviceMessage] onto handler 'jsApiController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/sendDeviceMessage.*] onto handler 'jsApiController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/sendDeviceMessage/] onto handler 'jsApiController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/jsapi] onto handler 'jsApiController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/jsapi.*] onto handler 'jsApiController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/jsapi/] onto handler 'jsApiController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/session/getUser] onto handler 'sessionController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/session/getUser.*] onto handler 'sessionController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/session/getUser/] onto handler 'sessionController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/session/getWUser] onto handler 'sessionController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/session/getWUser.*] onto handler 'sessionController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/session/getWUser/] onto handler 'sessionController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/subject/steam] onto handler 'subjectController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/subject/steam.*] onto handler 'subjectController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/subject/steam/] onto handler 'subjectController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/user/login] onto handler 'userController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/user/login.*] onto handler 'userController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/user/login/] onto handler 'userController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/user/list] onto handler 'userController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/user/list.*] onto handler 'userController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/user/list/] onto handler 'userController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinRegist/redirect] onto handler 'weixinAuthController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinRegist/redirect.*] onto handler 'weixinAuthController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinRegist/redirect/] onto handler 'weixinAuthController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wget] onto handler 'weixinController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wget.*] onto handler 'weixinController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wget/] onto handler 'weixinController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/add] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/add.*] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/add/] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/update/{id}] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/update/{id}.*] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/update/{id}/] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/delete/{id}] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/delete/{id}.*] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/delete/{id}/] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/list] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/list.*] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/list/] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/queryMenu] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/queryMenu.*] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/queryMenu/] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/publish] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/publish.*] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/publish/] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wqr/add] onto handler 'weixinQrController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wqr/add.*] onto handler 'weixinQrController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wqr/add/] onto handler 'weixinQrController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wqr/list/{type}] onto handler 'weixinQrController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wqr/list/{type}.*] onto handler 'weixinQrController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wqr/list/{type}/] onto handler 'weixinQrController'
+[INFO] [2017-06-12 19:48:29][org.springframework.web.servlet.DispatcherServlet]FrameworkServlet 'SpringMVC': initialization completed in 2491 ms
+[INFO] [2017-06-12 19:48:31][org.quartz.utils.UpdateChecker]New Quartz update(s) found: 2.1.7 [http://www.terracotta.org/kit/reflector?kitID=default&pageID=QuartzChangeLog]
+[INFO] [2017-06-12 19:49:04][org.springframework.web.context.ContextLoader]Root WebApplicationContext: initialization started
+[INFO] [2017-06-12 19:49:04][org.springframework.web.context.support.XmlWebApplicationContext]Refreshing Root WebApplicationContext: startup date [Mon Jun 12 19:49:04 CST 2017]; root of context hierarchy
+[INFO] [2017-06-12 19:49:04][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+[INFO] [2017-06-12 19:49:05][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [jdbc.properties]
+[INFO] [2017-06-12 19:49:05][org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor]JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+[INFO] [2017-06-12 19:49:06][org.springframework.web.context.ContextLoader]Root WebApplicationContext: initialization completed in 2782 ms
+[INFO] [2017-06-12 19:49:07][org.springframework.web.servlet.DispatcherServlet]FrameworkServlet 'SpringMVC': initialization started
+[INFO] [2017-06-12 19:49:07][org.springframework.web.context.support.XmlWebApplicationContext]Refreshing WebApplicationContext for namespace 'SpringMVC-servlet': startup date [Mon Jun 12 19:49:07 CST 2017]; parent: Root WebApplicationContext
+[INFO] [2017-06-12 19:49:07][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mvc.xml]
+[INFO] [2017-06-12 19:49:07][org.springframework.context.support.PropertySourcesPlaceholderConfigurer]Loading properties file from file [D:\hibernate_works\WXXFANFTE\target\classes\resource\server.properties]
+[INFO] [2017-06-12 19:49:07][org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor]JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+[INFO] [2017-06-12 19:49:08][org.quartz.core.SchedulerSignalerImpl]Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[INFO] [2017-06-12 19:49:08][org.quartz.core.QuartzScheduler]Quartz Scheduler v.2.0.0 created.
+[INFO] [2017-06-12 19:49:08][org.quartz.simpl.RAMJobStore]RAMJobStore initialized.
+[INFO] [2017-06-12 19:49:08][org.quartz.core.QuartzScheduler]Scheduler meta-data: Quartz Scheduler (v2.0.0) 'startQuertz' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[INFO] [2017-06-12 19:49:08][org.quartz.impl.StdSchedulerFactory]Quartz scheduler 'startQuertz' initialized from an externally provided properties instance.
+[INFO] [2017-06-12 19:49:08][org.quartz.impl.StdSchedulerFactory]Quartz scheduler version: 2.0.0
+[INFO] [2017-06-12 19:49:08][org.quartz.core.QuartzScheduler]JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@6ee37ca7
+[INFO] [2017-06-12 19:49:08][org.springframework.context.support.DefaultLifecycleProcessor]Starting beans in phase 2147483647
+[INFO] [2017-06-12 19:49:08][org.springframework.scheduling.quartz.SchedulerFactoryBean]Starting Quartz Scheduler now
+[INFO] [2017-06-12 19:49:08][org.quartz.core.QuartzScheduler]Scheduler startQuertz_$_NON_CLUSTERED started.
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/class/list] onto handler 'classController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/class/list.*] onto handler 'classController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/class/list/] onto handler 'classController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/class/steam] onto handler 'classController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/class/steam.*] onto handler 'classController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/class/steam/] onto handler 'classController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceControl] onto handler 'deviceController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceControl.*] onto handler 'deviceController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceControl/] onto handler 'deviceController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceList] onto handler 'deviceController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceList.*] onto handler 'deviceController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceList/] onto handler 'deviceController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceOper] onto handler 'deviceController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceOper.*] onto handler 'deviceController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/deviceOper/] onto handler 'deviceController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/list] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/list.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/list/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/manage] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/manage.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/manage/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/login] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/login.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/login/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/adminLogin] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/adminLogin.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/adminLogin/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/bindUser] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/bindUser.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/bindUser/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/regist] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/regist.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/regist/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/registResult] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/registResult.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/registResult/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/redirect] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/redirect.*] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/fiveBookUser/redirect/] onto handler 'fiveBookUserController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/init] onto handler 'initController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/init.*] onto handler 'initController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/init/] onto handler 'initController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/sendDeviceMessage] onto handler 'jsApiController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/sendDeviceMessage.*] onto handler 'jsApiController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/sendDeviceMessage/] onto handler 'jsApiController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/jsapi] onto handler 'jsApiController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/jsapi.*] onto handler 'jsApiController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/jsapi/] onto handler 'jsApiController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/session/getUser] onto handler 'sessionController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/session/getUser.*] onto handler 'sessionController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/session/getUser/] onto handler 'sessionController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/session/getWUser] onto handler 'sessionController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/session/getWUser.*] onto handler 'sessionController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/session/getWUser/] onto handler 'sessionController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/subject/steam] onto handler 'subjectController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/subject/steam.*] onto handler 'subjectController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/subject/steam/] onto handler 'subjectController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/user/list] onto handler 'userController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/user/list.*] onto handler 'userController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/user/list/] onto handler 'userController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/user/login] onto handler 'userController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/user/login.*] onto handler 'userController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/user/login/] onto handler 'userController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinRegist/redirect] onto handler 'weixinAuthController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinRegist/redirect.*] onto handler 'weixinAuthController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinRegist/redirect/] onto handler 'weixinAuthController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wget] onto handler 'weixinController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wget.*] onto handler 'weixinController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wget/] onto handler 'weixinController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/add] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/add.*] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/add/] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/update/{id}] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/update/{id}.*] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/update/{id}/] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/delete/{id}] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/delete/{id}.*] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/delete/{id}/] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/list] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/list.*] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/list/] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/queryMenu] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/queryMenu.*] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/queryMenu/] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/publish] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/publish.*] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/weixinMenu/publish/] onto handler 'weixinMenuController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wqr/add] onto handler 'weixinQrController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wqr/add.*] onto handler 'weixinQrController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wqr/add/] onto handler 'weixinQrController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wqr/list/{type}] onto handler 'weixinQrController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wqr/list/{type}.*] onto handler 'weixinQrController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping]Mapped URL path [/wqr/list/{type}/] onto handler 'weixinQrController'
+[INFO] [2017-06-12 19:49:08][org.springframework.web.servlet.DispatcherServlet]FrameworkServlet 'SpringMVC': initialization completed in 1697 ms
+[INFO] [2017-06-12 19:49:10][org.quartz.utils.UpdateChecker]New Quartz update(s) found: 2.1.7 [http://www.terracotta.org/kit/reflector?kitID=default&pageID=QuartzChangeLog]
+[WARN] [2017-06-12 20:01:46][org.springframework.web.servlet.PageNotFound]No mapping found for HTTP request with URI [/] in DispatcherServlet with name 'SpringMVC'
+[WARN] [2017-06-12 20:01:56][org.springframework.web.servlet.PageNotFound]No mapping found for HTTP request with URI [/] in DispatcherServlet with name 'SpringMVC'
