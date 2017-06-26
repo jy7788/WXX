@@ -9,10 +9,12 @@ import com.cn.hnust.model.FiveBookUser;
 import com.cn.hnust.model.User;
 import com.cn.hnust.model.WUser;
 import com.cn.hnust.model.WeixinMenu;
+import com.cn.hnust.model.pa.PAUser;
 import com.cn.hnust.service.IFiveBookUserService;
 import com.cn.hnust.service.IUserService;
 import com.cn.hnust.service.IWUserService;
 import com.cn.hnust.service.IWeixinMenuService;
+import com.cn.hnust.service.pa.IPAUserService;
 import com.cn.hnust.web.servlet.BeanFactoryContext;
 
 
@@ -21,6 +23,9 @@ public class WeixinEventKit {
 	
 	@Resource
 	private static IWeixinMenuService weixinMenuService;
+	
+//	@Resource
+//	private static IPAUserService pAUserService;
 	
 	public static String handlerEventMsg(Map<String, String> msgMap) throws IOException {
 		String event = msgMap.get("Event");
@@ -37,9 +42,10 @@ public class WeixinEventKit {
 	
 	private static String handleSubscribeEvent(Map<String, String> msgMap) throws IOException {
 		String openId = msgMap.get("FromUserName");
-		System.out.println(openId);
-		IFiveBookUserService userService = (IFiveBookUserService) BeanFactoryContext.getService("fiveBookUserService");
-		FiveBookUser user = userService.loadByOpenId(openId);
+		System.out.println("openid" + openId);
+		
+		IPAUserService userService = (IPAUserService) BeanFactoryContext.getService("pAUserService");
+		PAUser user = userService.loadByOpenId(openId);
 //		if(user==null) {
 //			IWUserService wUserService = (IWUserService) BeanFactoryContext.getService("wUserService");
 //			WUser wUser = wUserService.queryByOpenid(openId);
@@ -49,17 +55,23 @@ public class WeixinEventKit {
 //			user.setStatus(1);
 //			userService.update(user);
 //		}
-		if(user == null) {
-			String bindUrl = "http://1d6289976g.imwork.net/weixinRegist/redirect";
+		//未绑定去绑定用户
+		if(user == null || user.getBind() == 0) {
+			String bindUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc8544caaedbd00df&redirect_uri=http://1d6289976g.imwork.net/pauser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
 			return WeixinMessageKit.map2xml(MessageCreateKit.createTextMsg(msgMap, "<a href=\"" + bindUrl +  "\">点击绑定用户</a>"));
+		} 
+		
+		//绑定过
+		if(user != null && user.getBind() == 1){
+			String bindUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc8544caaedbd00df&redirect_uri=http://1d6289976g.imwork.net/pauser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+//			return WeixinMessageKit.map2xml(MessageCreateKit.createTextMsg(msgMap, "<a href=\"" + bindUrl +  "\">已经绑定，点击登录</a>"));
+			return WeixinMessageKit.map2xml(MessageCreateKit.createTextMsg(msgMap, "已经签到"));
 		}
-		if(user.getBind() ==0) {
-			String bindUrl = "http://1d6289976g.imwork.net/weixinRegist/redirect";
-			return WeixinMessageKit.map2xml(MessageCreateKit.createTextMsg(msgMap, "<a href=\"" + bindUrl +  "\">点击绑定用户</a>"));
-		} else {
-			String bindUrl = "http://1d6289976g.imwork.net/fiveBookUser/login";
-			return WeixinMessageKit.map2xml(MessageCreateKit.createTextMsg(msgMap, "<a href=\"" + bindUrl +  "\">已经绑定，点击登录</a>"));
-		}
+//		if(user.getBind() ==0) {
+//			String bindUrl = "http://1d6289976g.imwork.net/pauser/bind";
+//			return WeixinMessageKit.map2xml(MessageCreateKit.createTextMsg(msgMap, "<a href=\"" + bindUrl +  "\">点击绑定用户</a>"));
+//		} 
+		return WeixinMessageKit.map2xml(MessageCreateKit.createTextMsg(msgMap, "已经签到"));
 	}
 
 	private static User getUser(Map<String, String> msgMap) {

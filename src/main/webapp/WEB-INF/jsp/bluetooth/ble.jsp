@@ -212,7 +212,7 @@ session.setAttribute("basePath",basePath);
   $("#icFuWei").on("click",function(e){
          //alert("设备名称： "+C_DEVICEID);
          var Bytes=CheckBalance();
-         sendMessage(Bytes);
+         sendMessageOpen(Bytes);
          /* var x=senddataBytes(Bytes,C_DEVICEID);
          //alert(Bytes);
          if(x===0){$("#lbInfo").html('x.完成')}
@@ -240,15 +240,25 @@ session.setAttribute("basePath",basePath);
   $("#lightClose").on("click",function(e){
       //alert("设备名称： "+C_DEVICEID);
       var Bytes=CheckBalance2();
-      sendMessage(Bytes);
+      sendMessageClose(Bytes);
   });
-  function sendMessage(Bytes) {
+  function sendMessageOpen(Bytes) {
 	  my_getWXDeviceInfos();
 	  alert($("#connectStatus").html());
       if($("#connectStatus").html() == "connected" ) {
 	     BleSendMessage(Bytes);
       } else {
-     	 SocketSendMessage(Bytes);
+     	 SocketSendMessage(Bytes + "open");
+      }
+  }
+  
+  function sendMessageClose(Bytes) {
+	  my_getWXDeviceInfos();
+	  alert($("#connectStatus").html());
+      if($("#connectStatus").html() == "connected" ) {
+	     BleSendMessage(Bytes);
+      } else {
+     	 SocketSendMessage(Bytes + "close");
       }
   }
   
@@ -409,13 +419,13 @@ function showdialog(DialogTitle,DialogContent){
  
  
 /*******************************************************************
- * 发送数据函数
- * 作者：V型知识库 www.vxzsk.com 2016-04-04
- * 入口参数：
+ * senddataBytes
+ * author：fanfte
+ * params：
  *     cmdBytes: 需要发送的命令字节
  *     selDeviceID: 选择的需要发送设备的ID 
- * 出口参数：
- *     返回: 0表示发送成功；1表示发送失败
+ * return：
+ *     return: 0 success；1 failed
  *     如果成功，则接收事件应该能够收到相应的数据
 *******************************************************************/
 function senddataBytes(cmdBytes,selDeviceID){
@@ -457,6 +467,7 @@ function my_onReceiveDataFromWXDevice(){
       
     WeixinJSBridge.on('onReceiveDataFromWXDevice', function(argv) {
      var unicode= BASE64.decoder(argv.base64Data);//返回会解码后的unicode码数组。
+     alert(unicode);
     //mlog("接收的数据-->"+argv.base64Data);
     mlog("接收的数据-->"+argv.base64Data + unicode);
  });

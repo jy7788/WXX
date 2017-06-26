@@ -140,7 +140,7 @@ public class FiveBookUserController {
 	        wechatUser = wechatUserInSession;
 	        System.out.println("session�����û���Ϣ");
 	    } else {// session��û�� ȥ��ȡ
-	        System.out.println("�õ���code:" + code);
+	        System.out.println("code: " + code);
 	        if (code == null || "".equals(code)) {
 	            return null;
 	        }else{
@@ -149,7 +149,7 @@ public class FiveBookUserController {
 	                return null;
 	            }
 	        }
-	        System.out.println("�õ���openid:" + openid);
+	        System.out.println("获取到openid:" + openid);
 	        // ����ʹ�õ�����ͨ�ӿڣ��û�������ȡ�û�������Ϣ��
 	        wechatUser = WeixinUserUtil.getWechatUser(openid);
 	        String headImgurl = wechatUser.getHeadimgurl();
@@ -162,7 +162,7 @@ public class FiveBookUserController {
 	            headImgurl = "";
 	        }
 	        wechatUser.setHeadimgurl(headImgurl);
-	        System.out.println("�õ����û���Ϣ:" + wechatUser);
+	        System.out.println("当前用户:" + wechatUser);
 	    }
 	    return wechatUser;
 	}

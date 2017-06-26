@@ -29,9 +29,11 @@ public class JsApiController {
 	
 	private String SERVER_URL = "115.159.194.138";
 	
+	private String MY_SERVER = "11.240.94.56";
+	
 	private String SERVER_PORT = "8888";
 	
-	private String TEST_MAC = "78A5045528D3";
+	private String TEST_MAC = "B0B448CB6206";
 
 	@RequestMapping(value="/jsapi")  
 	public ModelAndView jsapi(HttpServletRequest request,HttpServletResponse resp){
@@ -105,6 +107,52 @@ public class JsApiController {
 		}
 	}
 	
+	public void sendMessage(byte[] msg) {
+		Socket socket = null;
+		DataInputStream in = null;
+		DataOutputStream out = null;
+		try {
+			socket  = new Socket(SERVER_URL, Integer.parseInt(SERVER_PORT));
+			in = new DataInputStream(socket.getInputStream());
+			out = new DataOutputStream(socket.getOutputStream());
+			out.write(msg);
+			out.flush();
+			bufs = new byte[10000];
+			StringBuffer result = null;
+			int totalLen = 0, len = 0;
+			if((len = in.read(bufs, totalLen, 1000)) != -1) {
+				totalLen += len;
+			}
+			System.out.println(new String(bufs));
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(out != null) {
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(socket != null) {
+				try {
+					socket.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
 	@RequestMapping(value="/sendDeviceMessage" ,method={RequestMethod.GET})
 	@ResponseBody  
 	public void sendDeviceMessage(HttpServletRequest request, HttpServletResponse response) {
@@ -116,20 +164,46 @@ public class JsApiController {
 			String[] mac = mssg.split("-");
 			if(TEST_MAC.equals(mac[1])) {
 				sendMessage(mac[1]);
+				System.out.println("send server");
 			}
-		}else {
-			sendMessage(mssg);
+			
+		}
+		
+		if(mssg.contains("open")) {
+			System.out.println("open");
+			byte[] bytes = new byte[5];
+			bytes[0]=(byte) 0xfe;
+	        
+			bytes[1]=(byte) 0xCF;
+			bytes[2]=0x1B;
+	          
+			bytes[3]=0x00;
+			bytes[4]=0x2A; 
+			sendMessage(bytes);
+		}
+		if(mssg.contains("close")) {
+			System.out.println("close");
+			byte[] bytes = new byte[5];
+			bytes[0]=(byte) 0xFE;
+	           
+			bytes[1]=(byte) 0xCF;
+			bytes[2]=0x1C;
+	             
+			bytes[3]=0x00;
+			bytes[4]=0x2D; 
+			sendMessage(bytes);
 		}
 		
 		try {
             response.setContentType("text/json;charset=utf-8");
             PrintWriter pw = response.getWriter();
             StringBuilder builder = new StringBuilder();
-            builder.append("<message>");
+//            builder.append("<message>");
             if(bufs!= null && bufs.length != 0) {
-            	builder.append(new String(bufs)).append("</message>");
+            	builder.append(new String(bufs));
             }
             pw.write(builder.toString());
+            System.out.println("seng back " + builder.toString());
             pw.flush();
             pw.close();
         } catch (Exception e) {
