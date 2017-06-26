@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.cn.hnust.model.Pager;
-import com.cn.hnust.model.WeixinMenu;
 
 public interface IBaseDao<T> {
 	public void add(T obj);

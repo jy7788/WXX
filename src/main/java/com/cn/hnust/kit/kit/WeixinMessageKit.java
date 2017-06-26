@@ -36,7 +36,7 @@ public class WeixinMessageKit {
 			return rel;
 		} else {
 			if(content.equals("1")) {
-				return WeixinMessageKit.map2xml( MessageCreateKit.createTextMsg(msgMap, "五本书院"));
+				return WeixinMessageKit.map2xml( MessageCreateKit.createTextMsg(msgMap, "aaa"));
 			} 
 			if(content.equals("2")) {
 				return WeixinMessageKit.map2xml( MessageCreateKit.createTextMsg(msgMap, "hello"));

@@ -11,18 +11,19 @@
     <result column="sex" property="sex" jdbcType="INTEGER" />
     <result column="bind" property="bind" jdbcType="INTEGER" />
     <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, username, password, nickname, open_id, status, sex, bind, img_url, phone_num
+    id, username, password, nickname, open_id, status, sex, bind, img_url, phone_num, area
   </sql>
   
   <insert id="add" parameterType="com.cn.hnust.model.pa.PAUser">
 		insert into t_pa_user 
-		(username, password, nickname, open_id, status, sex, bind, img_url, phone_num)
+		(username, password, nickname, open_id, status, sex, bind, img_url, phone_num, area)
 		values
 		(#{username}, #{password}, #{nickname}, #{openid}, 
-		 #{status},   #{sex},      #{bind},     #{imgUrl}, #{phoneNum})
+		 #{status},   #{sex},      #{bind},     #{imgUrl}, #{phoneNum}, #{area})
   </insert>
   
   <select id="load" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -46,6 +47,13 @@
     where username = #{username,jdbcType=VARCHAR}
   </select>
   
+  <select id="loadByPhoneNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_pa_user
+    where phone_num = #{phoneNum,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="delete" parameterType="java.lang.Integer" >
     delete from t_pa_user
     where id = #{id,jdbcType=INTEGER}
@@ -61,6 +69,7 @@
       sex = #{sex,jdbcType=INTEGER},
       bind = #{bind,jdbcType=INTEGER},
       img_url = #{imgUrl,jdbcType=VARCHAR}
+      area = #{area,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   

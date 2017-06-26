@@ -14,16 +14,28 @@
 <tr>
 <td>ID</td><td>username</td><td>nickname</td><td>openid</td><td>status</td><td>头像</td>
 </tr>
-<c:forEach items="${PAUsers}" var="pAUser">
-	<tr>
-	<td>${pAUser.id }</td>
-	<td>${pAUser.username }</td>
-	<td>${pAUser.nickname}</td>
-	<td>${pAUser.openid }</td>
-	<td>${pAUser.status }</td>
-	<td><img width="120" src="${pAUser.imgUrl }"/><a href="bindUser/${pAUser.openid }">绑定用户</a>&nbsp;</td>
-	</tr>
-</c:forEach>
+
+<c:choose>
+	<c:when test="${mUser==null || mUser.bind==0}">
+		<tr>
+			<td>请进行<a href="/pauser/signin">签到</a>
+		</td>
+		</tr>
+	</c:when>
+	<c:otherwise><tr><td>
+		<c:forEach items="${PAUsers}" var="pAUser">
+			<tr>
+			<td>${pAUser.id }</td>
+			<td>${pAUser.username }</td>
+			<td>${pAUser.nickname}</td>
+			<td>${pAUser.openid }</td>
+			<td>${pAUser.status }</td>
+			<td><img width="120" src="${pAUser.imgUrl }"/><a href="bindUser/${pAUser.openid }">绑定用户</a>&nbsp;</td>
+			</tr>
+		</c:forEach>			
+	</td></tr></c:otherwise>
+</c:choose>
+
 </table>
 </body>
 </html>

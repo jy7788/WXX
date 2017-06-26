@@ -1,19 +1,14 @@
 package com.cn.hnust.controller;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.cn.hnust.kit.kit.ExchangeCode2OpenId;
-import com.cn.hnust.kit.kit.WeixinUserUtil;
-import com.cn.hnust.model.WUser;
 import com.cn.hnust.model.WeixinContext;
 import com.cn.hnust.model.WeixinFinalValue;
 

@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/main.css" type="text/css"/>
 </head>
 <body>
-<form name="bindForm" action="bind" method="post">
+<form name="bindForm" action="signin" method="post">
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 	<td>email:</td>
@@ -22,7 +22,7 @@
 	<td><input type="text" name="phoneNum" id= "phoneNum"/></td>
 	</tr>
 	<c:choose>
-		<c:when test="${mUser==null}">
+		<c:when test="${mUser==null || mUser.bind==0}">
 			<tr>
 			<td colspan="2"><input type="submit" id="submit" value="签到"/>
 			</td>

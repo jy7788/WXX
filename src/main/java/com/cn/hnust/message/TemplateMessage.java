@@ -6,10 +6,15 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.cn.hnust.model.WeixinContext;
+import com.cn.hnust.model.WeixinFinalValue;
 
 public class TemplateMessage {
+	public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
     public static String sendPost(String requrl,String param){
         URL url;
          String sTotalString="";  
@@ -60,12 +65,12 @@ public class TemplateMessage {
      * @param content
      * 2017年6月26日
      */
-    public static void sendBindUserTemplate(String openid, String content) {
+    public static void sendBindUserTemplate(String mopenId, String openid, String content) {
     	String access_token=WeixinContext.getInstance().getAccessToken().getAccess_token();//有效access_token
         String template_id="vCN7FbsROvt9okgw9a0QYMI_eVOCmC3E0t-0KOzbYjI";//模板id
         String url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+access_token;
  //待处理状态
-        String linkUrl = "http://1d6289976g.imwork.net/pauser/acceptBind?" + "openid=" + openid;
+        String linkUrl = WeixinFinalValue.SERVER_URL +"pauser/acceptBind?" + "openid=" + mopenId;
         String params= "{"
                    +"\"touser\":\""+openid+"\""+","
                    +"\"template_id\":\""+template_id+"\""+","
@@ -79,7 +84,7 @@ public class TemplateMessage {
                         +"},"
                             
                           + "\"keyword1\":{"
-                               +"\"value\":\"完成\""+","
+                               +"\"value\":\"绑定请求\""+","
                                +"\"color\":\"#000000\""
                            +"},"
                                 
@@ -89,7 +94,7 @@ public class TemplateMessage {
                       +"},"
                        
                       + "\"keyword3\":{"
-                      +"\"value\":\"2017年1月1日 14:19\""+","
+                      +"\"value\":\""+  sdf.format(new Date()) + "\""+","
                       +"\"color\":\"#000000\""
                       +"},"
                                 
@@ -113,7 +118,7 @@ public class TemplateMessage {
         String template_id="vCN7FbsROvt9okgw9a0QYMI_eVOCmC3E0t-0KOzbYjI";//模板id
         String url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+access_token;
  //待处理状态
-        String linkUrl = "http://1d6289976g.imwork.net/pauser/show?" + "openid=" + mopenId;
+        String linkUrl = WeixinFinalValue.SERVER_URL + "pauser/show?" + "openid=" + mopenId;
         String params= "{"
                    +"\"touser\":\""+ fromopenid +"\""+","
                    +"\"template_id\":\""+template_id+"\""+","
@@ -132,12 +137,12 @@ public class TemplateMessage {
                            +"},"
                                 
                       + "\"keyword2\":{"
-                      +"\"value\":\"fivest\""+","
+                      +"\"value\":\"" + mopenId +"\""+","
                       +"\"color\":\"#000000\""
                       +"},"
                        
                       + "\"keyword3\":{"
-                      +"\"value\":\"2017年1月1日 14:19\""+","
+                      +"\"value\":\""+  sdf.format(new Date()) + "\""+","
                       +"\"color\":\"#000000\""
                       +"},"
                                 
@@ -149,6 +154,6 @@ public class TemplateMessage {
     }
 
    public static void main(String[] args) {
-	   sendBindUserTemplate("oNG7At-eteDqJ5rBCwwQ1mIWRrF8", "aaa");
+//	   sendBindUserTemplate("oNG7At-eteDqJ5rBCwwQ1mIWRrF8", "aaa");
        }
 }

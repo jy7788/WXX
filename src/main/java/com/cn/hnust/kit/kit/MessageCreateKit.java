@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.cn.hnust.json.TemplateMsg;
-import com.cn.hnust.model.WeixinContext;
 import com.cn.hnust.model.WeixinFinalValue;
 import com.cn.hnust.util.JsonUtil;
 

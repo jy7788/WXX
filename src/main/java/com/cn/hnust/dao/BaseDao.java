@@ -6,9 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.SqlSessionTemplate;
 
 import com.cn.hnust.model.Pager;
 import com.cn.hnust.model.SystemContext;

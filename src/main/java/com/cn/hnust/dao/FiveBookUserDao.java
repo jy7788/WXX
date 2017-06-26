@@ -6,8 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.cn.hnust.model.FiveBookUser;
 import com.cn.hnust.model.SystemContext;
-import com.cn.hnust.model.User;
-
 
 @Repository("fiveBookUserDao")
 public class FiveBookUserDao extends BaseDao<FiveBookUser> implements IFiveBookUserDao{

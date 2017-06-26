@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,7 +44,7 @@ public class JsApiController {
        //2,获取调用微信jsapi的凭证  
        JsapiTicket ticket = WeixinContext.getInstance().getTicket(); 
        System.out.println("ticket " + ticket.getTicket());
-       Map<String,String> map = WeixinBasicKit.sign(ticket.getTicket(), WeixinFinalValue.WEB_URL);  
+       Map<String,String> map = WeixinBasicKit.sign(ticket.getTicket(), WeixinFinalValue.SERVER_URL + "jsapi");  
       
    request.setAttribute("timestamp", map.get("timestamp"));  
    request.setAttribute("nonceStr", map.get("nonceStr"));  

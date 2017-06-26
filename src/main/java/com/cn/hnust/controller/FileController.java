@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class FileController {
@@ -20,23 +19,23 @@ public class FileController {
 //	@RequestMapping(value="/MP_verify_yPoDNEPUU1OwQ2kE.txt")
 	public String file(HttpServletRequest request,HttpServletResponse resp){
 		try {
-            // pathÊÇÖ¸ÓûÏÂÔØµÄÎÄ¼þµÄÂ·¾¶¡£
+            // pathï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½
             File file = new File("d:/MP_verify_yPoDNEPUU1OwQ2kE.txt");
-            // È¡µÃÎÄ¼þÃû¡£
+            // È¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
             String filename = file.getName();
-            // È¡µÃÎÄ¼þµÄºó×ºÃû¡£
+            // È¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Äºï¿½×ºï¿½ï¿½ï¿½ï¿½
             //String ext = filename.substring(filename.lastIndexOf(".") + 1).toUpperCase();
 
             System.out.println(filename);
             
-            // ÒÔÁ÷µÄÐÎÊ½ÏÂÔØÎÄ¼þ¡£
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
             InputStream fis = new BufferedInputStream(new FileInputStream(file));
             byte[] buffer = new byte[fis.available()];
             fis.read(buffer);
             fis.close();
-            // Çå¿Õresponse
+            // ï¿½ï¿½ï¿½response
             resp.reset();
-            // ÉèÖÃresponseµÄHeader
+            // ï¿½ï¿½ï¿½ï¿½responseï¿½ï¿½Header
             resp.addHeader("Content-Disposition", "attachment;filename=" + new String(filename.getBytes("utf-8"),"ISO-8859-1"));
             resp.addHeader("Content-Length", "" + file.length());
             OutputStream toClient = new BufferedOutputStream(resp.getOutputStream());

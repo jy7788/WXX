@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.cn.hnust.dao.BaseDao;
-import com.cn.hnust.model.FiveBookUser;
 import com.cn.hnust.model.SystemContext;
-import com.cn.hnust.model.User;
 import com.cn.hnust.model.pa.PAUser;
 
 
@@ -33,6 +31,11 @@ public class PAUserDao extends BaseDao<PAUser> implements IPAUserDao{
 		SystemContext.setSize(15);
 		SystemContext.setOffset(0);
 		return super.list("pAUserFindOthers", null);
+	}
+
+	@Override
+	public PAUser loadByPhoneNum(String phoneNum) {
+		return super.loadBySqlId("loadByPhoneNum", phoneNum);
 	}
 
 }

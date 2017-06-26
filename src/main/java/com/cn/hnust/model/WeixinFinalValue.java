@@ -25,4 +25,6 @@ public class WeixinFinalValue {
 	public final static String SEND_TEMPLATE_MSG = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
 	public final static String KF_ADD = "https://api.weixin.qq.com/customservice/kfaccount/add?access_token=ACCESS_TOKEN";
 	public final static String WEB_URL = "http://1d6289976g.imwork.net/jsapi";
+	public final static String SERVER_URL = "http://1d6289976g.imwork.net/";
+	
 }

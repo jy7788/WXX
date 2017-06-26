@@ -1,12 +1,9 @@
 package com.cn.hnust.controller.pa;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +16,7 @@ import com.cn.hnust.kit.kit.ExchangeCode2OpenId;
 import com.cn.hnust.kit.kit.WeixinUserUtil;
 import com.cn.hnust.message.TemplateMessage;
 import com.cn.hnust.model.WUser;
+import com.cn.hnust.model.WeixinFinalValue;
 import com.cn.hnust.model.pa.PAUser;
 import com.cn.hnust.service.pa.IPAUserService;
 
@@ -34,10 +32,11 @@ public class PAUserController {
 		return "PAUser/list";
 	}
 	
-	@RequestMapping("/bind")
+	@RequestMapping("/signin")
 	public String bindUserInput() {
 		System.out.println("auth");
-		return "pauser/goauth";
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc8544caaedbd00df&redirect_uri=" + WeixinFinalValue.SERVER_URL + "pauser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+		return "redirect:" + url;
 	}
 	/**
 	 * 进入签到页面
@@ -64,7 +63,7 @@ public class PAUserController {
 	            e.printStackTrace();
 	            System.out.println("调用网页授权异常："+e);
 	        }
-	        return "PAUser/bind";
+	        return "PAUser/signin";
 	}
 	/**
 	 * 签到数据入库
@@ -76,27 +75,51 @@ public class PAUserController {
 	 * @return
 	 * 2017年6月26日
 	 */
-	@RequestMapping(value="/bind", method = RequestMethod.POST)
+	@RequestMapping(value="/signin", method = RequestMethod.POST)
 	public String bindUser(PAUser pAUser, HttpServletRequest request,HttpServletResponse response) {
 		
 		WUser wUser = (WUser) request.getSession().getAttribute("wechatUser");
 		if(wUser != null) {
 			PAUser mPAUser = new PAUser();
-			mPAUser.setBind(1);
-			mPAUser.setImgUrl(wUser.getHeadimgurl());
-			mPAUser.setOpenid(wUser.getOpenid());
-			mPAUser.setNickname(wUser.getNickname());
-			mPAUser.setSex(wUser.getSex());
-			mPAUser.setPhoneNum(pAUser.getPhoneNum());
-			pAUserService.add(mPAUser);
+			//数据库有值，没绑定
+			if(pAUserService.loadByOpenId(wUser.getOpenid()) != null) {
+				mPAUser.setBind(1);
+				mPAUser.setImgUrl(wUser.getHeadimgurl());
+				mPAUser.setOpenid(wUser.getOpenid());
+				mPAUser.setNickname(wUser.getNickname());
+				mPAUser.setSex(wUser.getSex());
+				mPAUser.setPhoneNum(pAUser.getPhoneNum());
+				mPAUser.setEmail(pAUser.getEmail());
+//				System.out.println(wUser.getCountry() + "-" + wUser.getProvince() + "-" + wUser.getCity());
+				mPAUser.setArea(wUser.getCountry() + "-" + wUser.getProvince() + "-" + wUser.getCity());
+				pAUserService.update(mPAUser);
+			}else {
+				//数据库中没有该用户
+				mPAUser.setBind(1);
+				mPAUser.setImgUrl(wUser.getHeadimgurl());
+				mPAUser.setOpenid(wUser.getOpenid());
+				mPAUser.setNickname(wUser.getNickname());
+				mPAUser.setSex(wUser.getSex());
+				mPAUser.setPhoneNum(pAUser.getPhoneNum());
+				mPAUser.setEmail(pAUser.getEmail());
+//				System.out.println(wUser.getCountry() + "-" + wUser.getProvince() + "-" + wUser.getCity());
+				mPAUser.setArea(wUser.getCountry() + "-" + wUser.getProvince() + "-" + wUser.getCity());
+				pAUserService.add(mPAUser);
+			}
 		} else {
 			throw new WXException("系统错误!");
 		}
-		return "redirect:/pauser/list";
+		return "redirect:/pauser/goUserList";
+	}
+	
+	@RequestMapping("/goUserList")
+	public String goUserList() {
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc8544caaedbd00df&redirect_uri=" + WeixinFinalValue.SERVER_URL + "pauser/list&response_type=code&scope=snsapi_base&state=1#wechat_redirect";;
+		return "redirect:" + url;
 	}
 	
 	/**
-	 * 获取用户列表,返回列表页面
+	 * 获取用户列表,返回列表页面，需要获取发送请求者的openid
 	 * @author fanfte
 	 * @param request
 	 * @param response
@@ -107,7 +130,10 @@ public class PAUserController {
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String pAUserList(HttpServletRequest request,HttpServletResponse response, Model model) {
 		Model pausers = model.addAttribute("PAUsers", pAUserService.list());
-		System.out.println(pausers.asMap());
+		String openid = ExchangeCode2OpenId.exchange(request.getParameter("code"));
+		System.out.println("网页授权获取到的openid:"+openid);//接收用户的Openid
+		request.getSession().setAttribute("mopenid", openid);
+		model.addAttribute("mUser", pAUserService.loadByOpenId(openid));
 		return "PAUser/list";
 	}
 	
@@ -123,9 +149,12 @@ public class PAUserController {
 	 * 2017年6月26日
 	 */
 	@RequestMapping(value="/bindUser/{openid}", method = RequestMethod.GET)
-	public void bindUser(@PathVariable String openid) {
+	public String bindUser(@PathVariable String openid, HttpServletRequest request,HttpServletResponse response) {
+		String mopenid = (String) request.getSession().getAttribute("mopenid");
+		System.out.println("mopenid" + mopenid);
 		System.out.println("openid" + openid);
-		TemplateMessage.sendBindUserTemplate(openid, "绑定请求");
+		TemplateMessage.sendBindUserTemplate(mopenid, openid, "绑定请求");
+		return "PAUser/sendBindResult";
 	}
 	/**
 	 * 绑定请求接受,需要页面授权获取自身openId
@@ -138,7 +167,8 @@ public class PAUserController {
 	 */
 	@RequestMapping(value="/accept/{openid}",method=RequestMethod.GET)
 	public String bind(@PathVariable String openid, Model model,HttpServletRequest request) {
-		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc8544caaedbd00df&redirect_uri=http://1d6289976g.imwork.net/pauser/sendAcceptMessage&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc8544caaedbd00df&redirect_uri=" + WeixinFinalValue.SERVER_URL + "pauser/sendAcceptMessage&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+		System.out.println("accept " + openid);
 		request.getSession().setAttribute("fromOpenid", openid);
 		return "redirect:" + url;
 	}

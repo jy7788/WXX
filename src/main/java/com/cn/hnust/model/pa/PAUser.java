@@ -13,7 +13,21 @@ public class PAUser {
 	private int bind;
 	private String imgUrl;
 	private String phoneNum;
+	private String email;
+	private String area;
 	
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getPhoneNum() {
 		return phoneNum;
 	}
