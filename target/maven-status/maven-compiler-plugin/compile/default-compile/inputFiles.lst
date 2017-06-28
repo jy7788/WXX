@@ -9,6 +9,7 @@ D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\dao\MyBaseDao.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\kit\kit\WeixinEventKit.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\exception\MyException.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\message\TemplateMessage.java
+D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\service\pa\IPAUserRequestService.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\quartz\WeixinQuartzJob.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\service\IWeixinQrService.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\socket\MultiThreadServer.java
@@ -72,6 +73,7 @@ D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\kit\kit\SecurityKit.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\model\User.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\service\IWqrService.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\util\MybatisUtil.java
+D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\dao\pa\PAUserRequestDao.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\kit\kit\WeixinUserUtil.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\dao\IPersonDao.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\controller\FiveBookUserController.java
@@ -85,10 +87,13 @@ D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\dao\IBaseDao.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\quartz\ClearMessageTask.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\controller\UserController.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\util\PropertiesUtil.java
+D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\service\pa\PAUserRequestService.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\socket\socketServer.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\service\pa\PAUserService.java
+D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\dao\pa\IPAUserRequestDao.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\web\filter\AuthFilter.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\controller\JsApiController.java
+D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\model\pa\PAUserRequest.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\model\WUser.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\util\RandomUtils.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\dao\UserDao.java

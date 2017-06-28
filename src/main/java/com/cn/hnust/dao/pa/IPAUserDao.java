@@ -10,6 +10,6 @@ public interface IPAUserDao extends IBaseDao<PAUser>{
 	public PAUser loadByUsername(String username);
 	public PAUser loadByOpenId(String openid);
 	public List<PAUser> list();
-	public List<PAUser> listOthers();
 	public PAUser loadByPhoneNum(String phoneNum);
+	public List<PAUser> listOthers(String openid);
 }

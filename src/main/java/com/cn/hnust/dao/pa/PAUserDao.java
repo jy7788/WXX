@@ -27,9 +27,7 @@ public class PAUserDao extends BaseDao<PAUser> implements IPAUserDao{
 	}
 
 	@Override
-	public List<PAUser> listOthers() {
-		SystemContext.setSize(15);
-		SystemContext.setOffset(0);
+	public List<PAUser> listOthers(String openid) {
 		return super.list("pAUserFindOthers", null);
 	}
 

@@ -15,4 +15,8 @@ public interface IPAUserService {
 	public PAUser loadByOpenId(String id);
 	public PAUser loadByUserName(String username);
 	public List<PAUser> list();
+	public List<PAUser> listBinded(String openid);
+	public List<PAUser> listBindMe(String openid);
+	public List<PAUser> listOthers(String openid);
+	public PAUser loadByPhoneNum(String phoneNum);
 }

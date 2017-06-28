@@ -1,0 +1,132 @@
+.qukuailianlist_content {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-top: 49%;
+  box-sizing: border-box;
+}
+.qukuailianlist_content > div {
+  overflow: scroll;
+  height: 100%;
+  box-sizing: border-box;
+}
+.qukuailianlist_content .qukuailian_list {
+  display: -webkit-flex;
+  width: 90%;
+  margin: 0 auto;
+  background: url(../img/leibiaoditu-img.png) no-repeat center center;
+  background-size: 100% 100%;
+  margin-bottom: 5%;
+}
+.qukuailianlist_content .qukuailian_list .jianchent {
+  width: 2.13rem;
+  position: relative;
+  line-height: 1.8188rem;
+  font-size: 1.2345rem;
+  color: #04084b;
+  background: url(../img/leibiaomingcheng-icon.png) no-repeat left top;
+  background-size: 100%;
+  text-align: center;
+  top: 0px;
+  margin: 0.6398rem .426rem;
+}
+.qukuailianlist_content .qukuailian_list .gongsiming {
+  -webkit-flex: 1;
+  position: relative;
+}
+.qukuailianlist_content .qukuailian_list .gongsiming .qukuailian_text {
+  margin-top: 6%;
+  margin-right: 10%;
+  margin-bottom: 16%;
+}
+.qukuailianlist_content .qukuailian_list .gongsiming .qukuailian_text p {
+  line-height: 0.9372rem;
+  color: #fff;
+  font-size: 0.5964rem;
+  display: -webkit-flex;
+}
+.qukuailianlist_content .qukuailian_list .gongsiming .qukuailian_text p span {
+  -webkit-flex: 1;
+}
+.qukuailianlist_content .qukuailian_list .gongsiming .qukuailian_text p span i {
+  font-style: normal;
+}
+.qukuailianlist_content .qukuailian_list .gongsiming .qukuailian_text p span.xiaosize {
+  font-size: .5112rem;
+}
+.qukuailianlist_content .qukuailian_list .gongsiming .shouquan {
+  width: 4.686rem;
+  text-align: center;
+  font-size: 0.7668rem;
+  color: #04084b;
+  position: absolute;
+  right: 14%;
+  bottom: 4%;
+  height: 1.9596rem;
+  line-height: 1.678rem;
+}
+.qukuailianlist_content .qukuailian_list .gongsiming .shouquan.yi {
+  background: url(../img/yishouquan-but.png) no-repeat;
+  background-size: 100%;
+  color: #00c0ff;
+}
+.qukuailianlist_content .qukuailian_list .gongsiming .shouquan.wei {
+  background: url(../img/shouquanchakan-but.png) no-repeat;
+  background-size: 100%;
+}
+.alert {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.7);
+}
+.alert .alert_main {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 80%;
+  height: 9rem;
+  background: url(../img/tankuang-layer.png) no-repeat center center;
+  background-size: 100%;
+}
+.alert .alert_main .cuowu {
+  display: inline-block;
+  height: 0.9798rem;
+  width: 0.9798rem;
+  background: url(../img/guanbi-but.png) no-repeat center center;
+  background-size: 100%;
+  position: absolute;
+  right: 10%;
+  top: .426rem;
+}
+.alert .alert_main .text {
+  color: #fff;
+  font-size: .7668rem;
+  text-align: center;
+  line-height: 1.278rem;
+  position: relative;
+  top: 30%;
+}
+.alert .alert_main .fangwen {
+  position: absolute;
+  bottom: 10%;
+  background: url(../img/fangweishouquan-but.png) no-repeat center center;
+  width: 80%;
+  background-size: 100% 100%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  /* height: 34px; */
+  padding: .526rem 0;
+  font-size: .7668rem;
+  text-align: center;
+  color: #04084b;
+}

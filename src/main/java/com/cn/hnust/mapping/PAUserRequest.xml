@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.model.pa.PAUserRequest" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.model.pa.PAUserRequest" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="open_id" property="openid" jdbcType="VARCHAR" />
+    <result column="requester_id" property="requesterId" jdbcType="VARCHAR" />
+    <result column="requester_open_id" property="requesterOpenid" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="request_status" property="requestStatus" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, open_id, requester_id, requester_open_id, role, request_status
+  </sql>
+  
+  <insert id="add" parameterType="com.cn.hnust.model.pa.PAUserRequest">
+		insert into t_pa_user_request 
+		(open_id, requester_id, requester_open_id, role, request_status)
+		values
+		(#{openid}, #{requesterId}, #{requesterOpenid}, #{role}, #{requestStatus})
+  </insert>
+  
+  <select id="load" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_pa_user_request
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- <select id="loadByPAUserOpenId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_pa_user
+    where open_id = #{openid,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="loadByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_pa_user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="loadByPhoneNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_pa_user
+    where phone_num = #{phoneNum,jdbcType=VARCHAR}
+  </select>-->
+  
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from t_pa_user_request
+    where id = #{id,jdbcType=INTEGER}
+  </delete> 
+  
+  <update id="update" parameterType="com.cn.hnust.model.pa.PAUserRequest" >
+    update t_pa_user_request
+    set open_id = #{openid,jdbcType=VARCHAR},
+      requester_id = #{requesterId,jdbcType=VARCHAR},
+      requester_open_id = #{requesterOpenid,jdbcType=VARCHAR},
+      role = #{role,jdbcType=INTEGER},
+      request_status = #{requestStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="loadByOpenids" resultMap="BaseResultMap" parameterType="Map">
+		select * from t_pa_user_request
+		<where>
+			<if test="rOpenid!= null">requester_open_id = #{rOpenid} </if>
+			<if test="aOpenid!= null">and open_id = #{aOpenid} </if>
+		</where>
+  </select>
+  
+</mapper>

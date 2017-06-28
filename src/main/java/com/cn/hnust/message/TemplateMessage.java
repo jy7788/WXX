@@ -65,7 +65,8 @@ public class TemplateMessage {
      * @param content
      * 2017年6月26日
      */
-    public static void sendBindUserTemplate(String mopenId, String openid, String content) {
+    public static boolean sendBindUserTemplate(String mopenId, String openid, String content) {
+    	boolean isSendOk = false;
     	String access_token=WeixinContext.getInstance().getAccessToken().getAccess_token();//有效access_token
         String template_id="vCN7FbsROvt9okgw9a0QYMI_eVOCmC3E0t-0KOzbYjI";//模板id
         String url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+access_token;
@@ -103,6 +104,8 @@ public class TemplateMessage {
                                +"\"color\":\"#173177\"}}}";
                 String data = TemplateMessage.sendPost(url, params);
                 System.out.println("发送模板消息返回："+data);
+          isSendOk = true;
+        return isSendOk;
     }
     
     /**

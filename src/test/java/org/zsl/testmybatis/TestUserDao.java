@@ -12,7 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.cn.hnust.dao.IPersonDao;
 import com.cn.hnust.dao.IUserDao;
+import com.cn.hnust.dao.pa.IPAUserRequestDao;
 import com.cn.hnust.model.User;
+import com.cn.hnust.model.pa.PAUserRequest;
 
 @RunWith(SpringJUnit4ClassRunner.class)		//琛ㄧず缁ф壙浜哠pringJUnit4ClassRunner绫�
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
@@ -26,7 +28,6 @@ public class TestUserDao {
 	
 	@Resource
 	private IUserDao userDao;
-	
 //	@Before
 //	public void before() {
 //		ac = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -40,8 +41,6 @@ public class TestUserDao {
 	public static void setLogger(Logger logger) {
 		TestUserDao.logger = logger;
 	}
-
-
 	
 	@Test
 	public void testAdd() {
@@ -90,5 +89,7 @@ public class TestUserDao {
 			System.out.println(u.getOpenid());
 		} 
 	}
+	
+	
 	
 }
