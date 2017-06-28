@@ -30,13 +30,27 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="alert">
+
+<c:choose>
+<c:when test="${ mUser == null }">
+	<div class="alert"  style="display:block;">
+	<div class="alert_main">
+		<a class="cuowu"></a>
+		<p class="text">目前您还没有开通访问授权！<br>请您前去开庭！</p>
+		<p class="fangwen"><a href="/pauser/signin">访问授权区块链</a></p>
+	</div>
+</div>
+</c:when>
+<c:otherwise>
+	<div class="alert"  >
 	<div class="alert_main">
 		<a class="cuowu"></a>
 		<p class="text">目前您还没有开通访问授权！<br>请您前去开庭！</p>
 		<p class="fangwen">访问授权区块链</p>
 	</div>
 </div>
+</c:otherwise>
+</c:choose>	
 	<div class="qukuailian_bg">
 	    <div class="qkl_title_lg">
 	      <div class="qkl_title">
@@ -68,8 +82,8 @@
 						<span class="jianchent">平</span>
 						<div class="gongsiming">
 							<div class="qukuailian_text">
-								<p><span>平安银行股份有限公司</span></p>
-								<p><span>姓名: ${pAUser.nickname}<i></i></span><span>职位: ${pAUser.position }<i></i></span></p>
+								<p><span>${pAUser.organization}</span></p>
+								<p><span>姓名: ${pAUser.username}<i></i></span><span>职位: ${pAUser.position }<i></i></span></p>
 								
 								<c:choose>
 								<c:when test="${ pAUser.status == 1 }">

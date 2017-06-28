@@ -31,7 +31,12 @@
 <script type="text/javascript">
 $(document).ready(function () {
      $("#submitButton").click(function () {
-        $("#bindForm").submit({
+    	 var form = $("#bindForm");
+    	 alert(form);
+    	 var submitresult = $("#bindForm").submit();//提交
+    	 alert(submitresult);
+    	 
+        /* $("#bindForm").submit({
             url: "signin",
             data: "$('#bindForm').serialize()",
             type: "POST",
@@ -47,7 +52,6 @@ $(document).ready(function () {
                 startFileUpload();
                 var errMsg = "";
             } */
-        }).submit();
     }); 
      
      $("#getMessage").click(function() {
@@ -73,7 +77,7 @@ $(document).ready(function () {
     		        }
     		    },
     	        error:function(e){
-    		    	alert("err");   
+    		    	alert("该手机号尚未绑定");   
     	   		}  
      	});
      });
@@ -91,13 +95,13 @@ $(document).ready(function () {
 	       <div class="r_arr"></div>
 	        <div class="l_arr"></div>	
 	    </div>
-	    <div class="qkl_content">
+	    <div class="qkl_content" style="top:6.8rem;">
 	       <!-- <div class="ipt_bg">
 	          <select required="required">
 	              <option>请选择所在机构</option>
 	          </select>
 	       </div> -->
-	       <form name="bindForm" action="signin" method="post">
+	       <form name="bindForm" action="signin" method="post" enctype="multipart/form-data">
 	       <div class="ipt_bg">
 	          <input type="text" name="phoneNum" id= "phoneNum" placeholder="请输入您的手机号码" required="required">
 	          <span class="fdj" id="getMessage" name="getMessage"></span>
@@ -117,6 +121,7 @@ $(document).ready(function () {
 	       <div class="ipt_bg">
 	          <input type="text" name="position" id="position" placeholder="职位" required="required">
 	       </div>
+	       
 	       <!-- <div class="dxyzm_lr2">
 	        <div class="ipt_bg">
 	          <input class="dxyzm_l" type="text" placeholder="短信验证码" required="required">
@@ -126,8 +131,7 @@ $(document).ready(function () {
 	       <c:choose>
 				<c:when test="${mUser==null || mUser.bind==0}">
 					<td colspan="2">
-					<!-- <a href="javascript:;"><img class='submit' type='text' value="aaa"/></a> -->
-					<div class="btn_tijiao_bg" ><input type="submit" name="submit" value="签到"></div>
+					<input class="btn_tijiao_bg" type="submit" name="submit" value="签到"  style="border:0;margin-left:27%;">
 				</c:when>
 				<c:otherwise>
 					<td colspan="2">

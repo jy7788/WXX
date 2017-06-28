@@ -184,14 +184,44 @@ public class PAUserController {
 			}
 			model.addAttribute("PAUsers", others);//
 		}
-		model.addAttribute("mUser", pAUserService.loadByOpenId(openid));//本用户存入session中
+		PAUser paUser = pAUserService.loadByOpenId(openid);//本用户
+		model.addAttribute("mUser", paUser);//本用户存入
 		return "PAUser/list";
 	}
 	
 	@RequestMapping(value="/show")
-	public String showUser(@RequestParam("openid")  String openid, Model model) {
-		model.addAttribute("pAUser", pAUserService.loadByOpenId(openid));
+	public String showUser(@RequestParam("mopenid")  String mopenid, @RequestParam("aopenid")  String aopenid, Model model, HttpServletRequest request) {
+//		String mopenid = ExchangeCode2OpenId.exchange(request.getParameter("code"));
+//		System.out.println("网页授权获取到的openid:"+mopenid);//接收用户的Openid
+		PAUser pAUser = pAUserService.loadByOpenId(mopenid);//请求者的openid
+		if(isBinded(mopenid, aopenid)) {
+			pAUser.setStatus(1);
+		}
+		model.addAttribute("pAUser", pAUser);
 		return "PAUser/show";
+	}
+	
+	public boolean isBinded(String ropenid, String  aopenid) {
+		boolean binded = false;
+		//判断是否绑定过本用户
+		List<PAUser> listBinded = pAUserService.listBinded(ropenid);//我绑定的用户列表
+		List<PAUser> bindMe = pAUserService.listBindMe(ropenid);//绑定我的用户列表
+		if(listBinded != null) {
+			for(PAUser u:listBinded) {
+				if(u.getOpenid().equals(aopenid)) {
+					binded = true;
+				}
+			}
+		}
+		
+		if(bindMe != null) {
+			for(PAUser u:bindMe) {
+				if(u.getOpenid().equals(aopenid)) {
+					binded = true;
+				}
+			}
+		}
+		return binded;
 	}
 	/**
 	 * 发送绑定用户请求
@@ -234,7 +264,7 @@ public class PAUserController {
 	
 	
 	@RequestMapping("/sendAcceptMessage")
-	public void sendAcceptMessage(HttpServletRequest request) throws Exception{
+	public String sendAcceptMessage(HttpServletRequest request) throws Exception{
 		String openid = ExchangeCode2OpenId.exchange(request.getParameter("code"));
 //        String openid = WeixinUtil.getWeChat(request.getParameter("code"));
         System.out.println("网页授权获取到的openid:"+openid);//接收用户的openid
@@ -257,6 +287,8 @@ public class PAUserController {
 		} else {
 			//没有请求数据新增？
 		}
+		String linkUrl = WeixinFinalValue.SERVER_URL + "pauser/show?" + "mopenid=" + fromOpenid + "&aopenid=" + openid;
+		return "redirect:" + linkUrl;
 	}
 	
 	
@@ -270,9 +302,13 @@ public class PAUserController {
 	 * 2017年6月26日
 	 */
 	@RequestMapping(value="/acceptBind",method=RequestMethod.GET)
-	public String acceptBind(@RequestParam("openid")  String openid, Model model) {
-		PAUser u = pAUserService.loadByOpenId(openid);
+	public String acceptBind(@RequestParam("mopenid")  String mopenid,@RequestParam("aopenid")  String aopenid, Model model) {
+		PAUser u = pAUserService.loadByOpenId(mopenid);
 		System.out.println("nickname" + u.getNickname());
+		System.out.println("binded " + isBinded(mopenid, aopenid));
+		if(isBinded(mopenid, aopenid)) {
+			u.setStatus(1);
+		}
 		model.addAttribute("pAUser", u);
 		return "PAUser/show";
 	}

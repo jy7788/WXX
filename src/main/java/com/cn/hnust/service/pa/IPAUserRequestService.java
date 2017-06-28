@@ -13,5 +13,6 @@ public interface IPAUserRequestService {
 	public void delete(int id);
 	public void update(PAUserRequest r);
 	public PAUserRequest loadByOpenIds(String rOpenid, String aOpenid);
+	public List<PAUserRequest> listByOpenIds(String rOpenid, String aOpenid);
 //	public List<PAUserRequest> list();
 }

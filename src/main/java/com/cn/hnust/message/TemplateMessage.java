@@ -71,7 +71,7 @@ public class TemplateMessage {
         String template_id="vCN7FbsROvt9okgw9a0QYMI_eVOCmC3E0t-0KOzbYjI";//模板id
         String url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+access_token;
  //待处理状态
-        String linkUrl = WeixinFinalValue.SERVER_URL +"pauser/acceptBind?" + "openid=" + mopenId;
+        String linkUrl = WeixinFinalValue.SERVER_URL +"pauser/acceptBind?" + "mopenid=" + mopenId + "&aopenid=" + openid;//发送者mopenid
         String params= "{"
                    +"\"touser\":\""+openid+"\""+","
                    +"\"template_id\":\""+template_id+"\""+","
@@ -121,7 +121,7 @@ public class TemplateMessage {
         String template_id="vCN7FbsROvt9okgw9a0QYMI_eVOCmC3E0t-0KOzbYjI";//模板id
         String url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+access_token;
  //待处理状态
-        String linkUrl = WeixinFinalValue.SERVER_URL + "pauser/show?" + "openid=" + mopenId;
+        String linkUrl = WeixinFinalValue.SERVER_URL + "pauser/show?" + "mopenid=" + mopenId + "&aopenid=" + fromopenid;
         String params= "{"
                    +"\"touser\":\""+ fromopenid +"\""+","
                    +"\"template_id\":\""+template_id+"\""+","

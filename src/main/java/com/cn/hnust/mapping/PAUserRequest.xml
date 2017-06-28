@@ -72,4 +72,15 @@
 		</where>
   </select>
   
+  <select id="listByOpenids" resultMap="BaseResultMap" parameterType="Map">
+		select * from t_pa_user_request
+		<where>
+			<if test="rOpenid!= null">(requester_open_id = #{rOpenid} </if>
+			<if test="aOpenid!= null">and open_id = #{aOpenid} )</if>
+		</where>
+		<where>
+			<if test="rOpenid!= null"> or (open_id = #{rOpenid} </if>
+			<if test="aOpenid!= null">and  requester_open_id = #{aOpenid} )</if>
+		</where>
+  </select>
 </mapper>

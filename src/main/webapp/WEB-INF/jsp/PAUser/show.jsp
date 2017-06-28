@@ -59,7 +59,16 @@
 						<!-- <div class="shouquan yi" style="background: url(img/jujue-but.png) no-repeat;background-size: 100%;position:absolute;left:-1rem;">
 						  拒绝查看
 						</div> -->
-						<div class="shouquan wei"><a href="/pauser/accept/${pAUser.openid }">同意查看</a></div>
+						
+						<c:choose>
+						<c:when test="${ pAUser.status == 1 }">
+							<div class="shouquan wei">已授权</div>
+						</c:when>
+						<c:otherwise>
+							<div class="shouquan wei"><a href="/pauser/accept/${pAUser.openid }">同意查看</a></div>
+						</c:otherwise>
+						</c:choose>	
+						
 					</div>
 				</div>
 				<!-- <div class="qukuailian_list">

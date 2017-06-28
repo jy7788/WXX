@@ -1,6 +1,8 @@
 package com.cn.hnust.service.pa;
 
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.cn.hnust.dao.pa.IPAUserRequestDao;
@@ -35,6 +37,11 @@ public class PAUserRequestService implements IPAUserRequestService{
 	@Override
 	public PAUserRequest loadByOpenIds(String rOpenid, String aOpenid) {
 		return pAUserRequestDao.loadByOpenids(rOpenid, aOpenid);
+	}
+
+	@Override
+	public List<PAUserRequest> listByOpenIds(String rOpenid, String aOpenid) {
+		return pAUserRequestDao.listByOpenIds(rOpenid, aOpenid);
 	}
 	
 }

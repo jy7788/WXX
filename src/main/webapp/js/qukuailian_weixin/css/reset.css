@@ -42,7 +42,7 @@ del {
 table {
     border-collapse: collapse;
     border-spacing: 0;
-}
+}s
 ul{
     list-style: none;
 }
@@ -57,4 +57,5 @@ html,body,.container{
     width: 100%;
     height:100%;
     /* overflow: hidden; */
+    background: url(../img/qkl_bg_lg3.png) no-repeat;
 }

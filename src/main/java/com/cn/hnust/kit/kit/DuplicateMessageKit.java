@@ -42,13 +42,13 @@ public class DuplicateMessageKit {
 	
 	public static void clear() {
 		DuplicateMessage dm = null;
-		System.out.println("清空之前"+MSGS.size());
+//		System.out.println("清空之前"+MSGS.size());
 		for(int i=0;i<MSGS.size();i++) {
 			dm = MSGS.get(i);
 			if(((System.currentTimeMillis()-dm.getCurTime())/1000)>30) {
 				MSGS.remove(dm);
 			}
 		}
-		System.out.println("清空结之后"+MSGS.size());
+//		System.out.println("清空结之后"+MSGS.size());
 	}
 }

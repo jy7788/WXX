@@ -1,5 +1,7 @@
 package com.cn.hnust.dao.pa;
 
+import java.util.List;
+
 import com.cn.hnust.dao.IBaseDao;
 import com.cn.hnust.model.pa.PAUserRequest;
 
@@ -12,4 +14,5 @@ public interface IPAUserRequestDao extends IBaseDao<PAUserRequest>{
 //	public List<PAUser> list();
 //	public List<PAUser> listOthers();
 //	public PAUser loadByPhoneNum(String phoneNum);
+	public List<PAUserRequest> listByOpenIds(String rOpenid, String aOpenid);
 }
