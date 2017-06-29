@@ -54,13 +54,13 @@ public class WeixinEventKit {
 //		}
 		//未绑定去绑定用户
 		if(user == null || user.getBind() == 0) {
-			String bindUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc8544caaedbd00df&redirect_uri=" + WeixinFinalValue.SERVER_URL +"pauser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+			String bindUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeixinFinalValue.APPID + "&redirect_uri=" + WeixinFinalValue.SERVER_URL +"pauser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
 			return WeixinMessageKit.map2xml(MessageCreateKit.createTextMsg(msgMap, "<a href=\"" + bindUrl +  "\">点击绑定用户</a>"));
 		} 
 		
 		//绑定过
 		if(user != null && user.getBind() == 1){
-			String bindUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc8544caaedbd00df&redirect_uri=" + WeixinFinalValue.SERVER_URL + "pauser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+			String bindUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeixinFinalValue.APPID + "&redirect_uri=" + WeixinFinalValue.SERVER_URL + "pauser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
 //			return WeixinMessageKit.map2xml(MessageCreateKit.createTextMsg(msgMap, "<a href=\"" + bindUrl +  "\">已经绑定，点击登录</a>"));
 			return WeixinMessageKit.map2xml(MessageCreateKit.createTextMsg(msgMap, "已经签到"));
 		}

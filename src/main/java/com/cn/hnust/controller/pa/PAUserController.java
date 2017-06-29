@@ -1,6 +1,9 @@
 package com.cn.hnust.controller.pa;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cn.hnust.exception.WXException;
+import com.cn.hnust.json.ValidResult;
+import com.cn.hnust.json.YzmResult;
 import com.cn.hnust.kit.kit.ExchangeCode2OpenId;
+import com.cn.hnust.kit.kit.WeixinBasicKit;
 import com.cn.hnust.kit.kit.WeixinUserUtil;
 import com.cn.hnust.message.TemplateMessage;
 import com.cn.hnust.model.WUser;
@@ -24,6 +30,7 @@ import com.cn.hnust.model.pa.PAUser;
 import com.cn.hnust.model.pa.PAUserRequest;
 import com.cn.hnust.service.pa.IPAUserRequestService;
 import com.cn.hnust.service.pa.IPAUserService;
+import com.cn.hnust.util.JsonUtil;
 
 @Controller
 @RequestMapping("pauser")
@@ -39,6 +46,39 @@ public class PAUserController {
 	public String userList() {
 		return "PAUser/list";
 	}
+	@RequestMapping("/getYzm")//获取验证码
+	@ResponseBody
+	public String getYzm(HttpServletRequest request) {
+		String phoneNum = request.getParameter("phoneNum");
+		String url = "http://smea.pingan.com.cn/smelp_core/a/customer/scf/customerInfo/getPhoneValidCode4json";
+		String json = "{\"userNum\":\"" + phoneNum + "\",\"verfType\":\"4\"}";
+		System.out.println(json);
+		String postResult = WeixinBasicKit.sendPostUrl(url, "data=" + json);
+		YzmResult yzmResult = (YzmResult) JsonUtil.getInstance().json2Obj(postResult, YzmResult.class);
+		System.out.println("validid" + yzmResult.getValidId());
+		if(yzmResult != null) {
+			request.getSession().setAttribute("validid", yzmResult.getValidId());
+		}
+		return postResult;
+	} 
+	@RequestMapping("/valid")//获取验证码
+	@ResponseBody
+	public String valid(HttpServletRequest request) {
+		String phoneNum = request.getParameter("phoneNum");
+		String validCode = request.getParameter("validCode");
+		String validid = (String) request.getSession().getAttribute("validid");
+		String json = "{\"validId\":\"" + validid + "\",\"userNum\":\"" + phoneNum + "\",\"inputValidCode\":\"" + validCode +"\"}";
+		System.out.println(json);
+		String validurl = "http://smea.pingan.com.cn/smelp_core/a/customer/scf/customerInfo/checkPhoneValidCode4json";
+		String postResult = WeixinBasicKit.sendPostUrl(validurl, "data=" + json);
+		ValidResult result = (ValidResult) JsonUtil.getInstance().json2Obj(postResult, ValidResult.class);
+		System.out.println("resultCode " + result.getResultCode());
+		if(result.getResultCode().equals("1")) {
+			return "valid success";
+		}else {
+			return "failed";
+		}
+	}
 	
 	@RequestMapping("/signin")
 	public String bindUserInput() {
@@ -52,8 +92,15 @@ public class PAUserController {
 	public PAUser loadPAUser(HttpServletRequest request) {
 		String phoneNum = request.getParameter("phoneNum");
 		PAUser pAUser = pAUserService.loadByPhoneNum(phoneNum);
-		System.out.println(pAUser.getNickname());
+		if(pAUser != null) {
+			System.out.println(pAUser.getNickname());
+		}
 		return pAUser;
+	}
+	@RequestMapping("/gotolist")
+	public String gotoPAUserList() {
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeixinFinalValue.APPID +"&redirect_uri=" + WeixinFinalValue.SERVER_URL + "pauser/list&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+		return "redirect:" + url;
 	}
 	
 	/**
@@ -172,6 +219,9 @@ public class PAUserController {
 							user.setStatus(1);
 						}
 					}
+					
+				}
+				if(bindMeList != null) {
 					for(PAUser bindMe : bindMeList) {
 						if(user.getOpenid().equals(bindMe.getOpenid())) {
 							System.out.println("binded id  " + bindMe.getNickname());
@@ -229,8 +279,8 @@ public class PAUserController {
 	 * @param openid
 	 * 2017年6月26日
 	 */
-	@RequestMapping(value="/bindUser/{openid}", method = RequestMethod.GET)
-	public String bindUser(@PathVariable String openid, HttpServletRequest request,HttpServletResponse response) {
+	@RequestMapping(value="/bindUser", method = RequestMethod.GET)
+	public void bindUser(@RequestParam("openid")  String openid, HttpServletRequest request,HttpServletResponse response) {
 		String mopenid = (String) request.getSession().getAttribute("mopenid");
 		System.out.println("mopenid" + mopenid);//请求发送者openid
 		System.out.println("openid" + openid);//请求接受者的openid, aopenid
@@ -243,7 +293,12 @@ public class PAUserController {
 			pAUserRequest.setRequestStatus(1);//1表示请求发送成功  2为接收请求  3拒绝请求
 			pAUserRequestService.add(pAUserRequest);
 		}
-		return "PAUser/sendBindResult";
+		try {
+			response.getWriter().write("success");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+//		return "PAUser/sendBindResult";
 	}
 	/**
 	 * 绑定请求接受,需要页面授权获取自身openId
@@ -276,8 +331,8 @@ public class PAUserController {
 		System.out.println("to " + muser.getOpenid());
 		if(user != null) {
 			System.out.println("from " + fromOpenid);
-			TemplateMessage.sendAcceptUserTemplate(fromOpenid, openid, user.getNickname());
-			TemplateMessage.sendAcceptUserTemplate(openid, fromOpenid, muser.getNickname());
+			TemplateMessage.sendAcceptUserTemplate(fromOpenid, openid, user.getUsername());
+			TemplateMessage.sendAcceptUserTemplate(openid, fromOpenid, muser.getUsername());
 		}
 		PAUserRequest paUserRequest = pAUserRequestService.loadByOpenIds(fromOpenid, openid);
 		if(paUserRequest != null) {//更行状态为接收过请求

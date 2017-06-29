@@ -1,8 +1,11 @@
 package com.cn.hnust.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class WeixinFinalValue {
-	public static String APPID = "wxc8544caaedbd00df";
-	public static String APPSECRET = "d4624c36b6795d1d99dcf0547af5443d";
+	public static String APPID = "wxffaf0f04cb3151cb";
+	public static String APPSECRET = "9999ec01947bc01beca5b3cb6bd45b6f";
 	public final static String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	public final static String MENU_ADD = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 	
@@ -26,5 +29,6 @@ public class WeixinFinalValue {
 	public final static String KF_ADD = "https://api.weixin.qq.com/customservice/kfaccount/add?access_token=ACCESS_TOKEN";
 	public final static String WEB_URL = "http://1d6289976g.imwork.net/jsapi";
 	public final static String SERVER_URL = "http://1d6289976g.imwork.net/";
+	private Map<String,String> validCodeMap = new HashMap<>();
 	
 }

@@ -4,6 +4,7 @@ D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\dao\PersonDao.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\model\pa\PAUser.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\kit\kit\WeixinBasicKit.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\web\filter\WeixinAuthFilter.java
+D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\json\YzmResult.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\controller\ClassController.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\dao\MyBaseDao.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\kit\kit\WeixinEventKit.java
@@ -15,6 +16,7 @@ D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\service\IWeixinQrService
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\socket\MultiThreadServer.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\kit\kit\DuplicateMessageKit.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\model\WeixinContext.java
+D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\json\ValidResult.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\model\WeixinMenuDto.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\kit\kit\BasicKit.java
 D:\hibernate_works\WXXFANFTE\src\main\java\com\cn\hnust\service\IWeixinMenuService.java

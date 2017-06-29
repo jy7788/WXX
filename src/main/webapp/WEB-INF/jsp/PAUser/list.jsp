@@ -28,6 +28,32 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/js/qukuailian_weixin/css/style.css">
 <title>区块链峰会签到</title>
 <link rel="stylesheet" href="css/style.css">
+<style>
+a:link{
+    color:#04013c;
+}
+</style>
+<script type="text/javascript">
+function clickBind(openid) {
+	//alert(openid);
+	$.ajax( {
+	    url : "bindUser?" + "openid=" +  openid,
+	    type : "GET", 
+	    success : function(data) {
+	        if(data != null) {
+	        	alert("绑定请求发送完成,等待对方接受。。。");
+	        }
+	    },
+        error:function(e){
+	    	alert("发送失败");   
+   		}  
+	});
+}
+$(document).ready(function () {
+     
+});
+</script>
+
 </head>
 <body>
 
@@ -51,18 +77,19 @@
 </div>
 </c:otherwise>
 </c:choose>	
-	<div class="qukuailian_bg">
-	    <div class="qkl_title_lg">
-	      <div class="qkl_title">
-		       <span class="font_s1">区块链培训研讨会</span><br>
-		       <span class="font_s2">签到处</span>
-	       </div>
-	       <div class="qkl_title_bg_circle"></div>
-	       <div class="r_arr"></div>
-	        <div class="l_arr"></div>	
-	    </div>
-	    <div class="qukuailianlist_content">
+	<div class="qukuailian_bg"  >
+	    
+	    <div class="qukuailianlist_content" style="padding-top:0;">
 		    <div>
+		        <div class="qkl_title_lg" style="margin-bottom:6.5rem;">
+			      <div class="qkl_title">
+				       <span class="font_s1">区块链培训研讨会</span><br>
+				       <span class="font_s2">签到处</span>
+			       </div>
+			       <div class="qkl_title_bg_circle"></div>
+			       <div class="r_arr"></div>
+			        <div class="l_arr"></div>	
+			    </div>
 				<!-- <div class="qukuailian_list">
 					<span class="jianchent">平</span>
 					<div class="gongsiming">
@@ -103,7 +130,7 @@
 									<div class="shouquan wei">已授权</a></div>
 								</c:when>
 								<c:otherwise>
-									<div class="shouquan wei"><a href="bindUser/${pAUser.openid }">授权查看</a></div>
+									<div class="shouquan wei" name="bindUserDiv" onclick="clickBind('${pAUser.openid }')">授权查看</div>  
 								</c:otherwise>
 							</c:choose>	
 						</div>

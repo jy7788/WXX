@@ -4,7 +4,7 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<!doctype html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -28,6 +28,11 @@
 <meta name="format-detection" content="email=no" />
 <title>区块链峰会签到</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/js/qukuailian_weixin/css/style.css">
+<style>
+a:link{
+    color:#04013c;
+}
+</style>
 </head>
 <body>
 	<div class="qukuailian_bg">
@@ -54,7 +59,16 @@
 					<div  class="gongsiming">
 						<div class="qukuailian_text" style="margin-bottom: 26%;">
 							<p><span>${pAUser.organization }</span></p>
-							<p><span>${pAUser.username }希望获得您的联系电话</span></p>
+							<c:choose>
+							<c:when test="${ pAUser.status == 1 }">
+								<p><span>${pAUser.username }  TEL: ${pAUser.phoneNum }</span></p>
+							</c:when>
+							<c:otherwise>
+								<p><span>${pAUser.username }希望获得您的联系电话</span></p>
+							</c:otherwise>
+							</c:choose>	
+							
+							
 						</div>
 						<!-- <div class="shouquan yi" style="background: url(img/jujue-but.png) no-repeat;background-size: 100%;position:absolute;left:-1rem;">
 						  拒绝查看
