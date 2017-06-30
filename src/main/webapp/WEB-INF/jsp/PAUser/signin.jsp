@@ -38,7 +38,24 @@ a:link{
 </style>
 <script type="text/javascript">
 function showDialog(text, link) {
+	$("#dialogText").html(text);
+	$("#dialogMessage").html(link);
 	$("#msgDialog").attr("style", "display:block;");
+	$("#dialogMessage").click(function () {
+		$("#msgDialog").attr("style", "");
+   });
+	$("#closeImg").click(function () {
+		$("#msgDialog").attr("style", "");
+   });
+	
+}
+
+function checkPhoneNum() {
+	if($("#phoneNum").val().length != 11) {
+		return false;
+	}else {
+		return true;
+	}
 }
 
 function GetJsonData() {
@@ -70,7 +87,8 @@ $(document).ready(function () {
 	//判断手机横竖屏状态：  
    	 window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function() {  
             if (window.orientation === 90 || window.orientation === -90 ){   
-                alert('请使用竖屏浏览，谢谢！');  
+                //alert('请使用竖屏浏览，谢谢！');
+            	showDialog("请使用竖屏浏览，谢谢！", "确定");
             }    
         }, false); 
 	//提交按钮
@@ -80,43 +98,55 @@ $(document).ready(function () {
     	 var submitresult = $("#bindForm").submit();//提交
     	 alert(submitresult);
     }); 
-     
+    //提交信息
     $("#validPhone").click(function () {
-  		$.ajax( {
-  		    url : "valid?" + "phoneNum=" +  $("#phoneNum").val() + "&validCode=" + $("#dxyzm").val(),
-  		    type : "GET", 
-  		    success : function(msg) {
-  		    	if(msg.indexOf("success") > 0) {
-  		    		//alert("valid success");
-  		    		$("#bindForm").submit();
-  		    	}else {
-  		    		alert("验证码错误");
-  		    	}
-  		    },
-  	        error:function(e){
-  	   		}  
-   		});
+    	
+    		if($("#organization").val() == "" || $("#username").val() == "" || $("#position").val() == "") {
+    			showDialog("请将信息填写完整", "确定");
+    		}else {
+    			$.ajax( {
+          		    url : "valid?" + "phoneNum=" +  $("#phoneNum").val() + "&validCode=" + $("#dxyzm").val(),
+          		    type : "GET", 
+          		    success : function(msg) {
+          		    	if(msg.indexOf("success") > 0) {
+          		    		//alert("valid success");
+          		    		$("#bindForm").submit();
+          		    	}else {
+          		    		//alert("验证码错误");
+          		    		showDialog("验证码错误", "确定");
+          		    	}
+          		    },
+          	        error:function(e){
+          	   		}  
+           		});	
+    		}
     }); 
-        
+    
+    //获取验证码
     $("#checkButton").click(function () {
     	//alert(JSON.stringify(GetJsonData()));
-    	if($("#phoneNum").val() != "") {
-    		$.ajax({
-    	   		url : "getYzm?" + "phoneNum=" +  $("#phoneNum").val(),
-    		    type : "GET", 
-    		    success : function(data) {
-    		        var obj = jQuery.parseJSON(data);
-    		        if(obj != null) {
-    		        	
-    		        }
-    		    },
-    	        error:function(e){
-    		    	//alert("该手机号尚未绑定");   
-    	   		}  
-    	    });
-    		time($("#checkButton"));
-    	}else {
-    		alert("手机号不能为空");
+    	if(checkPhoneNum()) {
+    	
+    		if($("#phoneNum").val() != "") {
+	    		$.ajax({
+	    	   		url : "getYzm?" + "phoneNum=" +  $("#phoneNum").val(),
+	    		    type : "GET", 
+	    		    success : function(data) {
+	    		        var obj = jQuery.parseJSON(data);
+	    		        if(obj != null) {
+	    		        	
+	    		        }
+	    		    },
+	    	        error:function(e){
+	    		    	//alert("该手机号尚未绑定");   
+	    	   		}  
+	    	    });
+	    		time($("#checkButton"));
+	    	}else {
+	    		alert("手机号不能为空");
+	    	}
+    	} else {
+    		showDialog("请输入正确手机号", "确定");
     	}
 	   	
    });
@@ -151,13 +181,13 @@ $(document).ready(function () {
 <input type="hidden" name="validId" value="" />
 
 	<div class="qukuailian_bg" >
-		<div class="alert" id="msgDialog" style="position:fixed">
+		<div class="alert" id="msgDialog" style="position:fixed;">
 		<div class="alert_main">
-			<a class="cuowu"></a>
-			<p class="text" id="dialogMessage">目前您还没有开通访问授权！<br>请您前去开通！</p>
-			<p class="fangwen"><a href="/pauser/signin">访问授权区块链</a></p>
+			<a class="cuowu" id="closeImg"></a>
+			<p class="text" id="dialogText">目前您还没有开通访问授权！<br>请您前去开通！</p>
+			<p class="fangwen" id="dialogMessage">访问授权区块链</p>
 		</div>
-		</div>
+	</div>
 	
 	    <div class="qkl_title_lg">
 	      <div class="qkl_title">
@@ -185,10 +215,10 @@ $(document).ready(function () {
 	       </div>
 	       <c:choose>
 				<c:when test="${mUser==null || mUser.bind==0}">
-					<input class="dxyzm_r" id="checkButton" type="button" value="获取验证码" >
+					<input style="font-size:.7rem" class="dxyzm_r" id="checkButton" type="button" value="获取验证码" >
 				</c:when>
 				<c:otherwise>
-					<input class="dxyzm_r" id="checkButton" type="button" value="获取验证码" disabled="disabled">
+					<input style="font-size:.7rem" class="dxyzm_r" id="checkButton" type="button" value="获取验证码" disabled="disabled">
 				</c:otherwise>
 		   </c:choose>
 	       
@@ -217,7 +247,7 @@ $(document).ready(function () {
 				</c:when>
 				<c:otherwise>
 					<td colspan="2">
-					<div class="btn_tijiao_bg" style="width:80%;"><a href="gotolist">已签到,点击进入名单列表</a></div>
+					<div class="btn_tijiao_bg" style="width:80%;"><a href="gotolist">已签到，点击进入名单列表</a></div>
 				</c:otherwise>
 		   </c:choose>
 	       </form>

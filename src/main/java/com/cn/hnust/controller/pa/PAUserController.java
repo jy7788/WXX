@@ -92,7 +92,8 @@ public class PAUserController {
 	public PAUser loadPAUser(HttpServletRequest request) {
 		String phoneNum = request.getParameter("phoneNum");
 		PAUser pAUser = pAUserService.loadByPhoneNum(phoneNum);
-		if(pAUser != null) {
+		if(pAUser != null && pAUser.getUsername() != null) {
+			pAUser.setUsername(pAUser.getUsername().substring(0, 1) + "* * ");
 			System.out.println(pAUser.getNickname());
 		}
 		return pAUser;
@@ -146,8 +147,11 @@ public class PAUserController {
 		WUser wUser = (WUser) request.getSession().getAttribute("wechatUser");
 		if(wUser != null) {
 			PAUser mPAUser = new PAUser();
+			PAUser user = pAUserService.loadByPhoneNum(pAUser.getPhoneNum());
 			//数据库有值，没绑定
-			if(pAUserService.loadByOpenId(wUser.getOpenid()) != null) {
+			if(user != null) {
+				System.out.println("sasdasds" + pAUser.getPhoneNum());
+				mPAUser.setId(user.getId());
 				mPAUser.setBind(1);
 				mPAUser.setUsername(pAUser.getUsername());
 				mPAUser.setImgUrl(wUser.getHeadimgurl());
@@ -214,21 +218,25 @@ public class PAUserController {
 			for(PAUser user : others) {
 				if(binded != null && binded.size() > 0) {
 					for(PAUser bind : binded) {
-						if(user.getOpenid().equals(bind.getOpenid())) {
-							System.out.println("binded id  " + bind.getNickname());
-							user.setStatus(1);
-						}else {
-							//user.setUsername(user.getUsername().substring(0, 1) + "**");
+						if(bind!=null && bind.getOpenid() != null) {
+							if(user.getOpenid().equals(bind.getOpenid())) {
+								System.out.println("binded id  " + bind.getNickname());
+								user.setStatus(1);
+							}else {
+								//user.setUsername(user.getUsername().substring(0, 1) + "**");
+							}
 						}
 					}
 				}
 				if(bindMeList != null) {
 					for(PAUser bindMe : bindMeList) {
-						if(user.getOpenid().equals(bindMe.getOpenid())) {
-							System.out.println("binded id  " + bindMe.getNickname());
-							user.setStatus(1);
-						}else {
-							//user.setUsername(user.getUsername().substring(0, 1) + "**");
+						if(bindMe!=null && bindMe.getOpenid()!=null ){
+							if(user.getOpenid().equals(bindMe.getOpenid())) {
+								System.out.println("binded id  " + bindMe.getNickname());
+								user.setStatus(1);
+							}else {
+								//user.setUsername(user.getUsername().substring(0, 1) + "**");
+							}
 						}
 					}
 				}
@@ -266,16 +274,20 @@ public class PAUserController {
 		List<PAUser> bindMe = pAUserService.listBindMe(ropenid);//绑定我的用户列表
 		if(listBinded != null) {
 			for(PAUser u:listBinded) {
-				if(u.getOpenid().equals(aopenid)) {
-					binded = true;
+				if(u != null && u.getOpenid() != null) {
+					if(u.getOpenid().equals(aopenid)) {
+						binded = true;
+					}
 				}
 			}
 		}
 		
 		if(bindMe != null) {
 			for(PAUser u:bindMe) {
-				if(u.getOpenid().equals(aopenid)) {
-					binded = true;
+				if(u != null && u.getOpenid() != null) {
+					if(u.getOpenid().equals(aopenid)) {
+						binded = true;
+					}
 				}
 			}
 		}
@@ -375,13 +387,17 @@ public class PAUserController {
 	 */
 	@RequestMapping(value="/acceptBind",method=RequestMethod.GET)
 	public String acceptBind(@RequestParam("mopenid")  String mopenid,@RequestParam("aopenid")  String aopenid, Model model) {
-		PAUser u = pAUserService.loadByOpenId(mopenid);
-		System.out.println("nickname" + u.getNickname());
-		System.out.println("binded " + isBinded(mopenid, aopenid));
-		if(isBinded(mopenid, aopenid)) {
-			u.setStatus(1);
+		if(mopenid != null) {
+			PAUser u = pAUserService.loadByOpenId(mopenid);
+			if(u != null) {
+				System.out.println("nickname" + u.getNickname());
+				System.out.println("binded " + isBinded(mopenid, aopenid));
+				if(isBinded(mopenid, aopenid)) {
+					u.setStatus(1);
+				}
+				model.addAttribute("pAUser", u);
+			}
 		}
-		model.addAttribute("pAUser", u);
 		return "PAUser/show";
 	}
 }

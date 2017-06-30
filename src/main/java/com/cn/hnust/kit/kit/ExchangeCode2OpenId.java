@@ -12,16 +12,20 @@ public class ExchangeCode2OpenId {
     private static Logger logger = LoggerFactory.getLogger(ExchangeCode2OpenId.class);
 
     public static String exchange(String code) {
-        String openid = "";
-        String appId = WeixinContext.getInstance().getAppId();
-        String appSecret = WeixinContext.getInstance().getAppSecurt();
-        // »»È¡access_token ÆäÖÐ°üº¬ÁËopenid
-        // ÕâÀïÍ¨¹ýcode»»È¡µÄÊÇÒ»¸öÌØÊâµÄÍøÒ³ÊÚÈ¨access_token,Óë»ù´¡Ö§³ÖÖÐµÄaccess_token£¨¸Ãaccess_tokenÓÃÓÚµ÷ÓÃÆäËû½Ó¿Ú£©²»Í¬¡£
-        String URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code"
-                .replace("APPID", appId).replace("SECRET", appSecret).replace("CODE", code);
-        String string = WeixinBasicKit.sendGet(URL);
-        OpenIdResult openidResult = (OpenIdResult) JsonUtil.getInstance().json2Obj(string, OpenIdResult.class);
-        System.out.println(openidResult.getOpenid());
-        return openidResult.getOpenid();
+    	if(code != null) {
+    		String openid = "";
+            String appId = WeixinContext.getInstance().getAppId();
+            String appSecret = WeixinContext.getInstance().getAppSecurt();
+            // ï¿½ï¿½È¡access_token ï¿½ï¿½ï¿½Ð°ï¿½ï¿½ï¿½ï¿½ï¿½openid
+            // ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½codeï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½È¨access_token,ï¿½ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½ï¿½Ðµï¿½access_tokenï¿½ï¿½ï¿½ï¿½access_tokenï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿Ú£ï¿½ï¿½ï¿½Í¬ï¿½ï¿½
+            String URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code"
+                    .replace("APPID", appId).replace("SECRET", appSecret).replace("CODE", code);
+            String string = WeixinBasicKit.sendGet(URL);
+            OpenIdResult openidResult = (OpenIdResult) JsonUtil.getInstance().json2Obj(string, OpenIdResult.class);
+            System.out.println(openidResult.getOpenid());
+            return openidResult.getOpenid();
+    	}else {
+    		return "";
+    	}
     }
 }

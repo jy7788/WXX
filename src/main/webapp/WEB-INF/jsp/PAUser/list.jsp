@@ -57,7 +57,7 @@ function clickBind(openid) {
 	        if(data != null) {
 	        	if(data.indexOf("success") > 0) {
 		        	//alert("绑定请求发送完成,等待对方接受。。。");
-		        	showDialog("绑定请求发送完成,等待对方接受。。。", "确定");
+		        	showDialog("绑定请求发送完成,等待对方接受...", "确定");
 	        	} else {
 		        	//alert("已经发送过请求");
 		        	showDialog("已经发送过请求", "确定");
@@ -130,7 +130,7 @@ $(document).ready(function () {
 				
 				<c:forEach items="${PAUsers}" var="pAUser">
 					<div class="qukuailian_list">
-						<span class="jianchent">平</span>
+						<span class="jianchent" style="background:url(${pAUser.imgUrl});background-repeat:no-repeat;background-size:100%;margin-top:.852rem;"></span>
 						<div class="gongsiming">
 							<div class="qukuailian_text" style="margin-bottom:20%">
 								<p><span>${pAUser.organization}</span></p>

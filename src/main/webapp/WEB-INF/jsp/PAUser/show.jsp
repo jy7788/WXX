@@ -47,7 +47,7 @@ a:link{
 	    </div>
 	    <div class="qukuailianlist_content">
 		    <div>
-				<div class="qukuailian_list">
+				<div class="qukuailian_list" id="peopleDiv" >
 					<span class="touxiang" 
 					style="width:2.4rem;height:2.4rem;
 					background:url(img/weizhitouxiang-icon.png) no-repeat;
@@ -56,7 +56,7 @@ a:link{
 					">
 					  <img src="${pAUser.imgUrl }" style="width:100%;height:100%;border:none;">
 					</span>
-					<div  class="gongsiming">
+					<div  class="gongsiming" >
 						<div class="qukuailian_text" style="margin-bottom: 26%;">
 							<p><span>${pAUser.organization }</span></p>
 							<c:choose>
@@ -69,8 +69,6 @@ a:link{
 								<p><span>职位 : ${pAUser.position }</span></p>
 							</c:otherwise>
 							</c:choose>	
-							
-							
 						</div>
 						<!-- <div class="shouquan yi" style="background: url(img/jujue-but.png) no-repeat;background-size: 100%;position:absolute;left:-1rem;">
 						  拒绝查看
@@ -172,6 +170,14 @@ a:link{
 	</div>
 
 	<script src='<%=request.getContextPath()%>/js/qukuailian_weixin/js/rem.js'></script>
-	<script src="<%=request.getContextPath()%>/js/qukuailian_weixin/js/jquery-1.11.3.min.js"></script> 
+	<script src="<%=request.getContextPath()%>/js/qukuailian_weixin/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		$("#peopleDiv").click(function () {
+			location.href='gotolist';   	
+		});
+	});
+	
+	</script> 
 </body>
 </html>
