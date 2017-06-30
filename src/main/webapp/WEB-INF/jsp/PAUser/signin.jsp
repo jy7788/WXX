@@ -37,6 +37,10 @@ a:link{
 }
 </style>
 <script type="text/javascript">
+function showDialog(text, link) {
+	$("#msgDialog").attr("style", "display:block;");
+}
+
 function GetJsonData() {
     var json = {
         "userNum": $("#phoneNum").val(),
@@ -45,6 +49,23 @@ function GetJsonData() {
     return json;
 }
 
+	var wait=60;  
+	function time(o) { 
+        if (wait == 0) {  
+            o.attr("disabled", false);            
+            o.val("免费获取验证码");  
+            wait = 60;  
+        } else {  
+            o.attr("disabled", true);  
+            o.val("重新发送(" + wait + ")");  
+            wait--; 
+            setTimeout(function() {  
+                time(o)
+            },  
+            1000)
+        }  
+    } 
+
 $(document).ready(function () {
 	//判断手机横竖屏状态：  
    	 window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function() {  
@@ -52,7 +73,7 @@ $(document).ready(function () {
                 alert('请使用竖屏浏览，谢谢！');  
             }    
         }, false); 
-	
+	//提交按钮
      $("#submitButton").click(function () {
     	 var form = $("#bindForm");
     	 alert(form);
@@ -61,73 +82,49 @@ $(document).ready(function () {
     }); 
      
     $("#validPhone").click(function () {
-    	$.ajax( {
-		    url : "valid?" + "phoneNum=" +  $("#phoneNum").val() + "&validCode=" + $("#dxyzm").val(),
-		    type : "GET", 
-		    success : function(msg) {
-		    	if(msg.indexOf("success") > 0) {
-		    		//alert("valid success");
-		    		$("#bindForm").submit();
-		    	}else {
-		    		alert("验证码错误");
-		    	}
-		    },
-	        error:function(e){
-	   		}  
- 		});
+  		$.ajax( {
+  		    url : "valid?" + "phoneNum=" +  $("#phoneNum").val() + "&validCode=" + $("#dxyzm").val(),
+  		    type : "GET", 
+  		    success : function(msg) {
+  		    	if(msg.indexOf("success") > 0) {
+  		    		//alert("valid success");
+  		    		$("#bindForm").submit();
+  		    	}else {
+  		    		alert("验证码错误");
+  		    	}
+  		    },
+  	        error:function(e){
+  	   		}  
+   		});
     }); 
         
     $("#checkButton").click(function () {
     	//alert(JSON.stringify(GetJsonData()));
-	   	$.ajax({
-	        /* type: "POST",
-	        url: "http://smea.pingan.com.cn/smelp_core/a/customer/scf/customerInfo/getPhoneValidCode4json",
-	        //contentType: "application/json; charset=utf-8",
-	        //data: JSON.stringify(GetJsonData()),
-	        data: "data=" + JSON.stringify(GetJsonData()),
-	        //dataType: "json",
-	        success: function (message) {
-	            alert(message);
-	        },
-	        error: function (message) {
-	            //$("#request-process-patent").html("提交数据失败！");
-	        	alert(JSON.stringify(message));
-	        },
-	        complete:function(message) {
-		    	alert(JSON.stringify(message));
-		    } */
-	   		url : "getYzm?" + "phoneNum=" +  $("#phoneNum").val(),
-		    type : "GET", 
-		    //dataType:"text",
-		    //contentType:'application/json;charset=UTF-8',
-		    //data:JSON.stringify({phoneNum:'1'}),
-		    success : function(data) {
-		        var obj = jQuery.parseJSON(data);
-		        if(obj != null) {
-		        	if(obj.organization != null) {
-		        		$("#organization").val(obj.organization);
-		        	}
-		        	if(obj.username != null) {
-		        		$("#username").val(obj.username);
-		        	}
-		        	if(obj.position != null) {
-    		        	$("#position").val(obj.position);
-		        	}
-		        }
-		    },
-	        error:function(e){
-		    	//alert("该手机号尚未绑定");   
-	   		}  
-	    });
+    	if($("#phoneNum").val() != "") {
+    		$.ajax({
+    	   		url : "getYzm?" + "phoneNum=" +  $("#phoneNum").val(),
+    		    type : "GET", 
+    		    success : function(data) {
+    		        var obj = jQuery.parseJSON(data);
+    		        if(obj != null) {
+    		        	
+    		        }
+    		    },
+    	        error:function(e){
+    		    	//alert("该手机号尚未绑定");   
+    	   		}  
+    	    });
+    		time($("#checkButton"));
+    	}else {
+    		alert("手机号不能为空");
+    	}
+	   	
    });
      
      $("#phoneNum").blur(function() {
     	 $.ajax( {
     		    url : "load?" + "phoneNum=" +  $("#phoneNum").val(),
     		    type : "GET", 
-    		    //dataType:"text",
-    		    //contentType:'application/json;charset=UTF-8',
-    		    //data:JSON.stringify({phoneNum:'1'}),
     		    success : function(data) {
     		        var obj = jQuery.parseJSON(data);
     		        if(obj != null) {
@@ -152,7 +149,16 @@ $(document).ready(function () {
 </head>
 <body>
 <input type="hidden" name="validId" value="" />
+
 	<div class="qukuailian_bg" >
+		<div class="alert" id="msgDialog" style="position:fixed">
+		<div class="alert_main">
+			<a class="cuowu"></a>
+			<p class="text" id="dialogMessage">目前您还没有开通访问授权！<br>请您前去开通！</p>
+			<p class="fangwen"><a href="/pauser/signin">访问授权区块链</a></p>
+		</div>
+		</div>
+	
 	    <div class="qkl_title_lg">
 	      <div class="qkl_title">
 		        <span class="font_s1">区块链培训研讨会</span><br>
@@ -170,14 +176,22 @@ $(document).ready(function () {
 	       </div> -->
 	       <form name="bindForm" id="bindForm" action="signin" method="post" enctype="multipart/form-data">
 	       <div class="ipt_bg">
-	          <input type="text" name="phoneNum" id= "phoneNum" placeholder="请输入您的手机号码" required="required" autofocus="autofocus">
+	          <input type="text" name="phoneNum" id= "phoneNum" placeholder="请输入您的手机号码" required="required" autofocus="autofocus"  maxlength="11">
 	          <span class="fdj" id="getMessage" name="getMessage"></span>
 	       </div>
 	       <div class="dxyzm_lr2">
 	        <div class="ipt_bg">
 	          <input class="dxyzm_l" id="dxyzm" type="text" placeholder="短信验证码" required="required" autofocus="autofocus">
 	       </div>
-	       <input class="dxyzm_r" id="checkButton" type="button" value="获取验证码">
+	       <c:choose>
+				<c:when test="${mUser==null || mUser.bind==0}">
+					<input class="dxyzm_r" id="checkButton" type="button" value="获取验证码" >
+				</c:when>
+				<c:otherwise>
+					<input class="dxyzm_r" id="checkButton" type="button" value="获取验证码" disabled="disabled">
+				</c:otherwise>
+		   </c:choose>
+	       
 	       </div>
 	       <div class="ipt_bg">
 	          <input type="text" name="organization" id= "organization" placeholder="所在机构" required="required" autofocus="autofocus">
@@ -203,7 +217,7 @@ $(document).ready(function () {
 				</c:when>
 				<c:otherwise>
 					<td colspan="2">
-					<div class="btn_tijiao_bg" ><a href="gotolist">点击进入名单列表</a></div>
+					<div class="btn_tijiao_bg" style="width:80%;"><a href="gotolist">已签到,点击进入名单列表</a></div>
 				</c:otherwise>
 		   </c:choose>
 	       </form>

@@ -34,6 +34,20 @@ a:link{
 }
 </style>
 <script type="text/javascript">
+function showDialog(text, link) {
+	$("#dialogText").html(text);
+	$("#dialogMessage").html(link);
+	$("#msgDialog").attr("style", "display:block;");
+	$("#dialogMessage").click(function () {
+		$("#msgDialog").attr("style", "");
+   });
+	$("#closeImg").click(function () {
+		$("#msgDialog").attr("style", "");
+   });
+	
+	
+}
+
 function clickBind(openid) {
 	//alert(openid);
 	$.ajax( {
@@ -41,16 +55,26 @@ function clickBind(openid) {
 	    type : "GET", 
 	    success : function(data) {
 	        if(data != null) {
-	        	alert("绑定请求发送完成,等待对方接受。。。");
+	        	if(data.indexOf("success") > 0) {
+		        	//alert("绑定请求发送完成,等待对方接受。。。");
+		        	showDialog("绑定请求发送完成,等待对方接受。。。", "确定");
+	        	} else {
+		        	//alert("已经发送过请求");
+		        	showDialog("已经发送过请求", "确定");
+	        	}
+	        	//$("#bindUserDiv").css('display','none');
 	        }
 	    },
         error:function(e){
-	    	alert("发送失败");   
+	    	//alert("发送失败");   
+	    	showDialog("发送失败", "确定");
    		}  
 	});
 }
 $(document).ready(function () {
-     
+	/* $("#dialogMessage").click() {
+		//$("#msgDialog").hide();
+	} */
 });
 </script>
 
@@ -59,25 +83,25 @@ $(document).ready(function () {
 
 <c:choose>
 <c:when test="${ mUser == null }">
-	<div class="alert"  style="display:block;">
-	<div class="alert_main">
-		<a class="cuowu"></a>
-		<p class="text">目前您还没有开通访问授权！<br>请您前去开庭！</p>
-		<p class="fangwen"><a href="/pauser/signin">访问授权区块链</a></p>
+	<div class="alert" id="msgDialog" style="display:block;position:fixed;">
+		<div class="alert_main">
+			<a class="cuowu" id="closeImg"></a>
+			<p class="text" id="dialogText">目前您还没有开通访问授权！<br>请您前去开通！</p>
+			<p class="fangwen" id="dialogMessage"><a href="/pauser/signin">访问授权区块链</a></p>
+		</div>
 	</div>
-</div>
 </c:when>
 <c:otherwise>
-	<div class="alert"  >
-	<div class="alert_main">
-		<a class="cuowu"></a>
-		<p class="text">目前您还没有开通访问授权！<br>请您前去开庭！</p>
-		<p class="fangwen">访问授权区块链</p>
+	<div class="alert" id="msgDialog" style="position:fixed;">
+		<div class="alert_main">
+			<a class="cuowu" id="closeImg"></a>
+			<p class="text" id="dialogText">目前您还没有开通访问授权！<br>请您前去开通！</p>
+			<p class="fangwen" id="dialogMessage">访问授权区块链</p>
+		</div>
 	</div>
-</div>
 </c:otherwise>
 </c:choose>	
-	<div class="qukuailian_bg"  >
+	<div class="qukuailian_bg"  style="width: 100%;height: 100%;overflow-y: scroll;overflow-x: hidden;">
 	    
 	    <div class="qukuailianlist_content" style="padding-top:0;">
 		    <div>
@@ -108,7 +132,7 @@ $(document).ready(function () {
 					<div class="qukuailian_list">
 						<span class="jianchent">平</span>
 						<div class="gongsiming">
-							<div class="qukuailian_text">
+							<div class="qukuailian_text" style="margin-bottom:20%">
 								<p><span>${pAUser.organization}</span></p>
 								<p><span>姓名: ${pAUser.username}<i></i></span><span>职位: ${pAUser.position }<i></i></span></p>
 								
@@ -122,7 +146,7 @@ $(document).ready(function () {
 								</c:choose>	
 								
 								
-								<p><span class="xiaosize">2017.02.23 18:09</span></p>
+								<!-- <p><span class="xiaosize">2017.02.23 18:09</span></p> -->
 							</div>
 							<%-- <div class="shouquan wei"><a href="bindUser/${pAUser.openid }">授权查看</a></div> --%>
 							<c:choose>
@@ -130,7 +154,7 @@ $(document).ready(function () {
 									<div class="shouquan wei">已授权</a></div>
 								</c:when>
 								<c:otherwise>
-									<div class="shouquan wei" name="bindUserDiv" onclick="clickBind('${pAUser.openid }')">授权查看</div>  
+									<div class="shouquan wei" name="bindUserDiv" id="bindUserDiv" onclick="clickBind('${pAUser.openid }')">授权查看</div>  
 								</c:otherwise>
 							</c:choose>	
 						</div>

@@ -217,20 +217,28 @@ public class PAUserController {
 						if(user.getOpenid().equals(bind.getOpenid())) {
 							System.out.println("binded id  " + bind.getNickname());
 							user.setStatus(1);
+						}else {
+							//user.setUsername(user.getUsername().substring(0, 1) + "**");
 						}
 					}
-					
 				}
 				if(bindMeList != null) {
 					for(PAUser bindMe : bindMeList) {
 						if(user.getOpenid().equals(bindMe.getOpenid())) {
 							System.out.println("binded id  " + bindMe.getNickname());
 							user.setStatus(1);
+						}else {
+							//user.setUsername(user.getUsername().substring(0, 1) + "**");
 						}
 					}
 				}
 //				System.out.println("phone " + user.getPhoneNum());
 				System.out.println("position " + user.getPosition());
+			}
+			for(PAUser user : others) {
+				if(user.getStatus() !=1) {
+					user.setUsername(user.getUsername().substring(0, 1) + " * * ");
+				}
 			}
 			model.addAttribute("PAUsers", others);//
 		}
@@ -284,7 +292,8 @@ public class PAUserController {
 		String mopenid = (String) request.getSession().getAttribute("mopenid");
 		System.out.println("mopenid" + mopenid);//请求发送者openid
 		System.out.println("openid" + openid);//请求接受者的openid, aopenid
-		TemplateMessage.sendBindUserTemplate(mopenid, openid, "绑定请求");
+		PAUser paUser = pAUserService.loadByOpenId(mopenid);
+		
 		PAUserRequest paUserRequest = pAUserRequestService.loadByOpenIds(mopenid, openid);
 		if(paUserRequest == null) {
 			PAUserRequest pAUserRequest = new PAUserRequest();
@@ -292,12 +301,20 @@ public class PAUserController {
 			pAUserRequest.setRequesterOpenid(mopenid);
 			pAUserRequest.setRequestStatus(1);//1表示请求发送成功  2为接收请求  3拒绝请求
 			pAUserRequestService.add(pAUserRequest);
+			TemplateMessage.sendBindUserTemplate(mopenid, openid, paUser.getUsername());
+			try {
+				response.getWriter().write("bind success");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				response.getWriter().write("bind failed");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		try {
-			response.getWriter().write("success");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 //		return "PAUser/sendBindResult";
 	}
 	/**

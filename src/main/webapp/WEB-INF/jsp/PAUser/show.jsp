@@ -61,10 +61,12 @@ a:link{
 							<p><span>${pAUser.organization }</span></p>
 							<c:choose>
 							<c:when test="${ pAUser.status == 1 }">
-								<p><span>${pAUser.username }  TEL: ${pAUser.phoneNum }</span></p>
+								<p><span>${pAUser.username }<br>TEL: ${pAUser.phoneNum }</span></p>
+								<p><span>职位 : ${pAUser.position }</span></p>
 							</c:when>
 							<c:otherwise>
 								<p><span>${pAUser.username }希望获得您的联系电话</span></p>
+								<p><span>职位 : ${pAUser.position }</span></p>
 							</c:otherwise>
 							</c:choose>	
 							
