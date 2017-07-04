@@ -22,9 +22,9 @@
   
   <insert id="add" parameterType="com.cn.hnust.model.pa.PAUser">
 		insert into t_pa_user 
-		(username, password, nickname, open_id, status, sex, bind, img_url, phone_num, area, position, organization)
+		(username, password,  open_id, status, sex, bind, img_url, phone_num, area, position, organization)
 		values
-		(#{username}, #{password}, #{nickname}, #{openid}, 
+		(#{username}, #{password}, #{openid}, 
 		 #{status},   #{sex},      #{bind},     #{imgUrl}, #{phoneNum}, #{area}, #{position}, #{organization})
   </insert>
   
@@ -65,7 +65,7 @@
     update t_pa_user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
+      <!-- nickname = #{nickname,jdbcType=VARCHAR}, -->
       open_id = #{openid,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       sex = #{sex,jdbcType=INTEGER},
@@ -93,7 +93,7 @@
 	</select>
 	
   	<select id="pAUserFindOthers" resultMap="BaseResultMap" parameterType="string">
-		select * from t_pa_user where open_id != #{openid}    
+		select * from t_pa_user where open_id != #{openid} and bind = 1
 	</select>
 	
 	<select id="pAUserFindBinded" resultMap="BaseResultMap" parameterType="string">

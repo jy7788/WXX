@@ -1,4 +1,4 @@
-package com.cn.hnust.service.impl;
+package com.cn.hnust.service;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.cn.hnust.dao.IUserDao;
 import com.cn.hnust.exception.WXException;
 import com.cn.hnust.model.User;
-import com.cn.hnust.service.IUserService;
 
 @Service("userService")
 public class UserService implements IUserService{

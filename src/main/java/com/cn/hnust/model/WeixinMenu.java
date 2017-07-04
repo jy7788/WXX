@@ -11,9 +11,6 @@ public class WeixinMenu {
 	private String menuKey;
 	private Integer pid;
 	private String type;
-	/**
-	 * 响应类型如果为1表示去content来响应
-	 */
 	private int respType;
 	
 	public int getId() {

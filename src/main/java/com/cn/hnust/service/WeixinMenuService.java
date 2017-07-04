@@ -1,4 +1,4 @@
-package com.cn.hnust.service.impl;
+package com.cn.hnust.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.cn.hnust.dao.IWeixinMenuDao;
 import com.cn.hnust.model.WeixinMenu;
 import com.cn.hnust.model.WeixinMenuDto;
-import com.cn.hnust.service.IWeixinMenuService;
 
 @Service("weixinMenuService")
 public class WeixinMenuService implements IWeixinMenuService {

@@ -1,4 +1,4 @@
-package com.cn.hnust.service.impl;
+package com.cn.hnust.service;
 
 import java.io.IOException;
 
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.cn.hnust.kit.kit.WeixinBasicKit;
 import com.cn.hnust.model.WeixinFinalValue;
-import com.cn.hnust.service.IWqrService;
 import com.cn.hnust.util.JsonUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 

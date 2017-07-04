@@ -1,4 +1,4 @@
-package com.cn.hnust.service.impl;
+package com.cn.hnust.service;
 
 import java.util.Date;
 import java.util.List;
@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.cn.hnust.dao.IWeixinQrDao;
 import com.cn.hnust.model.WeixinQr;
-import com.cn.hnust.service.IWeixinQrService;
-import com.cn.hnust.service.IWqrService;
 import com.cn.hnust.util.RandomUtils;
 
 @Service("weixinQrService")

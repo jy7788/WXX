@@ -1,4 +1,4 @@
-package com.cn.hnust.service.impl;
+package com.cn.hnust.service;
 
 import java.io.IOException;
 
@@ -8,7 +8,6 @@ import com.cn.hnust.kit.kit.WeixinBasicKit;
 import com.cn.hnust.model.WUser;
 import com.cn.hnust.model.WeixinContext;
 import com.cn.hnust.model.WeixinFinalValue;
-import com.cn.hnust.service.IWUserService;
 import com.cn.hnust.util.JsonUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 

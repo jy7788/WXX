@@ -1,4 +1,4 @@
-package com.cn.hnust.service.impl;
+package com.cn.hnust.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import com.cn.hnust.kit.kit.WeixinBasicKit;
 import com.cn.hnust.model.WeixinFinalValue;
 import com.cn.hnust.model.WeixinMenuDto;
-import com.cn.hnust.service.IWMenuService;
-import com.cn.hnust.service.IWeixinMenuService;
 import com.cn.hnust.util.JsonUtil;
 
 @Service("wMenuService")

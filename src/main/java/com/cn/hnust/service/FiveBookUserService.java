@@ -1,4 +1,4 @@
-package com.cn.hnust.service.impl;
+package com.cn.hnust.service;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.cn.hnust.dao.IFiveBookUserDao;
 import com.cn.hnust.exception.WXException;
 import com.cn.hnust.model.FiveBookUser;
-import com.cn.hnust.service.IFiveBookUserService;
 
 @Service("fiveBookUserService")
 public class FiveBookUserService implements IFiveBookUserService{
