@@ -17,7 +17,6 @@ public class Sign {
 		String timestamp = create_timestamp();
 		String string1;
 		String signature = "";
-		// 注意这里参数名必须全部小写，且必须有序
 		string1 = "jsapi_ticket=" + jsapi_ticket + "&noncestr=" + nonce_str
 				+ "&timestamp=" + timestamp + "&url=" + url;
 		System.out.println(string1);
@@ -32,7 +31,7 @@ public class Sign {
 			e.printStackTrace();
 		}
 		ret.put("url", url);
-		//注意这里 要加上自己的appId
+		//注锟斤拷锟斤拷锟斤拷 要锟斤拷锟斤拷锟皆硷拷锟斤拷appId
 		ret.put("appId", WeixinContext.getInstance().getAppId());
 		ret.put("jsapi_ticket", jsapi_ticket);
 		ret.put("nonceStr", nonce_str);

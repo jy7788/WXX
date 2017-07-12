@@ -35,7 +35,7 @@ public class RefreshJsApiTicketTask {
         	WeixinContext.getInstance().setTicket(ticket);
         	System.out.println(" ticket " + ticket.getTicket());
         } catch (Exception e){
-        	e.printStackTrace();
+        	refreshJsapiTicket();
         }
 	}
 }

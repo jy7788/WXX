@@ -17,6 +17,8 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\quartz\RefreshAcce
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\pa\PAUserRequestService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\web\servlet\BeanFactoryContext.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\exception\WXException.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\AudioController.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\web\audiorecognize\RecognizeUtil.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\pa\PAUserDao.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\SessionController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\PersonDao.java
@@ -48,11 +50,12 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\FiveBookUser
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\DuplicateMessage.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\IWUserService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\ModelMsgData.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\voice\WordResult.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\IWeixinMenuService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\json\OpenIdResult.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\WeixinFinalValue.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\web\audiorecognize\TestLfasr.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\pojo\User.java
-D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\socket\TestSend.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\IWeixinQrService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\IFiveBookUserService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\WeixinMenu.java
@@ -74,6 +77,7 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\socket\MultiThread
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\util\JsonUtil.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\WMenuService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\util\MessageUtil.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\voice\SpeechMessage.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\WeixinMenuService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\InitController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\WeixinMessageKit.java

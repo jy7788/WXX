@@ -37,9 +37,5 @@ public class RefreshAccessTokenTask {
 		} else {
 			refreshToken();
 		}
-//		System.out.println("accesstoken" + at.getAccess_token());
-//		ErrorEntity err = (ErrorEntity)JsonUtil.getInstance().json2Obj(content, ErrorEntity.class);
-//		System.out.println("»ñÈ¡accesstoken ³ö´í:"+err.getErrcode()+","+err.getErrmsg());
-//		refreshToken();
 	}
 }

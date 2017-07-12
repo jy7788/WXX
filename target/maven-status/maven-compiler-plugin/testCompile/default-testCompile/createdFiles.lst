@@ -1,0 +1,8 @@
+org\zsl\testmybatis\TestAuth2.class
+org\zsl\testmybatis\TestHttpClient.class
+org\zsl\testmybatis\TestMyBatisService.class
+org\zsl\testmybatis\TestUserDao.class
+org\zsl\testmybatis\TestPAUserDao.class
+org\zsl\testmybatis\TestAuth.class
+org\zsl\testmybatis\TestFiveBookUserService.class
+org\zsl\testmybatis\TestSend.class

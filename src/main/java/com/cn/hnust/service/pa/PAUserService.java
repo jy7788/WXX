@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.junit.Test;
 import org.springframework.stereotype.Service;
 
 import com.cn.hnust.dao.pa.IPAUserDao;
