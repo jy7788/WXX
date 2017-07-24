@@ -27,6 +27,10 @@ public class BaseDao<T> implements IBaseDao<T>{
 		session.delete(clz.getName() + ".delete", id);
 	}
 	
+	public void deleteByUUID(Class<T> clz, String id) {
+		session.delete(clz.getName() + ".deleteByUUID", id);
+	}
+	
 	public List<T> list(Class<T> clz, Map<String, Object> params) {
 		System.out.println(clz.getName() + "FindAll");
 		return list(clz.getName() + "FindAll", params);
@@ -77,6 +81,10 @@ public class BaseDao<T> implements IBaseDao<T>{
 		T t = null;
 		t = session.selectOne(sqlId, obj);
 		return t;
+	}
+	@Override
+	public void addContent(T obj) {
+		session.insert(obj.getClass().getName() + ".addContent", obj);
 	}
 }	
 

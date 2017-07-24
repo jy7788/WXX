@@ -9,8 +9,8 @@
                         http://www.springframework.org/schema/context/spring-context-3.1.xsd  
                         http://www.springframework.org/schema/mvc  
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
-                        
-    <context:property-placeholder location="classpath:/resource/*.properties"/>
+
+	<context:property-placeholder location="classpath:/resource/*.properties" />
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<context:component-scan base-package="com.cn.hnust.controller" />
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
@@ -48,13 +48,13 @@
 		<!-- 内存中的最大值 -->
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
-	
+
 	<bean id="scheduledJob" class="com.cn.hnust.quartz.RefreshAccessTokenTask">
 	</bean>
-	
+
 	<bean id="refreshJsApiTicketJob" class="com.cn.hnust.quartz.RefreshJsApiTicketTask">
 	</bean>
-	
+
 	<bean id="duplicateMessageJob" class="com.cn.hnust.quartz.ClearMessageTask">
 	</bean>
 
@@ -64,7 +64,7 @@
 		<property name="targetMethod" value="refreshToken" />
 		<property name="concurrent" value="true" />
 	</bean>
-	
+
 	<bean id="scheduledJobDetailJsApi"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="refreshJsApiTicketJob" />
@@ -72,63 +72,62 @@
 		<property name="concurrent" value="true" />
 	</bean>
 
-	<!-- <bean id="doTime"
-		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail" ref="scheduledJobDetail" />
-		<property name="startDelay" value="1000"></property>
-		<property name="cronExpression">
-			<value>0 0 */1 * * ?</value>
-			<value>0/30 * * * * ?</value>
-		</property>
-	</bean> -->
-	<bean name="clearDuplicateMessageJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<!-- <bean id="doTime" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> 
+		<property name="jobDetail" ref="scheduledJobDetail" /> <property name="startDelay" 
+		value="1000"></property> <property name="cronExpression"> <value>0 0 */1 
+		* * ?</value> <value>0/30 * * * * ?</value> </property> </bean> -->
+	<bean name="clearDuplicateMessageJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="duplicateMessageJob" />
 		<property name="targetMethod" value="clearMessage" />
 		<property name="concurrent" value="false" />
 	</bean>
-	
-	<bean id="doTime" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
-        <property name="jobDetail" ref="scheduledJobDetail" />
-        <property name="startDelay" value="500" />
-        <property name="repeatInterval" value="6000000" />
-        <property name="repeatCount" value="-1" />
-    </bean>
-    
-    <bean id="doTimeJs" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
-        <property name="jobDetail" ref="scheduledJobDetailJsApi" />
-        <property name="startDelay" value="8000" />
-        <property name="repeatInterval" value="6000000" />
-        <property name="repeatCount" value="-1" />
-    </bean>
-	
-	<bean id="clearDuplicateMessageTrigger" 
-                class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+
+	<bean id="doTime"
+		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="scheduledJobDetail" />
+		<property name="startDelay" value="500" />
+		<property name="repeatInterval" value="6000000" />
+		<property name="repeatCount" value="-1" />
+	</bean>
+
+	<bean id="doTimeJs"
+		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="scheduledJobDetailJsApi" />
+		<property name="startDelay" value="8000" />
+		<property name="repeatInterval" value="6000000" />
+		<property name="repeatCount" value="-1" />
+	</bean>
+
+	<bean id="clearDuplicateMessageTrigger"
+		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
 		<property name="jobDetail" ref="clearDuplicateMessageJobDetail" />
 		<property name="repeatInterval" value="60000" />
 		<property name="startDelay" value="60000" />
 	</bean>
-    
+
 	<!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
 	<bean id="startQuertz" lazy-init="false" autowire="no"
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		
+
 		<property name="jobDetails">
-		   <list>
-		      <ref bean="clearDuplicateMessageJobDetail" />
-		      <ref bean="scheduledJobDetail" />
-		      <ref bean="scheduledJobDetailJsApi" />
-		   </list>
+			<list>
+				<ref bean="clearDuplicateMessageJobDetail" />
+				<ref bean="scheduledJobDetail" />
+				<ref bean="scheduledJobDetailJsApi" />
+			</list>
 		</property>
 		<property name="triggers">
-		    <list>
-			<ref bean="doTime" />
-			<ref bean="doTimeJs" />
-			<ref bean="clearDuplicateMessageTrigger" />
-		    </list>
+			<list>
+				<ref bean="doTime" />
+				<ref bean="doTimeJs" />
+				<ref bean="clearDuplicateMessageTrigger" />
+			</list>
 		</property>
 	</bean>
-	
-	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
 			<props>
 				<prop key="com.cn.hnust.exception.WXException">error</prop>

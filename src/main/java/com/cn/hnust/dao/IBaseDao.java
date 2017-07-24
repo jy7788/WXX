@@ -11,6 +11,8 @@ public interface IBaseDao<T> {
 	public void update(T obj);
 
 	public void delete(Class<T> clz, int id);
+	
+	public void deleteByUUID(Class<T> clz, String id);
 
 	public List<T> list(Class<T> clz, Map<String, Object> params);
 
@@ -25,5 +27,7 @@ public interface IBaseDao<T> {
 	public T loadBySqlId(String sqlId, Map<String, Object> params);
 
 	public T loadBySqlId(String sqlId, Object obj);
+	
+	public void addContent(T obj);
 
 }

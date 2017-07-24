@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.model.sat.SatArticle" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.model.sat.SatArticle" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="open_id" property="openid" jdbcType="VARCHAR" />
+    <result column="stars" property="stars" jdbcType="INTEGER" />
+    <result column="shares" property="shares" jdbcType="INTEGER" />
+    <result column="watches" property="watches" jdbcType="INTEGER" />
+    <result column="self_created" property="selfCreated" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="desc_img_url" property="descImgUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, title, open_id, stars, shares, watches, self_created, create_time, update_time, url, desc_img_url
+  </sql>
+  
+  <insert id="add" parameterType="com.cn.hnust.model.sat.SatArticle">
+		insert into t_sat_article 
+		(id, title, open_id,  stars, shares, watches, self_created, create_time, update_time, url, desc_img_url)
+		values
+		(#{id}, #{title}, #{openid}, #{stars}, 
+		 #{shares},   #{watches},      #{selfCreated},    #{createTime}, #{updateTime}, #{url}, #{descImgUrl})
+  </insert>
+  
+  <insert id="addContent" parameterType="com.cn.hnust.model.sat.SatArticle">
+		insert into t_sat_article_content 
+		(id, content)
+		values
+		(#{id}, #{content} )
+  </insert>
+  
+  <select id="listArticleSummary" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sat_article
+    where id = #{id,jdbcType=VARCHAR} 
+    order by create_time desc
+  </select>
+  
+  <select id="loadArticleContent" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sat_article_content
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="loadArticleById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sat_article
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="listBySatUserOpenId" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sat_article
+    where open_id = #{openid,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="listSatArticles" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sat_article
+    order by create_time desc 
+  </select>
+  
+  <delete id="deleteByUUID" parameterType="java.lang.String" >
+    delete from t_sat_article
+    where id = #{id,jdbcType=VARCHAR};
+    
+    delete from t_sat_article_content
+    where id = #{id,jdbcType=VARCHAR};
+  </delete>
+  
+  <update id="update" parameterType="com.cn.hnust.model.sat.SatArticle" >
+    update t_sat_article
+    set title = #{title,jdbcType=VARCHAR},
+      open_id = #{openid,jdbcType=VARCHAR},
+      <!-- nickname = #{nickname,jdbcType=VARCHAR}, -->
+      stars = #{stars,jdbcType=INTEGER},
+      shares = #{shares,jdbcType=INTEGER},
+      watches = #{watches,jdbcType=INTEGER},
+      self_created = #{selfCreated,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      url = #{url,jdbcType=VARCHAR},
+      desc_img_url = #{descImgUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  	<!-- <select id="pAUserFindAll" resultMap="BaseResultMap" parameterType="Map">
+		select * from t_pa_user
+		<where>
+			<if test="name!= null">username like #{name} or nickname like #{name}</if>
+		</where>
+		<if test="sort != null">order by ${sort} 
+			<if test="order!= null">
+				${order,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="offSet != null"> 
+		limit #{offSet,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+		</if>
+	</select> -->
+	
+	<!-- <select id="find_count" parameterType="map" resultType="int">
+		select count(*) from t_sat_user 
+		<if test="name !=null"> where (username like #{name} or nickname like #{name})</if>
+	</select> -->
+	
+</mapper>
