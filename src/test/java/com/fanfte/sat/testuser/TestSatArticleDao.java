@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cn.hnust.dao.sat.ISatArticleDao;
 import com.cn.hnust.htmlparser.HtmlParser;
+import com.cn.hnust.json.ArticleContentJson;
 import com.cn.hnust.kit.kit.WeixinBasicKit;
 import com.cn.hnust.model.json.sat.ArticleJson;
 import com.cn.hnust.model.json.sat.MobileArticleJson;
@@ -96,7 +97,9 @@ public class TestSatArticleDao {
 	}
 
 	@Test
+	//@Transactional(rollbackFor=Exception.class)
 	public void testGetArticleMessage() {
+		String urlPosst = "https://api.wallstreetcn.com/v2/posts/";
 		String postResult = WeixinBasicKit.sendGet("https://api.wallstreetcn.com/v2/mobile-articles");
 		System.out.println(postResult);
 		
@@ -106,10 +109,11 @@ public class TestSatArticleDao {
 		for(int i = 0; i < results.size() ;i++) {
 			ArticleJson articleJson = results.get(i);
 			String url = articleJson.getImg().getUrl();
-			System.out.println(articleJson.getCreatedAt());
+			System.out.println(articleJson.getId());
 			
 			SatArticle article = satArticleDao.loadArticleById(articleJson.getId() + "");
 			if(article == null) {
+				String html = HtmlParser.parseHTML(articleJson.getUrl());
 				SatArticle mArticle = new SatArticle();
 				mArticle.setId(articleJson.getId() + "");
 				mArticle.setCreateTime(new Date(articleJson.getCreatedAt() * 1000));
@@ -121,8 +125,21 @@ public class TestSatArticleDao {
 				mArticle.setWatches(0);
 				mArticle.setTitle(articleJson.getTitle());
 				mArticle.setDescImgUrl(articleJson.getImg().getUrl());
-				satArticleDao.add(mArticle);
+				String content = WeixinBasicKit.sendGet(urlPosst + articleJson.getId());
+				ArticleContentJson articleContentJson = (ArticleContentJson) JsonUtil.getInstance().json2Obj(content, ArticleContentJson.class);
+				System.out.println(articleContentJson.getContent());
+				mArticle.setContent(articleContentJson.getContent());
+				add(mArticle);
 			}
+		}
+	}
+	@Transactional(rollbackFor=Exception.class)
+	public void add(SatArticle mArticle) {
+		try{
+			satArticleDao.add(mArticle);
+			satArticleDao.insertContent(mArticle);
+		} catch (Exception e) {
+			return;
 		}
 	}
 	
@@ -141,5 +158,12 @@ public class TestSatArticleDao {
 		System.out.println(page2.getNextPage());
 		System.out.println(page2.getLastPage());
 		
+	}
+	
+	@Test
+	public void loadArticleContent() {
+		SatArticle satArticle = satArticleDao.loadContentById(316681 + "");
+		System.out.println(satArticle.getContent());
+		System.out.println(satArticle.getTitle());
 	}
 }

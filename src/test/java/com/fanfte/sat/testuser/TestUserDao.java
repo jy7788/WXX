@@ -38,7 +38,7 @@ public class TestUserDao {
 		satUser.setStatus(1);
 		satUser.setTrade("银行");
 		satUser.setUsername("fanfte222");
-		satUser.setBirthday(new Date());
+		satUser.setBirthday((new Date()).toString());
 		satUserDao.insertOrUpdate(satUser);
 	}
 	

@@ -17,20 +17,21 @@
     <result column="trade" property="trade" jdbcType="VARCHAR" />
     <result column="organization" property="organization" jdbcType="VARCHAR" />
     <result column="signature" property="signature" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, username, password, nickname, open_id, status, sex, bind, img_url, qr_code, phone_num, area, trade, organization, signature
+    id, username, password, nickname, open_id, status, sex, bind, img_url, qr_code, phone_num, area, birthday, trade, organization, signature
   </sql>
   
   <insert id="add" parameterType="com.cn.hnust.model.sat.SatUser">
 		insert into t_sat_user 
-		(username, password,  open_id, status, sex, bind, img_url, qr_code, phone_num, area, trade, organization, signature)
+		(username, password,  open_id, status, sex, bind, img_url, qr_code, phone_num, area, birthday, trade, organization, signature)
 		values
 		(#{username}, #{password}, #{openid}, 
-		 #{status},   #{sex},      #{bind},    #{imgUrl}, #{qrCode}, #{phoneNum}, #{area}, #{trade}, #{organization}, #{signature})
+		 #{status},   #{sex},      #{bind},    #{imgUrl},   #{qrCode}, #{phoneNum}, #{area}, #{birthday}, #{trade}, #{organization}, #{signature})
   </insert>
   
   <select id="load" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -78,10 +79,11 @@
       img_url = #{imgUrl,jdbcType=VARCHAR},
       qr_code = #{qrCode,jdbcType=VARCHAR},
       area = #{area,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
       trade = #{trade,jdbcType=VARCHAR},
       organization = #{organization,jdbcType=VARCHAR},
       signature = #{signature,jdbcType=VARCHAR},
-      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   

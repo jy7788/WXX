@@ -28,7 +28,7 @@ public class TestJsoup {
 			e.printStackTrace();
 		}*/
 		
-		String html = HtmlParser.parseHTML("https://mp.weixin.qq.com/s/ZWsqyuu1WOhu9XkZNQLinw");
+		String html = HtmlParser.parseHTML("http://wallstreetcn.com/node/315880");
 		System.out.println(html);
 	}
 }

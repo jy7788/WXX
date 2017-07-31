@@ -34,12 +34,12 @@
     from t_weixin_menu
     where menu_key = #{menuKey,jdbcType=VARCHAR}
   </select>
-  <!--
+  
   <delete id="delete" parameterType="java.lang.Integer" >
-    delete from t_person
+    delete from t_weixin_menu
     where id = #{id,jdbcType=INTEGER}
   </delete>
-   -->
+  
   <update id="update" parameterType="com.cn.hnust.model.WeixinMenu" >
     update t_weixin_menu
     set name = #{name,jdbcType=VARCHAR},

@@ -21,7 +21,7 @@ public class SatUser {
 	private String trade;
 	private String organization;
 	private String signature;
-	private Date birthday;
+	private String birthday;
 	private Date createTime;
 	private Date updateTime;
 	
@@ -37,10 +37,10 @@ public class SatUser {
 	public void setUpdateDate(Date updateDate) {
 		this.updateTime = updateDate;
 	}
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 	public String getQrCode() {

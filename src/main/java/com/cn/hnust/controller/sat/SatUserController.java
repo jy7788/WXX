@@ -1,11 +1,14 @@
 package com.cn.hnust.controller.sat;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,6 +41,44 @@ public class SatUserController {
 	@RequestMapping("/list")
 	public String userList() {
 		return "satuser/list";
+	}
+	
+	@RequestMapping("/personalCenter")
+	public String personalCenter(HttpServletRequest request) {
+		System.out.println(request.getContextPath());
+		return "sat/mobile/html/PersonalCenter.jsp";
+	}
+	
+	@RequestMapping("/detail/{openid}")
+	public String userDetail(@PathVariable String openid, Model model) {
+		SatUser satUser = satUserService.loadByOpenId(openid);
+		if(satUser != null) {
+			System.out.println(satUser.getUsername());
+			model.addAttribute("satUser", satUser);
+		}
+		return "sat/mobile/html/PersonalData.jsp";
+	}
+	
+	
+	@RequestMapping(value="/update",  method = RequestMethod.POST)
+	public String userUpdate(SatUser satUser) {
+		SatUser user = satUserService.loadByOpenId(satUser.getOpenid());
+		System.out.println(satUser.getOpenid());
+		System.out.println(satUser.getTrade());
+		System.out.println(satUser.getBirthday());
+		if(user != null) {
+			user.setBirthday(satUser.getBirthday());
+			user.setOrganization(satUser.getOrganization());
+			user.setQrCode(satUser.getQrCode());
+			user.setSex(satUser.getSex());
+			user.setSignature(satUser.getSignature());
+			user.setTrade(satUser.getTrade());
+			user.setUpdateDate(new Date());
+			System.out.println(user.getTrade());
+			satUserService.update(user);
+		}
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeixinFinalValue.APPID +"&redirect_uri=" + WeixinFinalValue.SERVER_URL + "satuser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+		return "redirect:" + url;
 	}
 	
 	@RequestMapping("/getYzm")//获取验证码
@@ -98,6 +139,12 @@ public class SatUserController {
 		return "redirect:" + url;
 	}
 	
+	@RequestMapping("/gotoUserCenter")
+	public String gotoUserCenter() {
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeixinFinalValue.APPID +"&redirect_uri=" + WeixinFinalValue.SERVER_URL + "satuser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+		return "redirect:" + url;
+	}
+	
 	/**
 	 * 进入签到页面
 	 * @author fanfte
@@ -110,23 +157,35 @@ public class SatUserController {
 	 */
 	@RequestMapping(value="/goauth" ,method=RequestMethod.GET)
 	public String weixinAuth(HttpServletRequest request,HttpServletResponse response, Model model) {
-		try{
-	        System.out.println("获取的code: :"+request.getParameter("code"));
-	        String openid = ExchangeCode2OpenId.exchange(request.getParameter("code"));
-//	        String openid = WeixinUtil.getWeChat(request.getParameter("code"));
-	        System.out.println("网页授权获取到的openid:"+openid);
-	        WUser wechatUser = WeixinUserUtil.getWechatUser(openid);
-	        System.out.println(wechatUser.getProvince());
-	        request.getSession().setAttribute("wechatUser", wechatUser); 
-	        model.addAttribute("mUser", satUserService.loadByOpenId(openid));
-	        }catch(Exception e){
-	            e.printStackTrace();
-	            System.out.println("调用网页授权异常："+e);
+		String code = request.getParameter("code");
+		if(code != null) {
+			System.out.println("获取的code: "+ code);
+	        String openid = ExchangeCode2OpenId.exchange(code);
+	        if(openid != null) {
+	        	System.out.println("网页授权获取到的openid: "+openid);
+	        	WUser wechatUser = WeixinUserUtil.getWechatUser(openid);
+	        	System.out.println(wechatUser.getProvince());
+	        	System.out.println(wechatUser.getHeadimgurl());
+	        	request.getSession().setAttribute("wechatUser", wechatUser);
+	        	SatUser satUser = satUserService.loadByOpenId(openid);
+	        	if(satUser != null) {
+	        		model.addAttribute("mUser", satUser);
+	        		return "sat/mobile/html/PersonalCenter.jsp";
+	        	} else {
+	        		model.addAttribute("mUser", satUser);
+	        		return "sat/mobile/html/SatUserRegist.jsp";
+	        	}
+	        }else {
+	        	model.addAttribute("mUser", null);
+	        	return "sat/mobile/html/PersonalCenter.jsp";
 	        }
-	        return "satuser/signin";
+		}else {
+        	model.addAttribute("mUser", null);
+        	return "/gotoUserCenter";
+        }
 	}
 	/**
-	 * 签到数据入库
+	 * 用户注册接口
 	 * @author fanfte
 	 * 
 	 * @param pAUser
@@ -135,48 +194,34 @@ public class SatUserController {
 	 * @return
 	 * 2017年6月26日
 	 */
-	@RequestMapping(value="/signin", method = RequestMethod.POST)
-	public String bindUser(PAUser pAUser, HttpServletRequest request,HttpServletResponse response) {
+	@RequestMapping(value="/regist", method = RequestMethod.POST)
+	public String bindUser(SatUser satUser, HttpServletRequest request,HttpServletResponse response) {
 		
 		WUser wUser = (WUser) request.getSession().getAttribute("wechatUser");
+		System.out.println("username " + satUser.getUsername() + " "  + satUser.getTrade() + " " + satUser.getOrganization());
 		if(wUser != null) {
 			SatUser mSatUser = new SatUser();
-			SatUser user = satUserService.loadByPhoneNum(pAUser.getPhoneNum());
-			//数据库有值，没绑定
-			if(user != null) {
-				System.out.println("sasdasds" + pAUser.getPhoneNum());
-				mSatUser.setId(user.getId());
-				mSatUser.setBind(1);
-				mSatUser.setUsername(pAUser.getUsername());
-				mSatUser.setImgUrl(wUser.getHeadimgurl());
+			SatUser user = satUserService.loadByOpenId(wUser.getOpenid());
+			if(user == null) {
 				mSatUser.setOpenid(wUser.getOpenid());
-				mSatUser.setNickname(wUser.getNickname());
-				mSatUser.setSex(wUser.getSex());
-				mSatUser.setPhoneNum(pAUser.getPhoneNum());
-				mSatUser.setEmail(pAUser.getEmail());
-//				System.out.println(wUser.getCountry() + "-" + wUser.getProvince() + "-" + wUser.getCity());
 				mSatUser.setArea(wUser.getCountry() + "-" + wUser.getProvince() + "-" + wUser.getCity());
-				mSatUser.setOrganization(pAUser.getOrganization());
-				satUserService.update(mSatUser);
-			}else {
-				//数据库中没有该用户
-				mSatUser.setBind(1);
-				mSatUser.setUsername(pAUser.getUsername());
+				mSatUser.setCreateDate(new Date());
+				mSatUser.setUpdateDate(new Date());
 				mSatUser.setImgUrl(wUser.getHeadimgurl());
-				mSatUser.setOpenid(wUser.getOpenid());
-				mSatUser.setNickname(wUser.getNickname());
+				mSatUser.setUsername(satUser.getUsername());
+				mSatUser.setPhoneNum(satUser.getPhoneNum());
+				mSatUser.setTrade(satUser.getTrade());
+				mSatUser.setOrganization(satUser.getOrganization());
 				mSatUser.setSex(wUser.getSex());
-				mSatUser.setPhoneNum(pAUser.getPhoneNum());
-				mSatUser.setEmail(pAUser.getEmail());
-//				System.out.println(wUser.getCountry() + "-" + wUser.getProvince() + "-" + wUser.getCity());
-				mSatUser.setArea(wUser.getCountry() + "-" + wUser.getProvince() + "-" + wUser.getCity());
-				mSatUser.setOrganization(pAUser.getOrganization());
 				satUserService.add(mSatUser);
+			} else {
+				throw new WXException("已经注册过");
 			}
 		} else {
 			throw new WXException("系统错误!");
 		}
-		return "redirect:/satuser/goUserList";
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeixinFinalValue.APPID +"&redirect_uri=" + WeixinFinalValue.SERVER_URL + "satuser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+		return "redirect:" + url;
 	}
 	
 	@RequestMapping("/goUserList")

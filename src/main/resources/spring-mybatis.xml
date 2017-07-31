@@ -12,7 +12,7 @@
 	<!-- 自动扫描 -->
 	<context:component-scan base-package="com.cn.hnust" />
 	<context:annotation-config/>
-     <context:component-scan base-package="org.springframework.web.filter.DelegatingFilterProxy"/>
+     <!-- <context:component-scan base-package="org.springframework.web.filter.DelegatingFilterProxy"/> -->
 	<bean id="configurer"
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -25,7 +25,7 @@
     </bean>
 	
 	
-	<bean id="redisHttpSessionConfiguration"
+	<!-- <bean id="redisHttpSessionConfiguration"
 		class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
 		<property name="maxInactiveIntervalInSeconds" value="600" />
 	</bean>
@@ -40,11 +40,11 @@
 		destroy-method="destroy">
 		<property name="hostName" value="${redis_hostname}" />
 		<property name="port" value="${redis_port}" />
-		<!-- <property name="password" value="${redis_pwd}" /> -->
+		<property name="password" value="${redis_pwd}" />
 		<property name="timeout" value="3000" />
 		<property name="usePool" value="true" />
 		<property name="poolConfig" ref="jedisPoolConfig" />
-	</bean>
+	</bean> -->
 	<!-- 引入配置文件 -->
 	<!-- <bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

@@ -2,6 +2,7 @@ package com.cn.hnust.util;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -60,4 +61,19 @@ public class JsonUtil {
 		}
 		return null;
 	}
+	
+	public String list2json(List<?> list) {  
+        StringBuilder json = new StringBuilder();  
+        json.append("[");  
+        if (list != null && list.size() > 0) {  
+          for (Object obj : list) {  
+            json.append(obj2Json(obj));  
+            json.append(",");  
+          }  
+          json.setCharAt(json.length() - 1, ']');  
+        } else {  
+          json.append("]");  
+        }  
+        return json.toString();  
+}  
 }

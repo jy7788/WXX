@@ -27,7 +27,7 @@ public class SatArticleDao extends BaseDao<SatArticle> implements ISatArticleDao
 
 	@Override
 	public SatArticle loadContentById(String id) {
-		return null;
+		return super.loadBySqlId("loadArticleContent", id);
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import com.cn.hnust.model.sat.SatUser;
 public interface ISatArticleDao extends IBaseDao<SatArticle>{
 	public List<SatArticle> listBySatArticleTitle(String title);
 	public List<SatArticle> listSatArticlesByOpenId(String openid);
-	public SatArticle loadContentById(String id);
+	public SatArticle loadContentById(String i);
 	public SatArticle loadArticleById(String id);
 	public void insert(SatArticle article);
 	public void update(SatArticle article);

@@ -32,14 +32,17 @@ public class WeixinController {
 		String echostr = req.getParameter("echostr");
 		System.out.println(signature);
 		String[] arr = {WeixinContext.getInstance().getToken(),timestamp,nonce};
-		Arrays.sort(arr);
-		StringBuffer sb = new StringBuffer();
-		for(String a:arr) {
-			sb.append(a);
-		}
-		String sha1Msg = SecurityKit.sha1(sb.toString());
-		if(signature.equals(sha1Msg)) {
-			resp.getWriter().write(echostr);
+		
+		if(arr != null) {
+			Arrays.sort(arr);
+			StringBuffer sb = new StringBuffer();
+			for(String a:arr) {
+				sb.append(a);
+			}
+			String sha1Msg = SecurityKit.sha1(sb.toString());
+			if(signature.equals(sha1Msg)) {
+				resp.getWriter().write(echostr);
+			}
 		}
 	}
 	

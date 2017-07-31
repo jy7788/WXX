@@ -1,0 +1,106 @@
+.tx_center{
+    text-align:center;
+}
+
+//个人中心
+.PersonalCenter{
+  font-family: "微软雅黑";
+    .myguanzhu1{
+         color:#fff;
+         font-size: 0.68rem; 
+    }
+    .myguanzhu2{
+      color:#fff;
+      font-size:。5112rem;
+    }
+    .touxiang_cc{
+        position:relative;
+        padding: 1.5rem 0 0.5rem;
+        .touxiang_c{
+	         width: 3rem;
+    		    height: 3rem;
+    		    background: #ccc;
+    		    border-radius: 50%;
+    		    position: relative;
+    		    left: 50%;
+    		    margin-left: -1.5rem;
+    		    img{
+    		       width:100%;
+    		       border-radius: 50%;
+    		    }
+        } 
+    }
+   .header {
+        width: 100%;
+        height: 8.733rem!important;
+        background: #fff!important;
+        .head_t{
+           height:8.733rem;
+           background:url(../img/ditutoubu-img-21.png) no-repeat;
+           background-size: 100% 100%;
+        }
+      	.myname{
+      	   margin:0.2rem 0;
+      	   font-size:0.88rem;
+           padding-top:.1rem;
+      	}
+   }
+   .head_b{
+      height: 2.556rem;
+      background:#fff3e5!important; 
+      width: 90%;
+      margin: .852rem auto;
+      border:1px solid #ffcf6d;
+      .myguanzhu{
+        color:#f39800;
+        font-size: .6816rem;
+        height: 100%;
+        text-align: center;
+        &:nth-of-type(1){
+          border-right:1px solid #ffcf6d;
+        }
+        span{
+          display: block;
+          padding-top: .1rem;
+          text-align: center;
+          font-size: .6812rem;
+          line-height: 1rem;
+          padding-top:.213rem;
+        }
+        b{
+          font-size: .852rem;
+          line-height: 1rem;
+          font-weight: 400;
+        }
+      }
+   }
+   .main{
+      overflow:auto;
+      .sat_grids{
+        border-bottom: 1px solid #ffcf6d;
+        display: flex;
+        flex-wrap:wrap;
+        margin-bottom: .852rem;
+        .sat_grid {
+           width: 50%;
+           color:#f39800;
+          border-top:1px solid #ffcf6d;
+          border-top:1px solid #ffcf6d;
+          box-sizing:border-box;
+          .weui_grid_icon{
+            width: 1.7466rem;
+            height: auto;
+            margin-top: .852rem;
+          }
+          .weui_grid_label{
+            color:#f39800;
+            padding-bottom:.852rem;
+            font-size: .639rem;
+          }
+          &.zuo_border{
+            border-left: 1px solid #ffcf6d;
+          }
+        }
+      }
+   }
+}

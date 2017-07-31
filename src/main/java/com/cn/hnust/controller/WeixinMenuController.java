@@ -33,13 +33,13 @@ public class WeixinMenuController {
 		 }
 		model.addAttribute("menus", weixinMenuService.listAll());
 		model.addAttribute("wmds", weixinMenuService.gengrateWeixinMenuDto());
-		return "weixinMenu/list";
+		return "weixinMenu/list.jsp";
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public String add(Model model) {
 		model.addAttribute("menu", new WeixinMenu());
-		return "weixinMenu/add";
+		return "weixinMenu/add.jsp";
 	}
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String add(WeixinMenu menu) {
@@ -50,7 +50,7 @@ public class WeixinMenuController {
 	@RequestMapping(value="/update/{id}",method=RequestMethod.GET)
 	public String update(@PathVariable int id,Model model) {
 		model.addAttribute("menu", weixinMenuService.load(id));
-		return "weixinMenu/update";
+		return "weixinMenu/update.jsp";
 	}
 	
 	@RequestMapping(value="/update/{id}",method=RequestMethod.POST)
@@ -69,6 +69,7 @@ public class WeixinMenuController {
 	
 	@RequestMapping(value="/delete/{id}",method=RequestMethod.GET)
 	public String delete(@PathVariable int id, Model model) {
+		System.out.println("id " +  id);
 		weixinMenuService.delete(id);
 		return "redirect:/weixinMenu/list";
 	}
@@ -76,7 +77,7 @@ public class WeixinMenuController {
 	@RequestMapping("/queryMenu")
 	public String queryMenu(Model model) {
 		model.addAttribute("ms", wMenuService.queryMenu());
-		return "weixinMenu/queryMenu";
+		return "weixinMenu/queryMenu.jsp";
 	}
 	
 	@RequestMapping("/publish")

@@ -43,6 +43,7 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\sat\ISatUs
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\WeixinBasicKit.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\User.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\util\MybatisUtil.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\sat\WebController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\DuplicateMessageKit.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\IWqrService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\util\RandomUtils.java
@@ -76,6 +77,7 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\ExchangeCo
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\message\TemplateMessage.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\json\sat\DescImgJson.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\socket\ReceiveClient.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\sat\SatArticleController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\FiveBookUserController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\FiveBookUserService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\IWMenuService.java
@@ -92,8 +94,10 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\util\MessageUtil.j
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\voice\SpeechMessage.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\WeixinMenuService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\InitController.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\htmlparser\GetNews.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\WeixinMessageKit.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\BaseDao.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\json\ArticleContentJson.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\Person.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\pa\IPAUserRequestDao.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\WeixinMenuDao.java
