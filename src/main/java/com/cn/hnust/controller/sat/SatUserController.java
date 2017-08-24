@@ -1,6 +1,8 @@
 package com.cn.hnust.controller.sat;
 
 import java.util.Date;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,9 @@ import com.cn.hnust.json.YzmResult;
 import com.cn.hnust.kit.kit.ExchangeCode2OpenId;
 import com.cn.hnust.kit.kit.WeixinBasicKit;
 import com.cn.hnust.kit.kit.WeixinUserUtil;
+import com.cn.hnust.model.JsapiTicket;
 import com.cn.hnust.model.WUser;
+import com.cn.hnust.model.WeixinContext;
 import com.cn.hnust.model.WeixinFinalValue;
 import com.cn.hnust.model.pa.PAUser;
 import com.cn.hnust.model.sat.SatUser;
@@ -49,23 +53,62 @@ public class SatUserController {
 		return "sat/mobile/html/PersonalCenter.jsp";
 	}
 	
+	/**
+	 * 进入详情页面
+	 * @author fanfte
+	 * @param openid
+	 * @param model
+	 * @param request
+	 * @return
+	 * 2017年8月2日
+	 */
 	@RequestMapping("/detail/{openid}")
-	public String userDetail(@PathVariable String openid, Model model) {
+	public String userDetail(@PathVariable String openid, Model model, HttpServletRequest request) {
 		SatUser satUser = satUserService.loadByOpenId(openid);
 		if(satUser != null) {
 			System.out.println(satUser.getUsername());
 			model.addAttribute("satUser", satUser);
 		}
+		
+		String appId=WeixinContext.getInstance().getAppId();//应用id  
+        String appsecret=WeixinContext.getInstance().getAppSecurt();//应用秘钥  
+       //1,获取access_token  
+//       AccessToken accessToken = WeixinContext.getInstance().get;  
+//       String access_token=accessToken.getAccess_token();  
+       //2,获取调用微信jsapi的凭证  
+       JsapiTicket ticket = WeixinContext.getInstance().getTicket(); 
+       System.out.println("ticket " + ticket.getTicket());
+       Map<String,String> map = WeixinBasicKit.sign(ticket.getTicket(), WeixinFinalValue.SERVER_URL + "satuser/detail/" + openid);  
+      
+	   request.setAttribute("timestamp", map.get("timestamp"));  
+	   request.setAttribute("nonceStr", map.get("nonceStr"));  
+	   request.setAttribute("signature", map.get("signature"));  
+	   request.setAttribute("appId", appId);  
+	      
+	   System.out.println("apiticket " + ticket.getTicket() );
+	   System.out.println("nonceStr " + map.get("nonceStr"));
+	   System.out.println("timeStamp " + map.get("timestamp")); 
+	   System.out.println("appId " + appId);
+	   System.out.println("url " + map.get("url"));
+	   System.out.println("signature " +  map.get("signature"));
 		return "sat/mobile/html/PersonalData.jsp";
 	}
 	
-	
+	/**
+	 * 修改个人信息
+	 * @author fanfte
+	 * @param satUser
+	 * @return
+	 * 2017年8月2日
+	 */
 	@RequestMapping(value="/update",  method = RequestMethod.POST)
 	public String userUpdate(SatUser satUser) {
 		SatUser user = satUserService.loadByOpenId(satUser.getOpenid());
 		System.out.println(satUser.getOpenid());
 		System.out.println(satUser.getTrade());
 		System.out.println(satUser.getBirthday());
+		System.out.println(satUser.getSex());
+		System.out.println(satUser.getQrCode());
 		if(user != null) {
 			user.setBirthday(satUser.getBirthday());
 			user.setOrganization(satUser.getOrganization());
@@ -74,6 +117,7 @@ public class SatUserController {
 			user.setSignature(satUser.getSignature());
 			user.setTrade(satUser.getTrade());
 			user.setUpdateDate(new Date());
+			user.setQrCode(satUser.getQrCode());
 			System.out.println(user.getTrade());
 			satUserService.update(user);
 		}
@@ -96,7 +140,7 @@ public class SatUserController {
 		}
 		return postResult;
 	} 
-	@RequestMapping("/valid")//获取验证码
+	@RequestMapping("/valid")//验证验证码
 	@ResponseBody
 	public String valid(HttpServletRequest request) {
 		String phoneNum = request.getParameter("phoneNum");
@@ -145,10 +189,37 @@ public class SatUserController {
 		return "redirect:" + url;
 	}
 	
+	@RequestMapping(value="/getUserInfo" ,method=RequestMethod.GET)
+	public String getUserInfo() {
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeixinFinalValue.APPID +"&redirect_uri=" + WeixinFinalValue.SERVER_URL + "satuser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+		String result = WeixinBasicKit.sendGet(url);
+		return result;
+	}
+	
+	@RequestMapping(value="/getWechatUserInfo" ,method=RequestMethod.GET)
+	@ResponseBody
+	public String getWechatUserInfo(HttpServletRequest request,HttpServletResponse response) {
+		String code = request.getParameter("code");
+		WUser wechatUser = null;
+		if(code != null) {
+			System.out.println("获取的code: "+ code);
+	        String openid = ExchangeCode2OpenId.exchange(code);
+	        if(openid != null) {
+	        	System.out.println("网页授权获取到的openid: "+openid);
+	        	wechatUser = WeixinUserUtil.getWechatUser(openid);
+	        	return JsonUtil.getInstance().obj2Json(wechatUser);
+	        }else {
+	        	return "";
+	        }
+		}else {
+        	return "";
+        }
+	}
+	
+	
 	/**
-	 * 进入签到页面
+	 * 进入用户中心
 	 * @author fanfte
-	 * 
 	 * @param request
 	 * @param response
 	 * @param model
@@ -164,16 +235,20 @@ public class SatUserController {
 	        if(openid != null) {
 	        	System.out.println("网页授权获取到的openid: "+openid);
 	        	WUser wechatUser = WeixinUserUtil.getWechatUser(openid);
-	        	System.out.println(wechatUser.getProvince());
-	        	System.out.println(wechatUser.getHeadimgurl());
-	        	request.getSession().setAttribute("wechatUser", wechatUser);
-	        	SatUser satUser = satUserService.loadByOpenId(openid);
-	        	if(satUser != null) {
-	        		model.addAttribute("mUser", satUser);
-	        		return "sat/mobile/html/PersonalCenter.jsp";
+	        	if(wechatUser != null) {
+	        		System.out.println(wechatUser.getProvince());
+		        	System.out.println(wechatUser.getHeadimgurl());
+		        	request.getSession().setAttribute("wechatUser", wechatUser);
+		        	SatUser satUser = satUserService.loadByOpenId(openid);
+		        	if(satUser != null) {
+		        		model.addAttribute("mUser", satUser);
+		        		return "sat/mobile/html/PersonalCenter.jsp";
+		        	} else {
+		        		model.addAttribute("mUser", satUser);
+		        		return "sat/mobile/html/SatUserRegist.jsp";
+		        	}
 	        	} else {
-	        		model.addAttribute("mUser", satUser);
-	        		return "sat/mobile/html/SatUserRegist.jsp";
+	        		return "sat/mobile/html/PersonalCenter.jsp";
 	        	}
 	        }else {
 	        	model.addAttribute("mUser", null);
@@ -187,7 +262,6 @@ public class SatUserController {
 	/**
 	 * 用户注册接口
 	 * @author fanfte
-	 * 
 	 * @param pAUser
 	 * @param request
 	 * @param response
@@ -203,6 +277,7 @@ public class SatUserController {
 			SatUser mSatUser = new SatUser();
 			SatUser user = satUserService.loadByOpenId(wUser.getOpenid());
 			if(user == null) {
+				mSatUser.setId(UUID.randomUUID().toString());
 				mSatUser.setOpenid(wUser.getOpenid());
 				mSatUser.setArea(wUser.getCountry() + "-" + wUser.getProvince() + "-" + wUser.getCity());
 				mSatUser.setCreateDate(new Date());

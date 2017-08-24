@@ -115,6 +115,5 @@ com\cn\hnust\service\WMenuService.class
 com\cn\hnust\json\AccessToken.class
 com\cn\hnust\quartz\ClearMessageTask.class
 com\cn\hnust\service\WeixinQrService.class
-com\cn\hnust\util\Sign.class
 com\cn\hnust\kit\kit\SecurityKit.class
 com\cn\hnust\socket\MultiThreadClient$1.class

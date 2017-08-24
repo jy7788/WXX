@@ -54,5 +54,72 @@ public class SatArticleDao extends BaseDao<SatArticle> implements ISatArticleDao
 	public List<SatArticle> list() {
 		return super.list("listSatArticles", null);
 	}
+
+	@Override
+	public List<SatArticle> listMyArticles(String articleId, String openid) {
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("id", articleId);
+		params.put("openid", openid);
+		return super.list("listMyArticles", params);
+	}
+
+	@Override
+	public SatArticle loadMyArticle(String articleId, String openid) {
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("id", articleId);
+		params.put("openid", openid);
+		return super.loadBySqlId("loadMyArticle", params);
+	}
+
+	@Override
+	public List<SatArticle> listNewsLike(String content) {
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("content", "%" + content + "%");
+		return super.list("listNewsLike", params);
+	}
+
+	@Override
+	public void deleteByIds(String id, String openid) {
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("id", id);
+		params.put("openid", openid);
+		super.deleteByParams("deleteByIds", params);
+	}
+
+	@Override
+	public SatArticle loadMyArticleContent(String id, String openid) {
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("id", id);
+		params.put("openid", openid);
+		return super.loadBySqlId("loadMyArticleContent", params);
+	}
+
+	@Override
+	public List<SatArticle> listArticleByClassifyId(String classifyId) {
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("classifyId", classifyId);
+		return super.list("listArticlesByClassifyId", params);
+	}
 	
+	@Override
+	public List<SatArticle> listArticleByClassifyName(String classifyName) {
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("classifyName", classifyName);
+		return super.list("listArticlesByclassifyName", params);
+	}
+
+	@Override
+	public void collectArticle(String userId, String articleId) {
+		Map<String, Object > params = new HashMap<String, Object>();
+		params.put("userId", userId);
+		params.put("articleId", articleId);
+		super.add("collectArticle", params);
+	}
+
+	@Override
+	public List<SatArticle> listMyCollections(String openid) {
+		Map<String, Object > params = new HashMap<String, Object>();
+		params.put("openid", openid);
+		return super.list("listMyCollections", params);
+	}
 }

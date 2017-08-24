@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.model.sat.SatAdvertisement" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.model.sat.SatAdvertisement" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="open_id" property="openid" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="link_url" property="linkUrl" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, open_id, description, img_url, link_url, create_time, update_time, name
+  </sql>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from t_sat_advertisement
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="listByOpenid" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sat_advertisement
+    where open_id = #{openid,jdbcType=VARCHAR}
+  </select>
+  
+   <delete id="deleteByUUID" parameterType="java.lang.String" >
+    delete from t_sat_advertisement
+    where id = #{id,jdbcType=VARCHAR};
+  </delete>
+  
+  <update id="update" parameterType="com.cn.hnust.model.sat.SatAdvertisement" >
+    update t_sat_advertisement
+    set open_id = #{openid,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      <!-- nickname = #{nickname,jdbcType=VARCHAR}, -->
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      link_url = #{linkUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      category_id = #{categoryId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR} 
+  </update>
+  
+  <insert id="add" parameterType="com.cn.hnust.model.sat.SatAdvertisement">
+		insert into t_sat_advertisement
+		(id, open_id,  description, img_url, link_url, create_time, update_time, name)
+		values
+		(#{id}, #{openid}, #{description}, 
+		 #{imgUrl},   #{linkUrl},     #{createTime}, #{updateTime}, #{name})
+  </insert>
+</mapper>

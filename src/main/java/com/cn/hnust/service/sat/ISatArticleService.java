@@ -17,4 +17,6 @@ public interface ISatArticleService {
 	public void deleteByUUID(String id);
 	public void insertContent(SatArticle article);
 	public List<SatArticle> list();
+	public SatArticle loadMyArticleContent(String id, String openid);
+	public List<SatArticle> listByClassifyName(String name);
 }

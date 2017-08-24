@@ -1,4 +1,5 @@
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\WeixinMenuDto.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\sat\AdvertisementController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\IUserService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\json\ValidResult.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\pa\IPAUserService.java
@@ -14,6 +15,7 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\WeixinQr.jav
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\quartz\WeixinQuartzJob.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\json\ErrorEntity.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\sat\ISatArticleService.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\sat\ProductController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\WeixinUserUtil.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\quartz\RefreshAccessTokenTask.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\pa\PAUserRequestService.java
@@ -43,7 +45,6 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\sat\ISatUs
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\WeixinBasicKit.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\User.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\util\MybatisUtil.java
-D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\sat\WebController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\DuplicateMessageKit.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\IWqrService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\util\RandomUtils.java
@@ -53,6 +54,7 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\IWeixinQrDao.j
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\WeixinMenuController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\WeixinEventKit.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\SubjectController.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\sat\TSatAdvertisement.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\util\PropertiesUtil.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\FiveBookUser.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\DuplicateMessage.java
@@ -61,6 +63,8 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\ModelMsgData
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\voice\WordResult.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\IWeixinMenuService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\json\OpenIdResult.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\sat\SatAdService.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\sat\ISatAdvertisementDao.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\sat\SatUserDao.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\WeixinFinalValue.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\web\audiorecognize\TestLfasr.java
@@ -77,13 +81,16 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\ExchangeCo
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\message\TemplateMessage.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\json\sat\DescImgJson.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\socket\ReceiveClient.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\sat\ISatAdService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\sat\SatArticleController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\FiveBookUserController.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\util\ParamUtil.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\FiveBookUserService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\IWMenuService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\pa\PAUserService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\socket\socketClient.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\json\AccessToken.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\sat\TSatAdvertisementExample.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\quartz\ClearMessageTask.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\ClassController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\FiveBookUserDao.java
@@ -97,6 +104,7 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\InitCon
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\htmlparser\GetNews.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\WeixinMessageKit.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\BaseDao.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\erweima\LoanController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\json\ArticleContentJson.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\Person.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\pa\IPAUserRequestDao.java
@@ -104,6 +112,7 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\WeixinMenuDao.
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\MyBaseDao.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\json\YzmResult.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\JsapiTicket.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\sat\SatAdvertisement.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\UserController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\MessageCreateKit.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\FileController.java
@@ -118,10 +127,12 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\json\TemplateMsg.j
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\sat\SatArticle.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\socket\MultiThreadServer.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\sat\ISatUserDao.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\sat\TestController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\DeviceJson.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\web\filter\WeixinAuthFilter.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\web\servlet\InitServlet.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\UploadController.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\sat\SatAdvertisementDao.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\BasicKit.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\SecurityKit.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\WeixinQrService.java

@@ -1,6 +1,8 @@
 package com.cn.hnust.dao.sat;
 
 import java.util.List;
+import java.util.UUID;
+
 import org.springframework.stereotype.Repository;
 import com.cn.hnust.dao.BaseDao;
 import com.cn.hnust.model.SystemContext;
@@ -39,6 +41,7 @@ public class SatUserDao extends BaseDao<SatUser> implements ISatUserDao{
 		if(u.getOpenid() != null) {
 			SatUser satUser = loadByOpenId(u.getOpenid());
 			if(satUser != null) {
+				//satUser.setId(UUID.randomUUID().toString());
 				satUser.setArea(u.getArea());
 				satUser.setBind(u.getBind());
 				satUser.setBirthday(u.getBirthday());

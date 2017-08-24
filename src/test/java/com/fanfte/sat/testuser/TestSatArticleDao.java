@@ -37,8 +37,8 @@ public class TestSatArticleDao {
 		article.setId(UUID.randomUUID().toString());
 		article.setContent("aaa");
 		article.setCreateTime(new Date());
-		article.setOpenid("asdsa");
-		article.setSelfCreated(0);
+//		article.setOpenid("asdsa");
+//		article.setSelfCreated(0);
 		article.setShares(22);
 		article.setStars(33);
 		article.setTitle("title");
@@ -50,7 +50,7 @@ public class TestSatArticleDao {
 	@Test
 	public void testLoadByOpenId() {
 		SatArticle satArticle = satArticleDao.loadArticleById("f5968b01-b38b-48e3-b786-c2ce9fd69a86");
-		System.out.println(satArticle.getOpenid());
+		//System.out.println(satArticle.getOpenid());
 		
 	}
 	
@@ -84,8 +84,8 @@ public class TestSatArticleDao {
 		SatArticle article = new SatArticle();
 		article.setId(UUID.randomUUID().toString());
 		article.setContent(html);
-		article.setOpenid("fanfte");
-		article.setSelfCreated(1);
+//		article.setOpenid("fanfte");
+//		article.setSelfCreated(1);
 		article.setShares(111);
 		article.setTitle("title11");
 		article.setStars(222);
@@ -119,7 +119,7 @@ public class TestSatArticleDao {
 				mArticle.setCreateTime(new Date(articleJson.getCreatedAt() * 1000));
 				mArticle.setUpdateTime(new Date(articleJson.getCreatedAt() * 1000));
 				mArticle.setShares(0);
-				mArticle.setSelfCreated(0);
+//				mArticle.setSelfCreated(0);
 				mArticle.setUrl(articleJson.getUrl());
 				mArticle.setStars(0);
 				mArticle.setWatches(0);
@@ -127,8 +127,9 @@ public class TestSatArticleDao {
 				mArticle.setDescImgUrl(articleJson.getImg().getUrl());
 				String content = WeixinBasicKit.sendGet(urlPosst + articleJson.getId());
 				ArticleContentJson articleContentJson = (ArticleContentJson) JsonUtil.getInstance().json2Obj(content, ArticleContentJson.class);
-				System.out.println(articleContentJson.getContent());
+				//System.out.println(articleContentJson.getContent());
 				mArticle.setContent(articleContentJson.getContent());
+				mArticle.setArticleId(articleJson.getId() + "");
 				add(mArticle);
 			}
 		}
@@ -165,5 +166,66 @@ public class TestSatArticleDao {
 		SatArticle satArticle = satArticleDao.loadContentById(316681 + "");
 		System.out.println(satArticle.getContent());
 		System.out.println(satArticle.getTitle());
+	}
+	
+	@Test
+	public void testLoadMyArticles() {
+		List<SatArticle> myArticles = satArticleDao.listMyArticles("316681", "oNG7At-eteDqJ5rBCwwQ1mIWRrF8");
+		for(SatArticle a: myArticles) {
+			System.out.println(a.getDescImgUrl());
+		}
+	}
+	@Test
+	public void testLoadMyArticle() {
+		SatArticle loadMyArticle = satArticleDao.loadMyArticle("316681", "oNG7At-eteDqJ5rBCwwQ1mIWRrF8");
+		//System.out.println(loadMyArticle.getOpenid());
+	}
+	@Test
+	public void testLoadMyArticleLike() {
+		List<SatArticle> newsLike = satArticleDao.listNewsLike("日");
+		for(SatArticle a : newsLike) {
+			System.out.println(a.getTitle());
+		}
+	}
+	
+	@Test
+	public void testDeleteByIds() {
+		satArticleDao.deleteByIds("316681", "oNG7At-eteDqJ5rBCwwQ1mIWRrF8");
+	}
+	@Test
+	public void loadMyArticleContent() {
+		SatArticle satArticle = satArticleDao.loadMyArticleContent("316693", "oNG7At-eteDqJ5rBCwwQ1mIWRrF8");
+		System.out.println(satArticle.getContent());
+	} 
+	
+	@Test
+	public void testListByCId() {
+		List<SatArticle> list = satArticleDao.listArticleByClassifyId("1");
+		System.out.println(list.size());
+		for(SatArticle a : list ) {
+			System.out.println(a.getTitle());
+		} 
+	}
+	
+	@Test
+	public void testListByCName() {
+		List<SatArticle> list = satArticleDao.listArticleByClassifyName("体育");
+		System.out.println(list.size());
+		for(SatArticle a : list ) {
+			System.out.println(a.getTitle());
+		} 
+	}
+	
+	@Test
+	public void testCollect() {
+		satArticleDao.collectArticle("8785c7c3-19b9-41d5-8126-2c5a1530a70b", "320828");
+	}
+	
+	@Test
+	public void testMyCollections() {
+		List<SatArticle> myCollections = satArticleDao.listMyCollections("8785c7c3-19b9-41d5-8126-2c5a1530a70b");
+		for(SatArticle a : myCollections) {
+			System.out.println(a.getDescImgUrl());
+		}
 	}
 }

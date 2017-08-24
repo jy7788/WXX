@@ -6,18 +6,25 @@ public class SatArticle {
 	private String id;
 	private String title;
 	private String content;
-	private String openid;
+	//private String openid;
 	private int stars;
 	private int shares;
 	private int watches;
-	private int selfCreated;
 	private Date createTime;
 	private Date updateTime;
 	private String url;
 	private String descImgUrl;
+	private String articleId;
+	//private int type;
 	
 	public String getUrl() {
 		return url;
+	}
+	public String getArticleId() {
+		return articleId;
+	}
+	public void setArticleId(String articleId) {
+		this.articleId = articleId;
 	}
 	public void setUrl(String url) {
 		this.url = url;
@@ -46,12 +53,6 @@ public class SatArticle {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getOpenid() {
-		return openid;
-	}
-	public void setOpenid(String openid) {
-		this.openid = openid;
-	}
 	public int getStars() {
 		return stars;
 	}
@@ -69,12 +70,6 @@ public class SatArticle {
 	}
 	public void setWatches(int watches) {
 		this.watches = watches;
-	}
-	public int getSelfCreated() {
-		return selfCreated;
-	}
-	public void setSelfCreated(int selfCreated) {
-		this.selfCreated = selfCreated;
 	}
 	public Date getCreateTime() {
 		return createTime;

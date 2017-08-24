@@ -28,8 +28,8 @@ session.setAttribute("basePath",basePath);
   <meta name="viewport" content="width=320.1,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
   
   <link rel="stylesheet" href="<%=basePath %>resource/device/weui.min.css?what=0">
-  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
   <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"> </script>
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
   <script type="text/javascript" src="js/base64.js"></script>
   <script src="http://api.map.baidu.com/api?v=2.0&ak=5oX8kCKjSuBebgQGEAe8M2mjWkcGHGyK" type="text/javascript"></script>
 </head>

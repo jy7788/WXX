@@ -1,0 +1,95 @@
+@import url("reset.css");
+body {
+  font-size: 62.5%;
+}
+html,
+body,
+.erweima_bd {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  box-sizing: border-box;
+  overflow:hidden;
+}
+.ewm_titlepng{
+	width:3.6rem;
+	height:3.6rem;
+	background:url(../img/VIP-icon.png) no-repeat;
+	margin:1rem auto;
+	background-size:100% 100%;
+}
+.ewm_title{
+	color:#f2af42;
+	font-size:0.9rem;
+	text-align:center;
+	margin-top: -0.6rem;
+}
+.ewm_ipt{
+	position:relative;
+	width:70%;
+	height:2rem;
+	margin:0.8rem auto;
+	border:1px solid #f6b447;
+}
+.ewm_tx{
+	border:0;
+	font-size:0.8rem;
+	height:1.5rem;
+	padding-left:7%;
+	width:80%;
+	position:absolute;
+	color:#8f8f8f;
+	line-height:1.5rem;
+	padding-top: 0.26rem;
+}
+.ewm_tip{
+	position:absolute;
+	top:2.16rem;
+	color:#cc2941;
+	font-size:0.6rem;
+	display:none;
+}
+.ewm_tipimg{
+	width:0.6rem;
+	height:0.6rem;
+	
+	display:inline-block;
+	background:url(../img/tip-icon.png) no-repeat;
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-ms-background-size:100% 100%;
+	-o-background-size:100% 100%;
+	margin-right:0.3rem;
+	vertical-align: middle;
+}
+.ewm_btn{
+	width:70%;
+	margin:1.3rem auto;
+	text-align:center;
+	background:#f29827;
+	color:#fff;
+	height:2.3rem;
+	line-height:2.3rem;
+	font-size:0.9rem;
+}
+.ewm_btn:active{
+	background:#eb6c1d;
+}
+.ewm_w{
+	
+}
+.ewm_s{
+	width:6.5rem;
+	height:6.5rem;
+	border:1px solid #eaeaea;
+	margin:1.2rem auto;
+	padding:1rem;
+	display:none;
+}
+.ewm_s img{
+	width:100%;
+}
+
+
+ 

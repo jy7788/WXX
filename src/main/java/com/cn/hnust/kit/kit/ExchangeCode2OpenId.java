@@ -12,20 +12,24 @@ public class ExchangeCode2OpenId {
     private static Logger logger = LoggerFactory.getLogger(ExchangeCode2OpenId.class);
 
     public static String exchange(String code) {
-    	if(code != null) {
-    		String openid = "";
-            String appId = WeixinContext.getInstance().getAppId();
-            String appSecret = WeixinContext.getInstance().getAppSecurt();
-            // ��ȡaccess_token ���а�����openid
-            // ����ͨ��code��ȡ����һ���������ҳ��Ȩaccess_token,�����֧���е�access_token����access_token���ڵ��������ӿڣ���ͬ��
-            String URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code"
-                    .replace("APPID", appId).replace("SECRET", appSecret).replace("CODE", code);
-            String string = WeixinBasicKit.sendGet(URL);
-            OpenIdResult openidResult = (OpenIdResult) JsonUtil.getInstance().json2Obj(string, OpenIdResult.class);
-            System.out.println(openidResult.getOpenid());
-            return openidResult.getOpenid();
-    	}else {
-    		return "";
+    	try{
+	    	if(code != null) {
+	    		String openid = "";
+	            String appId = WeixinContext.getInstance().getAppId();
+	            String appSecret = WeixinContext.getInstance().getAppSecurt();
+	            // ��ȡaccess_token ���а�����openid
+	            // ����ͨ��code��ȡ����һ���������ҳ��Ȩaccess_token,�����֧���е�access_token����access_token���ڵ��������ӿڣ���ͬ��
+	            String URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code"
+	                    .replace("APPID", appId).replace("SECRET", appSecret).replace("CODE", code);
+	            String string = WeixinBasicKit.sendGet(URL);
+	            OpenIdResult openidResult = (OpenIdResult) JsonUtil.getInstance().json2Obj(string, OpenIdResult.class);
+	            System.out.println(openidResult.getOpenid());
+	            return openidResult.getOpenid();
+	    	}else {
+	    		return "";
+	    	}
+    	} catch (Exception e) {
+    		return null;
     	}
     }
 }

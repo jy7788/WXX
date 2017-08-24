@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.Column;
 
 public class SatUser {
-	private int id;
+	private String id;
 	private String username;
 	private String password;
 	private String nickname;
@@ -85,10 +85,10 @@ public class SatUser {
 	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getNickname() {

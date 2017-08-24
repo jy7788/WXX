@@ -20,11 +20,19 @@ public class BaseDao<T> implements IBaseDao<T>{
 	public void add(T obj) {
 		session.insert(obj.getClass().getName() + ".add", obj);
 	}
+	public void add(String sqlId, Map<String, Object> params) {
+		session.insert(sqlId, params);
+	}
+	
 	public void update(T obj) {
 	    session.update(obj.getClass().getName() + ".update", obj);
 	}
 	public void delete(Class<T> clz, int id) {
 		session.delete(clz.getName() + ".delete", id);
+	}
+	
+	public void deleteByParams(String sqlId, Map<String, Object> params) {
+		session.delete(sqlId, params);
 	}
 	
 	public void deleteByUUID(Class<T> clz, String id) {

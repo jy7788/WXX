@@ -4,34 +4,35 @@
   <resultMap id="BaseResultMap" type="com.cn.hnust.model.sat.SatArticle" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="open_id" property="openid" jdbcType="VARCHAR" />
+    <!-- <result column="open_id" property="openid" jdbcType="VARCHAR" /> -->
     <result column="stars" property="stars" jdbcType="INTEGER" />
     <result column="shares" property="shares" jdbcType="INTEGER" />
     <result column="watches" property="watches" jdbcType="INTEGER" />
-    <result column="self_created" property="selfCreated" jdbcType="INTEGER" />
+    <!-- <result column="self_created" property="selfCreated" jdbcType="INTEGER" /> -->
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="desc_img_url" property="descImgUrl" jdbcType="VARCHAR" />
+    <!-- <result column="type" property="type" jdbcType="INTEGER"/> -->
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, title, open_id, stars, shares, watches, self_created, create_time, update_time, url, desc_img_url
+    id, title, stars, shares, watches, create_time, update_time, url, desc_img_url
   </sql>
   
   <insert id="add" parameterType="com.cn.hnust.model.sat.SatArticle">
 		insert into t_sat_article 
-		(id, title, open_id,  stars, shares, watches, self_created, create_time, update_time, url, desc_img_url)
+		(id, title,  stars, shares, watches, create_time, update_time, url, desc_img_url)
 		values
-		(#{id}, #{title}, #{openid}, #{stars}, 
-		 #{shares},   #{watches},      #{selfCreated},    #{createTime}, #{updateTime}, #{url}, #{descImgUrl})
+		(#{id}, #{title}, #{stars}, 
+		 #{shares},   #{watches},    #{createTime}, #{updateTime}, #{url}, #{descImgUrl})
   </insert>
   
   <insert id="addContent" parameterType="com.cn.hnust.model.sat.SatArticle">
 		insert into t_sat_article_content 
-		(id, content)
+		( content, article_id)
 		values
-		(#{id}, #{content} )
+		( #{content} , #{articleId})
   </insert>
   
   <select id="listArticleSummary" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -45,8 +46,15 @@
   <select id="loadArticleContent" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
      t1.content, t2.title, t2.id, t2.create_time, t2.stars, t2.shares, t2.watches, t2.desc_img_url
+    from t_sat_article_content t1 join t_sat_article t2 on t1.article_id = t2.id   
+    where t1.article_id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="loadMyArticleContent" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+     t1.content, t2.title, t2.id, t2.create_time, t2.stars, t2.shares, t2.watches, t2.desc_img_url
     from t_sat_article_content t1 join t_sat_article t2 on t1.id = t2.id   
-    where t1.id = #{id,jdbcType=VARCHAR}
+    where t1.id = #{id,jdbcType=VARCHAR} and t1.open_id=#{openid,jdbcType=VARCHAR} and t2.type != 1
   </select>
   
   <select id="loadArticleById" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -70,12 +78,42 @@
     order by create_time desc 
   </select>
   
+  <select id="listNewsLike" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sat_article where title like #{content} and type = 1
+    order by create_time desc 
+  </select>
+  
+  <select id="listMyArticles" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sat_article 
+    where id=#{id,jdbcType=VARCHAR} and open_id=#{openid,jdbcType=VARCHAR} and type != 1
+    order by create_time desc 
+  </select>
+  <select id="loadMyArticle" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sat_article 
+    where id=#{id,jdbcType=VARCHAR} and open_id=#{openid,jdbcType=VARCHAR} and type != 1
+    order by create_time desc 
+  </select>
+  
   <delete id="deleteByUUID" parameterType="java.lang.String" >
     delete from t_sat_article
     where id = #{id,jdbcType=VARCHAR};
     
     delete from t_sat_article_content
     where id = #{id,jdbcType=VARCHAR};
+  </delete>
+  
+  <delete id="deleteByIds" parameterType="Map" >
+    delete from t_sat_article
+    where id = #{id,jdbcType=VARCHAR} and open_id=#{openid,jdbcType=VARCHAR};
+    
+    delete from t_sat_article_content
+    where id = #{id,jdbcType=VARCHAR} and open_id=#{openid,jdbcType=VARCHAR};
   </delete>
   
   <update id="update" parameterType="com.cn.hnust.model.sat.SatArticle" >
@@ -90,27 +128,38 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       url = #{url,jdbcType=VARCHAR},
       desc_img_url = #{descImgUrl,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR} and open_id = #{openid,jdbcType=VARCHAR}
   </update>
   
-  	<!-- <select id="pAUserFindAll" resultMap="BaseResultMap" parameterType="Map">
-		select * from t_pa_user
-		<where>
-			<if test="name!= null">username like #{name} or nickname like #{name}</if>
-		</where>
-		<if test="sort != null">order by ${sort} 
-			<if test="order!= null">
-				${order,jdbcType=VARCHAR}
-			</if>
-		</if>
-		<if test="offSet != null"> 
-		limit #{offSet,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
-		</if>
-	</select> -->
-	
-	<!-- <select id="find_count" parameterType="map" resultType="int">
-		select count(*) from t_sat_user 
-		<if test="name !=null"> where (username like #{name} or nickname like #{name})</if>
-	</select> -->
-	
+  <select id="listArticlesByClassifyId" resultMap="BaseResultMap" parameterType="Map">
+  	select 
+  	a.id, a.title, a.stars, a.shares, a.watches, a.create_time, a.update_time, a.url, a.desc_img_url
+  	from t_sat_article a 
+  	left join t_sat_article_classify cf on (a.id = cf.article_id) 
+  	left join t_sat_classify c on (cf.classify_id = c.id) 
+  	where  c.id = #{classifyId} 
+  </select>
+  
+  <select id="listArticlesByclassifyName" resultMap="BaseResultMap" parameterType="Map">
+  	select 
+  	a.id, a.title, a.stars, a.shares, a.watches, a.create_time, a.update_time, a.url, a.desc_img_url
+  	from t_sat_article a 
+  	left join t_sat_article_classify cf on (a.id = cf.article_id) 
+  	left join t_sat_classify c on (cf.classify_id = c.id) 
+  	where  c.classify_name = #{classifyName} 
+  </select>
+  
+  <insert id="collectArticle"  parameterType="Map">
+  	insert into t_sat_article_collection
+  	(user_id, article_id) values (#{userId}, #{articleId} )
+  </insert>
+  
+  <select id="listMyCollections" resultMap="BaseResultMap" parameterType="Map">
+  	select 
+  	a.id, a.title, a.stars, a.shares, a.watches, a.create_time, a.update_time, a.url, a.desc_img_url 
+  	from t_sat_article a 
+  	left join t_sat_article_collection c on (a.id = c.article_id)
+  	where c.user_id = #{openid}
+  </select>
+  
 </mapper>

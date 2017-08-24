@@ -60,4 +60,14 @@ public class SatArticleService implements ISatArticleService{
 	public List<SatArticle> list() {
 		return satArticleDao.list();
 	}
+
+	@Override
+	public SatArticle loadMyArticleContent(String id, String openid) {
+		return satArticleDao.loadMyArticleContent(id, openid);
+	}
+
+	@Override
+	public List<SatArticle> listByClassifyName(String name) {
+		return satArticleDao.listArticleByClassifyName(name);
+	}
 }

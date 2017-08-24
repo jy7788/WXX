@@ -56,7 +56,7 @@
 							个人资料
 						</p>
 					</a>
-					<a href="javascript:;" class="sat_grid zuo_border">
+					<a href="<%=request.getContextPath()%>/satarticle/listMyArticles/${mUser.openid}" class="sat_grid zuo_border">
 						<div class="weui_grid_icon">
 							<img src="<%=request.getContextPath()%>/sat/mobile/img/wenzhanguanli-icon-24-25.png" width="83" alt="">
 						</div>
@@ -64,7 +64,7 @@
 							发表文章
 						</p>
 					</a>
-					<a href="javascript:;" class="sat_grid ">
+					<a href="<%=request.getContextPath()%>/satarticle/statistics" class="sat_grid ">
 						<div class="weui_grid_icon">
 							<img src="<%=request.getContextPath()%>/sat/mobile/img/shujutongji-icon-24-25-24.png" width="83" alt="">
 						</div>
@@ -72,7 +72,7 @@
 							统计数据
 						</p>
 					</a>
-					<a href="javascript:;" class="sat_grid zuo_border">
+					<a href="<%=request.getContextPath()%>/ad/list/${mUser.openid}" class="sat_grid zuo_border">
 						<div class="weui_grid_icon">
 							<img src="<%=request.getContextPath()%>/sat/mobile/img/tuiguang-icon-24-25-25.png" width="83" alt="">
 						</div>
@@ -85,8 +85,8 @@
 		</div>
 		<div class="footer">
 			<ul class="sat_footer_ul">
-				<li class="sat_footer_li"><a href="<%=request.getContextPath()%>/satarticle/list" class=""><b class="sat_footer_b zixun"></b>资讯</a></li>
-				<li class="sat_footer_li"><a class=""><b class="sat_footer_b chanpin"></b>产品</a></li>
+				<li class="sat_footer_li"><a href="<%=request.getContextPath()%>/satarticle/gotoNewsList" class=""><b class="sat_footer_b zixun"></b>资讯</a></li>
+				<li class="sat_footer_li"><a href="<%=request.getContextPath()%>/product/list" class=""><b class="sat_footer_b chanpin"></b>产品</a></li>
 				<li class="sat_footer_li"><a class="clicked"><b class="sat_footer_b user"></b>我的</a></li>
 			</ul>
 		</div>

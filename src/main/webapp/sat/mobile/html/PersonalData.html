@@ -32,7 +32,7 @@
 		</ul>
 	</div>
 	<div class="sat_content">
-		<div class="head_png weui_cell">
+		<div class="head_png weui_cell personal">
 			<div class="weui_cell_hd"><img src="../img/morentouxiang-ICON-28.png" width="42" alt=""></div>
 			<div class="weui_cell_bd weui_cell_primary">
 				<p>修改头像</p>
@@ -238,8 +238,10 @@
 
 	$(document).click(function(e){
 		if($(".sat_shangchuan").is(e.target)){
+			$(".sat_alert").show();
 			$(".sat_alert").animate({bottom:'0'});
 		}else{
+			$(".sat_alert").hide();
 			$(".sat_alert").animate({bottom:'-6.39rem'});
 		}
 	})

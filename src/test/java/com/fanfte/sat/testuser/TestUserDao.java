@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.cn.hnust.dao.sat.ISatUserDao;
 import com.cn.hnust.model.sat.SatUser;
+import com.cn.hnust.service.sat.ISatUserService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)		
@@ -20,6 +21,9 @@ public class TestUserDao {
 	@Resource
 	private ISatUserDao satUserDao;
 
+	@Resource
+	private ISatUserService satUserService;
+	
 	@Test
 	public void testInsert() {
 		SatUser satUser = new SatUser();
@@ -44,8 +48,14 @@ public class TestUserDao {
 	
 	@Test
 	public void testLoadByOpenId() {
-		SatUser satUser = satUserDao.loadByOpenId("openid");
+		SatUser satUser = satUserDao.loadByOpenId("oNG7At-eteDqJ5rBCwwQ1mIWRrF8");
 		System.out.println(satUser.getSignature());
+	}
+	
+	@Test
+	public void testloadService() {
+		SatUser satUser = satUserService.loadByOpenId("oNG7At-eteDqJ5rBCwwQ1mIWRrF8");
+		System.out.println(satUser.getPhoneNum());
 	}
 
 }

@@ -1,0 +1,566 @@
+@import url("reset.css");
+body {
+  font-size: 62.5%;
+}
+html,
+body,
+.easytolan_compat {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  box-sizing: border-box;
+}
+@media screen and (max-width: 480px) {
+  .shunyiloan_compat .shunyiloan_mainone .con_minilist {
+    margin-top: 1.2rem;
+  }
+  .shunyiloan_compat .shunyiloan_mainone dl dt {
+    width: 46%;
+  }
+  .shunyiloan_compat .shunyiloan_mainone dl .miaoshu_dd {
+    padding: 0.3964rem 0;
+  }
+}
+.shunyiloan_compat {
+  position: relative;
+}
+.shunyiloan_compat .shunyiloan_home {
+  width: 100%;
+  height: 100%;
+  background: url("../img/home/basemap.png") no-repeat;
+  background-size: 100% 100%;
+  text-align: center;
+}
+.shunyiloan_compat .shunyiloan_home .home_toptext {
+  display: block;
+  width: 60%;
+  top: 9%;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.shunyiloan_compat .shunyiloan_home .home_toptext img {
+  width: 100%;
+  left: 38%;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg {
+  display: block;
+  left: 0;
+  right: 0;
+  position: absolute;
+  margin: 0 auto;
+  width: 76%;
+  top: 30%;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .mapditu {
+  width: 10rem;
+  height: 10rem;
+  margin: 0 auto;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .mapditu .imgyun {
+  position: relative;
+  left: 60%;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .mapditu .imgyun img {
+  left: 0;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .mapditu .imgone {
+  position: absolute;
+  top: .852rem;
+  left: 1.917rem;
+  width: 70%;
+  height: 85%;
+  background: url(../img/home/diqiu-img.png) no-repeat;
+  background-size: 100% 100%;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .mapditu .imgtwo {
+  position: absolute;
+  width: 85%;
+  height: 100%;
+  background: url(../img/home/diqiuxian-img.png) no-repeat;
+  background-size: 100% 100%;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .mapditu .imgthree {
+  position: absolute;
+  width: 82%;
+  height: 100%;
+  left: .426rem;
+  background: url(../img/home/diqiuxian02-img.png) no-repeat;
+  background-size: 100% 100%;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .mapditu .move1 {
+  animation: myMove1 15s ease-in infinite alternate;
+  -webkit-animation: myMove1 5s ease-in infinite alternate;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .mapditu .move2 {
+  animation: myMove2 3s ease infinite alternate;
+  -webkit-animation: myMove1 3s ease infinite alternate;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .mapditu .move3 {
+  animation: myMove3 2s ease-in infinite alternate;
+  -webkit-animation: myMove1 2s ease-in infinite alternate;
+}
+@keyframes myMove1 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes myMove1 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes myMove2 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes myMove2 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes myMove3 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes myMove3 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .textone {
+  width: 50%;
+  top: 22%;
+  left: 0;
+  text-align: left;
+  right: 0;
+  margin: 0 auto;
+  position: absolute;
+  font-size: .5964rem;
+  line-height: .852rem;
+  color: #fff;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .textone span {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-size: .7668rem;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .maplist {
+  width: 100%;
+  height: 125%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  font-size: .5112rem;
+  color: #fff;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .maplist span {
+  display: inline-block;
+  position: absolute;
+  bottom: .426rem;
+  width: 100%;
+  left: 0;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .maplist .edu {
+  position: absolute;
+  top: 0;
+  left: 0.852rem;
+  width: 2.556rem;
+  height: 2.556rem;
+  background: url(../img/home/001-gaoimg.png) no-repeat;
+  background-size: 100% 100%;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .maplist .edu img {
+  top: .426rem;
+  left: .526rem;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .maplist .ziliao {
+  position: absolute;
+  bottom: 25%;
+  left: -6%;
+  width: 3.0246rem;
+  height: 3.0246rem;
+  background: url(../img/home/002-Material-Science-img.png) no-repeat;
+  background-size: 100% 100%;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .maplist .ziliao img {
+  left: .852rem;
+  top: .213rem;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .maplist .jixi {
+  position: absolute;
+  bottom: 5%;
+  left: 23%;
+  width: 2.6838rem;
+  height: 2.6838rem;
+  background: url(../img/home/003-Interest-img.png) no-repeat;
+  background-size: 100% 100%;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .maplist .jixi img {
+  left: .852rem;
+  top: .426rem;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .maplist .shishi {
+  position: absolute;
+  right: 0;
+  bottom: 20%;
+  width: 2.6412rem;
+  height: 2.6412rem;
+  background: url(../img/home/004-Real-time-arrival-img.png) no-repeat;
+  background-size: 100% 100%;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .maplist .shishi img {
+  left: .752rem;
+  top: .426rem;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .maplist .danbao {
+  position: absolute;
+  right: -6%;
+  top: 20%;
+  width: 2.8542rem;
+  height: 2.8542rem;
+  background: url(../img/home/005-No-warranty-required-img.png) no-repeat;
+  background-size: 100% 100%;
+}
+.shunyiloan_compat .shunyiloan_home .home_mapimg .maplist .danbao img {
+  left: .952rem;
+  top: .426rem;
+}
+.shunyiloan_compat .shunyiloan_home .home_img2 {
+  position: absolute;
+  bottom: 2.356rem;
+  width: 100%;
+}
+.shunyiloan_compat .shunyiloan_home .home_img2 .img_a2 {
+  position: absolute;
+  width: 8.2644rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+.shunyiloan_compat .shunyiloan_home .home_img2 .img_a2 img {
+  left: 0;
+}
+.shunyiloan_compat .shunyiloan_mainone {
+  width: 100%;
+  height: 100%;
+  background: url("../img/main/Title-img-05.png") no-repeat;
+  background-size: 100% 100%;
+}
+.shunyiloan_compat .shunyiloan_mainone .daikuantitle {
+  width: 12.43125rem;
+  height: 1.4025rem;
+  background: url(../img/main/Title-img.png) no-repeat;
+  background-size: 100% 100%;
+  margin: 0 auto;
+  text-align: center;
+  color: #ff7500;
+  position: absolute;
+  top: 1.704rem;
+  left: 0;
+  right: 0;
+  font-size: 0.7668rem;
+  line-height: 1.2025rem;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist {
+  margin-top: 2.2152rem;
+  text-align: center;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist .ulist {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist .ulist li {
+  width: 100%;
+  padding: 0.752rem;
+  min-height: 2.3004rem;
+  color: #b9551c;
+  font-size: 0.5538rem;
+  line-height: .852rem;
+  text-align: left;
+  margin-top: 0.852rem;
+  background: url(../img/main/Input-box-img.png);
+  background-size: 100% 100%;
+  display: -webkit-flex;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist .ulist li b {
+  width: .5964rem ;
+  font-weight: 400;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist .ulist li span {
+  -webkit-flex: 1;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist dl {
+  width: 45%;
+  float: left;
+  overflow: hidden;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist dl dt {
+  width: 52%;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist dl dt img {
+  width: 100%;
+  vertical-align: middle;
+  position: relative;
+  left: 50%;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist dl .miaoshu_dd {
+  text-align: center;
+  color: #b9551c;
+  font-size: 0.5112rem;
+  padding: 0.5964rem 0;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist dl .miaoshu_dd span {
+  display: block;
+  font-size: 0.5964rem;
+  font-weight: 800;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist .foot {
+  margin-top: .226rem;
+  padding: 0 .3rem;
+  /* 	float: left;
+					position: relative;
+					left:50%; 
+				*/
+  margin: 0 auto;
+  display: inline-block;
+  height: 0.852rem;
+  line-height: .852rem;
+  text-align: center;
+  color: #b9551c;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist .foot b {
+  font-weight: 800;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist .main_img1 {
+  width: 80%;
+  margin: 0 auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  left: 50%;
+  margin-left: -30%;
+  top: 20%;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist .main_img1 img {
+  left: 0;
+  right: 0;
+  width: 80%;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist .chanpinjieshao {
+  width: 80%;
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  bottom: 5%;
+  text-align: left;
+  color: #b9551c;
+  font-size: .5964rem;
+  line-height: 1.1076rem;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist .main_colu {
+  width: 100%;
+  display: -webkit-flex;
+  justify-content: space-around;
+  flex-flow: wrap;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_minilist.column {
+  display: -webkit-flex;
+  flex-flow: column;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform {
+  width: 75%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 99;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .tit {
+  font-size: 0.5964;
+  color: #b9551c;
+  font-weight: 900;
+  text-indent: .852rem;
+  padding-bottom: .426rem;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .xiala {
+  text-align: center;
+  margin-left: -20%;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .main_block {
+  width: 100%;
+  display: -webkit-flex;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .main_block .main_label {
+  position: relative;
+  height: 2.4708rem;
+  margin-right: .852rem;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .main_block .main_label img {
+  top: 30%;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .main_block .main_yanzheng {
+  width: 4.26rem;
+  height: 1.704rem;
+  margin-left: .426rem;
+  display: inline-block;
+  border: 0;
+  color: #ffe596;
+  background: #b9551c;
+  outline: none;
+  font-size: 0.5335rem;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .main_block .main_form {
+  display: -webkit-flex;
+  width: 100%;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .main_block .main_label {
+  position: relative;
+  margin-right: .852rem;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .main_block .main_label img {
+  top: 30%;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .main_block .litter {
+  margin-bottom: .852rem;
+  width: 100%;
+  border: 1px solid #b9551c;
+  color: #b9551c;
+  height: 1.704rem;
+  line-height: 1.704rem;
+  text-indent: .4rem;
+  background: #ffe596;
+  -webkit-flex: 1;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .main_block .litter input {
+  color: #b9551c;
+  height: 1.5336rem;
+  line-height: 1.5336rem;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .main_block .main_input {
+  -webkit-flex: 4;
+  width: 100%;
+  height: 36px;
+  margin-bottom: .852rem;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .main_block .main_input :-moz-placeholder {
+  color: #b9551c;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .main_block .main_input ::-webkit-input-placeholder {
+  color: #b9551c;
+}
+.shunyiloan_compat .shunyiloan_mainone .con_miniform .main_block .main_input input {
+  width: 100%;
+  border: 1px solid #b9551c;
+  color: #b9551c;
+  height: 1.704rem;
+  line-height: 1.704rem;
+  text-indent: .4rem;
+  background: #ffe596;
+}
+.shunyiloan_compat .shunyiloan_mainone .main_btn {
+  width: 70%;
+  height: 1.704rem;
+  line-height: 1.704rem;
+  border: 0;
+  outline: none;
+  background: #b9551c;
+  color: #ffe596;
+  font-size: .7668rem;
+  border-radius: .852rem;
+  position: absolute;
+  bottom: 14%;
+  z-index: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+.shunyiloan_compat .shunyiloan_mainone .main_lianjie {
+  position: absolute;
+  bottom: 5%;
+  font-style: .5115rem;
+  color: #b9551c;
+  text-align: center;
+  left: 0;
+  right: 0;
+}
+.shunyiloan_compat .shunyiloan_mainone .main_lianjie a {
+  color: #b9551c;
+  cursor: pointer;
+  border-bottom: 1px solid #b9551c;
+}
+.shunyiloan_compat .shunyiloan_mainone.shen {
+  background: url("../img/main/daikuanyixiangshenqing-ditu-img-06.png") no-repeat;
+  background-size: 100% 100%;
+}
+.shunyiloan_compat .shunyiloan_mainone.shao {
+  background: url("../img/main/chanpinjieshao-ditu-img-04.png") no-repeat;
+  background-size: 100% 100%;
+}
+.shunyiloan_compat .shunyiloan_mainone.xie {
+  background: url("../img/main/daikuanyixiangshenqing-ditu-img-06.png") no-repeat;
+  background-size: 100% 100%;
+}
+.shunyiloan_compat .shunyiloan_mainone.xie {
+  background: url("../img/main/daikuanyixiangshenqing-ditu-imgs-06.png") no-repeat;
+  background-size: 100% 100%;
+}
+.shunyiloan_compat .shunyiloan_mainone.show {
+  display: block;
+}
+.shunyiloan_compat .shunyiloan_mainone.hide {
+  opacity: 0;
+}
+.main_select {
+  width: 100%;
+  border: 1px solid #b9551c;
+  color: #b9551c;
+  height: 1.704rem;
+  line-height: 1.704rem;
+  text-indent: .4rem;
+  background: #ffe596;
+}
+.loancancle_alert {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  width: 100%;
+  height: 20px;
+  z-index: 99;
+}
+.loancancle_alert .close {
+  text-align: left;
+  max-width: 80%;
+  width: auto;
+  display: inline-block;
+  line-height: 20px;
+  color: #fff;
+  border-radius: 0.2556rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: .2rem .4rem;
+}

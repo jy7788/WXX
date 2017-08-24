@@ -21,17 +21,32 @@
 	<meta http-equiv="Pragma" content="no-cache">
 	<meta name="format-detection" content="telephone=no"/>
 	<meta name="format-detection" content="email=no"/>
-	<title>SAT</title>
+	<title>资料修改</title>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/sat/assets/weui.min.css">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/sat/assets/jquery-weui.css">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/sat/assets/demos.css">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/sat/mobile/css/style.css">
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"> </script>
 </head>
 <body>
+	<div id="myparams" style="display: none">
+		<span id="timestamp">${timestamp }</span>
+		<span id="nonceStr">${nonceStr }</span>
+		<span id="signature">${signature }</span>
+		<span id="appId">${appId }</span>
+	</div>
+
 	<form id="satUserDetailForm" action="<%=request.getContextPath()%>/satuser/update" method="post" enctype="multipart/form-data">
+		<div class="sat_alert">
+			<h1>选择操作</h1>
+			<ul>
+				<li id="xiangji">相机</li>
+				<li id="xiangce">相册</li>
+			</ul>
+		</div>
 		<input class="weui_input" type="text" name="openid" value="${satUser.openid}" hidden="true">
 		<div class="sat_content">
-			<div class="head_png weui_cell">
+			<div class="head_png weui_cell personal">
 				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="42" alt=""></div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<p>修改头像</p>
@@ -50,12 +65,12 @@
 					<div class="weui_cell_bd weui_cell_primary">
 						<c:choose>
 							<c:when test="${ satUser.sex == 1 }">
-								<input class="weui_input" id="sex" type="text" value="男" readonly="" data-values="1">
-								<input class="weui_input" id="sexChoose" name="sex" type="text" value="1" hidden="true" readonly="">
+								<input class="weui_input" id="sexChoose" name="sexChoose" type="text" value="男" readonly="" data-values="1">
+								<input class="weui_input" id="sex" name="sex" type="text" value="1" hidden="true" readonly="">
 							</c:when>
 							<c:otherwise>
-								<input class="weui_input" id="sex" name="sex" type="text" value="女" readonly="" data-values="0">
-								<input class="weui_input" id="sexChoose" name="sex" type="text" value="0" hidden="true" readonly="">
+								<input class="weui_input" id="sexChoose" name="sexChoose" type="text" value="女" readonly="" data-values="0">
+								<input class="weui_input" id="sex" name="sex" type="text" value="0" hidden="true" readonly="">
 							</c:otherwise>
 						</c:choose>	
 					
@@ -65,12 +80,20 @@
 					<div class="weui_cell_hd"><label for="time3" class="weui_label">生日</label></div>
 					<div class="weui_cell_bd weui_cell_primary">
 						<input class="weui_input" id="time3" name="birthday" type="text" readonly="" value="${satUser.birthday}">
+						<input class="weui_input" id="mbirthday" name="mbirthday" type="text" readonly="" value="${satUser.birthday}" hidden="true">
 					</div>
 				</div>
 				<div class="weui_cell">
 					<div class="weui_cell_hd"><label class="weui_label">手机号</label></div>
 					<div class="weui_cell_bd weui_cell_primary">
 						<input class="weui_input" type="tel" name="phoneNum"  placeholder="手机号" value="${satUser.phoneNum}">
+					</div>
+				</div>
+				<div class="weui_cell">
+					<div class="weui_cell_hd"><label class="weui_label">二维码</label></div>
+					<div class="weui_cell_bd weui_cell_primary">
+						<span class="sat_shangchuan"><img id="qrImg" src="${satUser.qrCode} " style="width:.852rem;height:.852rem;" />上传<img  src="<%=request.getContextPath()%>/sat/mobile/img/huisesejiantou-icon.png" width="6" alt=""></span>
+						<input class="weui_input" type="text" id="qrCode" name="qrCode" hidden="true" placeholder="二维码" value="${satUser.qrCode}">
 					</div>
 				</div>
 	
@@ -115,17 +138,90 @@
     	}); 
 	    
 	  });
+	  
+	  jQuery(document).ready(function(){
+		  //初始化库 
+		 loadXMLDoc();
+		 //初始化库结束
+		 
+		 /***
+		   * 拍照
+		   */
+		  $("#xiangji").on("click",function(e){
+			  wx.chooseImage({
+				    count: 1, // 默认9
+				    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+				    sourceType: ['camera'], // 可以指定来源是相册还是相机，默认二者都有
+				    success: function (res) {
+				        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+				        $("#qrCode").val(localIds);
+				        $("#qrImg").attr("src", localIds);
+				        /* wx.previewImage({
+				            current: localIds, // 当前显示图片的http链接
+				            urls: [localIds, localIds] // 需要预览的图片http链接列表
+				        }); */
+				    }
+				});
+		  });
+		 /**
+		 *相册选择图片
+		 */
+		  $("#xiangce").on("click",function(e){
+			  wx.chooseImage({
+				    count: 1, // 默认9
+				    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+				    sourceType: ['album'], // 可以指定来源是相册还是相机，默认二者都有
+				    success: function (res) {
+				        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+				        $("#qrCode").val(localIds);
+				        $("#qrImg").attr("src", localIds);
+				        /* alert("localIds" + localIds);
+				        
+				        wx.previewImage({
+				            current: localIds, // 当前显示图片的http链接
+				            urls: [localIds, localIds] // 需要预览的图片http链接列表
+				        }); */
+				    }
+				});
+		  });
+		   
+		 });
+	  
+	  //初始化 微信硬件jsapi库
+	  function loadXMLDoc()
+	  {
+	      var appId =jQuery("#appId").text();
+	      var timestamp=jQuery("#timestamp").text();
+	      var nonceStr =jQuery("#nonceStr").text();
+	      var signature=jQuery("#signature").text();
+	      wx.config({
+	               beta: true,
+	                debug: false,// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	                appId: appId, 
+	                timestamp: timestamp,
+	                nonceStr: nonceStr,
+	                signature: signature,
+	                jsApiList: [
+	                  'getWXDeviceUnbindTicket',
+	                  'scanQRCode',
+	                  'chooseImage'
+	                ]
+	            });
+	               //alert("初始化库结束");
+	  }
+	  
+	  
 	 //性别插件
-	$("#sex").select({
+	$("#sexChoose").select({
         title: "选择性别",
         items: ["男", "女"],
         onChange: function(d) {
           console.log(this, d);
           if(d.values == "女") {
-	          $("#sexChoose").attr("value", "0");
+	          $("#sex").attr("value", "0");
           } 
           if(d.values == "男") {
-	          $("#sexChoose").attr("value", "1");
+	          $("#sex").attr("value", "1");
           } 
         },
         onClose: function() {
@@ -181,6 +277,8 @@
           console.log(values);
         },
       });
+      var mbirth = $("#mbirthday").val();
+      
       $("#time3").datetimePicker({
         times: function () {
           return [
@@ -189,7 +287,7 @@
             }
           ];
         },
-        value: '2012-12-12 上午',
+        value: mbirth,
         onChange: function (picker, values, displayValues) {
           console.log(values);
         }
@@ -248,6 +346,14 @@
           console.log(values);
         }
       })
+      
+      $(document).click(function(e){
+		if($(".sat_shangchuan").is(e.target)){
+			$(".sat_alert").animate({bottom:'0'});
+		}else{
+			$(".sat_alert").animate({bottom:'-6.39rem'});
+		}
+	})
     
 	</script>
 
