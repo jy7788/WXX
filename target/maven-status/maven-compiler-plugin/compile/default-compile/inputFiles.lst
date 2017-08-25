@@ -63,6 +63,7 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\ModelMsgData
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\voice\WordResult.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\IWeixinMenuService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\json\OpenIdResult.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\sat\Classify.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\sat\SatAdService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\sat\ISatAdvertisementDao.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\sat\SatUserDao.java

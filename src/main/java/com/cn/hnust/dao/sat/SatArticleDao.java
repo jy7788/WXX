@@ -87,10 +87,10 @@ public class SatArticleDao extends BaseDao<SatArticle> implements ISatArticleDao
 	}
 
 	@Override
-	public SatArticle loadMyArticleContent(String id, String openid) {
+	public SatArticle loadMyArticleContent(String id) {
 		HashMap<String, Object> params = new HashMap<>();
-		params.put("id", id);
-		params.put("openid", openid);
+		params.put("articleId", id);
+		//params.put("openid", openid);
 		return super.loadBySqlId("loadMyArticleContent", params);
 	}
 

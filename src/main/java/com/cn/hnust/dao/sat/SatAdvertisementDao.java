@@ -40,5 +40,22 @@ public class SatAdvertisementDao extends BaseDao<SatAdvertisement> implements IS
 	public void update(SatAdvertisement ad) {
 		super.update(ad);
 	}
+
+	@Override
+	public SatAdvertisement loadByArticleIdAndOpenId(String openid, String articleId) {
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("openid", openid);
+		params.put("articleId", articleId);
+		return super.loadBySqlId("loadByArticleIdAndOpenId", params);
+	}
+
+	@Override
+	public int selectCount(String openid) {
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("openid", openid);
+		return super.selectCount("selectCount", params);
+	}
+	
+	
 	
 }

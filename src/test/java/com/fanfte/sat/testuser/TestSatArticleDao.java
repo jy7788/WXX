@@ -194,7 +194,7 @@ public class TestSatArticleDao {
 	}
 	@Test
 	public void loadMyArticleContent() {
-		SatArticle satArticle = satArticleDao.loadMyArticleContent("316693", "oNG7At-eteDqJ5rBCwwQ1mIWRrF8");
+		SatArticle satArticle = satArticleDao.loadMyArticleContent("320931");
 		System.out.println(satArticle.getContent());
 	} 
 	
@@ -225,6 +225,14 @@ public class TestSatArticleDao {
 	public void testMyCollections() {
 		List<SatArticle> myCollections = satArticleDao.listMyCollections("8785c7c3-19b9-41d5-8126-2c5a1530a70b");
 		for(SatArticle a : myCollections) {
+			System.out.println(a.getDescImgUrl());
+		}
+	}
+	
+	@Test
+	public void testListMyArticles() {
+		List<SatArticle> list = satArticleDao.listSatArticlesByOpenId("oNG7At-eteDqJ5rBCwwQ1mIWRrF8");
+		for(SatArticle a : list) {
 			System.out.println(a.getDescImgUrl());
 		}
 	}

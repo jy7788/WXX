@@ -34,6 +34,17 @@ public class SatAdService implements ISatAdService{
 		SatAdvertisement satAdvertisement = satAdvertisementDao.loadById(id);
 		return satAdvertisement;
 	}
+
+	@Override
+	public SatAdvertisement loadArticleAd(String openid, String articleId) {
+		SatAdvertisement advertisement = satAdvertisementDao.loadByArticleIdAndOpenId(openid, articleId);
+		return advertisement;
+	}
+
+	@Override
+	public Integer getCount(String openid) {
+		return satAdvertisementDao.selectCount(openid);
+	}
 	
 	
 

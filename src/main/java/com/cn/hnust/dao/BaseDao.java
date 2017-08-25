@@ -94,5 +94,10 @@ public class BaseDao<T> implements IBaseDao<T>{
 	public void addContent(T obj) {
 		session.insert(obj.getClass().getName() + ".addContent", obj);
 	}
+	
+	public Integer selectCount(String sqlId, Map<String, Object> params) {
+		int total = session.selectOne(sqlId, params);
+		return total;
+	}
 }	
 

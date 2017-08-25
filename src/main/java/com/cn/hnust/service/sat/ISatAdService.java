@@ -12,4 +12,8 @@ public interface ISatAdService {
 	public List<SatAdvertisement> getAdsByUserId(String userId);
 	
 	public SatAdvertisement load(String id);
+	
+	public SatAdvertisement loadArticleAd(String openid, String articleId);
+	
+	public Integer getCount(String openid); 
 }

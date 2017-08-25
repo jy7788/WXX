@@ -65,4 +65,10 @@ public class TestSatArticleAdvertisementMapper {
 		loadById.setDescription("description");
 		satAdvertisementDao.update(loadById);
 	}
+	
+	@Test
+	public void testSelectCount() {
+		int count = satAdvertisementDao.selectCount("oNG7At-eteDqJ5rBCwwQ1mIWRrF8");
+		System.out.println(count);
+	}
 }

@@ -42,7 +42,6 @@
       link_url = #{linkUrl,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      category_id = #{categoryId,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR} 
   </update>
@@ -54,4 +53,15 @@
 		(#{id}, #{openid}, #{description}, 
 		 #{imgUrl},   #{linkUrl},     #{createTime}, #{updateTime}, #{name})
   </insert>
+  
+  <select id="loadByArticleIdAndOpenId" resultMap="BaseResultMap" parameterType="Map">
+  	select 
+  	ad.id, ad.open_id, ad.description, ad.img_url, ad.link_url, ad.create_time, ad.update_time, ad.name
+  	from t_sat_advertisement ad join t_sat_article_share s on (ad.id = s.advis_id) 
+  	where  s.user_id = #{openid} and s.article_id = #{articleId}
+  </select>
+  
+  <select id="selectCount" resultType="int">
+  	select count(*) from t_sat_advertisement where open_id = #{openid}
+  </select>
 </mapper>

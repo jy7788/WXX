@@ -30,26 +30,25 @@
 </head>
 <body>
 
-<input type="text" value="${ad.id }" hidden="true" id="adId">
-<input type="text" value="${ad.openid }" hidden="true" id="openid">
+<input type="text" value="${openid }" hidden="true" id="openid">
 	<div class="sat_content">
 		
 		<div class="sat_data guanggaoxq">
 			<div class="sat_zhuanzai">
-				<p>已有签名<span>2</span>/<i>3</i></p>
-				<b onclick="setEdit()" id="editButton" >编辑</b>
+				<p>已有签名<span>${adSize}</span>/<i>3</i></p>
+				<b onclick="setEdit()" id="editButton" >完成</b>
 			</div>
 			<div class="weui_cell">
 				<div class="weui_cell_hd"><label class="weui_label">名称</label></div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="text" placeholder="姓名" value="${ad.name }" readonly id="name">
+					<input class="weui_input" type="text" placeholder="姓名" value="${ad.name }" id="name">
 				</div>
 			</div>
 			<div class="weui_cell ">
 				<div class="weui_cell_hd"><label for="name" class="weui_label">描述</label></div>
 				<div class="weui_cell_bd weui_cell_primary article_cell">
-					<textarea class="weui_textarea" placeholder="请输入文章标题最多不超过50个字" readonly rows="5" id="description">${ad.description }</textarea>
-					<div class="weui_textarea_counter"><span id="curLen">${fn:length(ad.description)}</span>/300</div>
+					<textarea class="weui_textarea" placeholder="请输入文章标题最多不超过50个字" rows="5" id="description"></textarea>
+					<div class="weui_textarea_counter"><span id="curLen">0</span>/300</div>
 				</div>
 			</div>
 			<div class="weui_uploader">
@@ -57,16 +56,16 @@
 					<div class="weui_cell_bd">图片</div>
 				</div>
 				<div class="weui_uploader_bd">
-					<img src="${ad.imgUrl }" height="112" width="274" alt="" id="image">
+					<img src="" height="112" width="274" alt="" id="image">
 					<div class="weui_uploader_input_wrp">
-						<input class="weui_uploader_input" type="file" accept="image/*" multiple="" readonly >
+						<input class="weui_uploader_input" type="file" accept="image/*" multiple="" >
 					</div>
 				</div>
 			</div>
 			<div class="weui_cell nobef">
 				<div class="weui_cell_hd"><label class="weui_label">链接</label></div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="tel" placeholder="手机号" value="${ad.linkUrl }" readonly id="linkUrl">
+					<input class="weui_input" type="tel" placeholder="手机号" value="" id="linkUrl">
 				</div>
 			</div>
 		</div>
@@ -101,52 +100,40 @@
 		
 		function setEdit() {
 			var text = $("#editButton").text();
-			//点击编辑
-			if( $.trim(text) == "编辑") {
-				$("#name").removeAttr("readonly");
-				$("#description").removeAttr("readonly");
-				$("#image").removeAttr("readonly");
-				$("#linkUrl").removeAttr("readonly");
-				$("#editButton").text("完成");
-			}
 			//点击完成
-			if( $.trim(text) == "完成") {
-				var adId = $("#adId").val().trim();
-				var name = $("#name").val().trim();
-				var description = $("#description").val().trim();
-				var image = $("#image").attr("src").trim();
-				var linkUrl = $("#linkUrl").val().trim();
-				
-				if(adId != null && name != null && description != null && image != null && linkUrl != null) {
-					var url = "<%=request.getContextPath()%>/ad/update";
-					$.ajax({
-						url : url,
-						type : 'POST',
-						dataType : 'json',
-						async : true,
-						data : {
-							"adId" : adId,
-							"name" : name,
-							"description" : description,
-							"image" : image,
-							"linkUrl" : linkUrl,
-							"openid" : $("#openid").val()
-						},
-						success : function(data) {
-							if(data.indexOf("success") > 0){
-								gotoadList();
-							} else {
-								var dataRole =$.parseJSON(data);
-								DisplayNewsItems(dataRole);
-							}
-						},
-						error : function() {
-							//alert("网络连接异常");
+			//var adId = $("#adId").val().trim();
+			var name = $("#name").val().trim();
+			var description = $("#description").val().trim();
+			var image = $("#image").attr("src").trim();
+			var linkUrl = $("#linkUrl").val().trim();
+			if(name != null && description != null && image != null && linkUrl != null
+					&& name != "" && description != "" && image != "" && linkUrl !="") {
+				var url = "<%=request.getContextPath()%>/ad/insert";
+				$.ajax({
+					url : url,
+					type : 'POST',
+					dataType : 'json',
+					async : true,
+					data : {
+						"name" : name,
+						"description" : description,
+						"image" : image,
+						"linkUrl" : linkUrl,
+						"openid" : openid
+					},
+					success : function(data) {
+						if(data.indexOf("success") > 0){
+							gotoadList();
+						} else {
+							alert("新增失败");
 						}
-					});
-				} else{
-					alert("字段不能为空");
-				}
+					},
+					error : function() {
+						//alert("网络连接异常");
+					}
+				});
+			} else{
+				alert("字段不能为空");
 			}
 		}
 	</script>	

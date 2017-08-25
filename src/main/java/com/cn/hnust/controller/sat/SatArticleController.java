@@ -40,11 +40,13 @@ public class SatArticleController {
 	@Autowired
 	private ISatUserService satUserService;
 	
-	@RequestMapping("/informationCenter")
-	public String newsCenter() {
-		return "sat/mobile/html/Information.jsp";
-	}
-	
+	/**
+	 * 进入新闻中心
+	 * @author fanfte
+	 * 
+	 * @return
+	 * 2017年8月25日
+	 */
 	@RequestMapping("/gotoNewsList")
 	public String gotoNewsList() {
 		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeixinFinalValue.APPID +"&redirect_uri=" + WeixinFinalValue.SERVER_URL + "satarticle/list&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
@@ -144,7 +146,7 @@ public class SatArticleController {
 	 */
 	@RequestMapping(value="/myArticleDetail",method=RequestMethod.GET)
 	public String satMyArticleDetail(@RequestParam("id") String id, @RequestParam("openid") String openid, Model model) {
-		SatArticle satArticle = satArticleService.loadMyArticleContent(id, openid);
+		SatArticle satArticle = satArticleService.loadMyArticleContent(id);
 		SatUser satUser = satUserService.loadByOpenId(openid);
 		if(satArticle != null) {
 			model.addAttribute("satArticle", satArticle);
@@ -163,6 +165,7 @@ public class SatArticleController {
 	@RequestMapping(value="/listMyArticles/{openid}",method=RequestMethod.GET)
 	public String satArticleListMyArticles(@PathVariable String openid, Model model) {
 		List<SatArticle> myArticles = satArticleService.listSatArticlesByOpenId(openid);
+		System.out.println("size" + myArticles.size());
 		if(myArticles != null) {
 			model.addAttribute("myArticles", myArticles);
 			model.addAttribute("openid", openid);
@@ -180,6 +183,16 @@ public class SatArticleController {
 		return "sat/mobile/html/articleEdit.jsp";
 	}
 	
+	
+	/**
+	 * 更新分享次数
+	 * @author fanfte
+	 * 
+	 * @param articleId
+	 * @param openid
+	 * @return
+	 * 2017年8月25日
+	 */
 	@RequestMapping(value="/updateUserShareCount", method=RequestMethod.POST)
 	@ResponseBody
 	public String updateShareCount(@RequestParam("articleId") String articleId, @RequestParam("openid") String openid) {
@@ -207,15 +220,7 @@ public class SatArticleController {
 		System.out.println(result);
 		return result;
 	}
-	
-	@RequestMapping(value="/getArticlesByCategory", method = RequestMethod.POST)
-	@ResponseBody
-	public String getMoreDetail() {
-		List<SatArticle> articleList = satArticleService.list();
-		String string = JsonUtil.getInstance().list2json(articleList);
-		System.out.println("articles vvv " + string);
-		return string;
-	}
+
 	@RequestMapping(value="/statistics", method = RequestMethod.GET)
 	public String getStatistics() {
 		return "sat/mobile/html/shujutongji.jsp";
@@ -225,13 +230,25 @@ public class SatArticleController {
 	/**
 	 * 根据类别名称查出文章列表
 	 * @param classifyName 类别名字
+	 * @return 文章Json数据
 	 */
 	@RequestMapping(value="/listArticlesByClassifyName", method=RequestMethod.POST)
 	@ResponseBody
 	public String listArticlesByClassifyName(@RequestParam("classifyName") String classifyName) {
 //		System.out.println(map.size());
+		List<SatArticle> list = null;
 		System.out.println(classifyName );
-		List<SatArticle> list = satArticleService.listByClassifyName(classifyName);
+		if(classifyName.equals("本周头条")) {
+			list = satArticleService.list();
+		} else {
+			list = satArticleService.listByClassifyName(classifyName);
+			System.out.println(list.size());
+		}
 		return JsonUtil.getInstance().list2json(list);
+		/*if(list.size() > 0) {
+			return JsonUtil.getInstance().list2json(list);
+		} else {
+			return "request unsuccess";
+		}*/
 	}
 }

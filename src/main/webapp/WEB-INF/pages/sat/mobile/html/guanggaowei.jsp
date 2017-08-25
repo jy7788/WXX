@@ -29,6 +29,7 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/sat/mobile/css/style.css">
 </head>
 <body >
+<input type="text" hidden="true" id="openid" value="${openid }">
 	<div class="sat_content">
 		<div class="main guanggao" >
 			<!-- <p class="guanggao_p">已有签名<span>2</span>/<i>3</i></p>
@@ -37,13 +38,13 @@
 				<b>购买VIP</b>
 			</div> -->
 			<div class="sat_zhuanzai">
-				<p>已有签名<span>2</span>/<i>3</i></p>
-				<b>+新建</b>
+				<p>已有签名<span id="size">${size} </span>/<i>3</i></p>
+				<b onclick="newAd()">+新建</b>
 			</div>
 			
 			<div class="weui_panel_bd guanggaotu">
 			
-				<div class="weui_media_box weui_media_text">
+				<%-- <div class="weui_media_box weui_media_text">
 					<h4 class="weui_media_title">
 						<b>理财通发行推广</b><span>2017-01-29</span>
 					</h4>
@@ -60,13 +61,12 @@
 					<ul class="weui_media_info">
 						<li class="">查看详情</li>
 					</ul>
-				</div>
-				
+				</div> --%>
 				
 				<c:forEach items="${adList}" var="ad">
 					<div class="weui_media_box weui_media_text">
 					<h4 class="weui_media_title">
-						<b>${ad.description} </b><span>${ad.createTime }</span>
+						<b>${ad.name} </b><span>${ad.createTime }</span>
 					</h4>
 					<p class="weui_media_desc"><img src="${ad.imgUrl }" height="112" width="274" alt=""></p>
 					<%-- <div onclick="gotoLink(${ad.linkUrl})"> --%>
@@ -94,9 +94,23 @@
 			loop: true,
 			autoplay: 1000
 		});
+		/* var size = ${size}; 
+		var openid = ${ad.openid};
+		alert(openid); */
 		
+		var openid = $("#openid").val();
 		function gotoLink(link) {
 			alert("aaa");
 			alert(link);
+		}
+		
+		function newAd() {
+			if(size == 3) {
+				alert("广告位已满,无法新建");
+			} else {
+				if(openid != null && openid != "") {
+					window.location.href = "<%=request.getContextPath()%>/ad/gotoInsert/" + openid;
+				}
+			}
 		}
 	</script>

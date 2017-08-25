@@ -53,8 +53,8 @@
   <select id="loadMyArticleContent" resultMap="BaseResultMap" parameterType="Map" >
     select 
      t1.content, t2.title, t2.id, t2.create_time, t2.stars, t2.shares, t2.watches, t2.desc_img_url
-    from t_sat_article_content t1 join t_sat_article t2 on t1.id = t2.id   
-    where t1.id = #{id,jdbcType=VARCHAR} and t1.open_id=#{openid,jdbcType=VARCHAR} and t2.type != 1
+    from t_sat_article_content t1 join t_sat_article t2 on (t2.id = t1.article_id)
+    where t2.id= #{articleId}
   </select>
   
   <select id="loadArticleById" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -66,9 +66,10 @@
   
   <select id="listBySatUserOpenId" resultMap="BaseResultMap" parameterType="Map" >
     select 
-    <include refid="Base_Column_List" />
-    from t_sat_article
-    where open_id = #{openid,jdbcType=VARCHAR}
+    	a.id, a.title, a.stars, a.shares, a.watches, a.create_time, a.update_time, a.url, a.desc_img_url 
+    from t_sat_article a join t_sat_article_share s on (a.id = s.article_id)
+    join t_sat_user u on (u.open_id = s.user_id) 
+    where s.user_id = #{openid,jdbcType=VARCHAR}
   </select>
   
   <select id="listSatArticles" resultMap="BaseResultMap" parameterType="Map" >

@@ -62,8 +62,8 @@ public class SatArticleService implements ISatArticleService{
 	}
 
 	@Override
-	public SatArticle loadMyArticleContent(String id, String openid) {
-		return satArticleDao.loadMyArticleContent(id, openid);
+	public SatArticle loadMyArticleContent(String id) {
+		return satArticleDao.loadMyArticleContent(id);
 	}
 
 	@Override
