@@ -59,6 +59,7 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\util\PropertiesUti
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\FiveBookUser.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\DuplicateMessage.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\IWUserService.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\sat\SatArticleShare.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\ModelMsgData.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\voice\WordResult.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\IWeixinMenuService.java
@@ -128,6 +129,7 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\WeixinA
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\json\TemplateMsg.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\sat\SatArticle.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\socket\MultiThreadServer.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\sat\ISatArticleShareDao.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\sat\ISatUserDao.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\sat\TestController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\DeviceJson.java
@@ -139,6 +141,7 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\BasicKit.j
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\SecurityKit.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\WeixinQrService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\util\Sign.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\sat\SatArticleShareDao.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\message\TextMessage.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\sat\SatUser.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\json\sat\ArticleJson.java

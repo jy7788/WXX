@@ -129,4 +129,13 @@ public class SatArticleDao extends BaseDao<SatArticle> implements ISatArticleDao
 		params.put("title", "%" + str + "%");
 		return super.list("listByTitle", params);
 	}
+
+	@Override
+	public void insertNewShareArticle(String openid, String articleId, String adId) {
+		Map<String, Object > params = new HashMap<String, Object>();
+		params.put("openid", openid);
+		params.put("articleId", articleId);
+		params.put("adId", adId);
+		super.add("insertNewShareArticle", params);
+	}
 }

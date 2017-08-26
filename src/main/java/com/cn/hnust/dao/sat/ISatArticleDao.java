@@ -29,4 +29,6 @@ public interface ISatArticleDao extends IBaseDao<SatArticle>{
 	public List<SatArticle> listMyCollections(String openid); 
 	
 	public List<SatArticle> listArticlesLike(String str);
+	
+	public void insertNewShareArticle(String openid, String articleId, String adId);
 }

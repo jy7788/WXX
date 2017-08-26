@@ -42,6 +42,7 @@
 <%-- <input type="text" id="articleOpenid" hidden="true" value="${satArticle.openid}"> --%>
 <input type="text" id="satArticleImg" hidden="true" value="${satArticle.descImgUrl}">
 <input type="text" id="satArticleId" hidden="true" value="${satArticle.id}">
+<input type="text" id="adUrl" hidden="true" value="${ad.linkUrl}">
 
 	<div class="sat_content">
 		<div class="sat_zhuanzai">
@@ -96,13 +97,13 @@
 				
 		</div>
 		<div class="data_footer">
-			<div class="foot_png weui_cell">
+			<div class="foot_png weui_cell" id="advertisement" onclick="updateClickAd()">
 				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="35" alt=""></div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<p id="buttomDescription">${satUser.organization}</p>
+					<p id="buttomDescription">${ad.description }</p>
 				</div>
 				<div class="weui_cell_ft">
-					<a><img src="<%=request.getContextPath()%>/sat/mobile/img/mingpian-dianhua-icon.png" width="34" alt="" id="buttomImg"></a>
+					<a><img src="${ad.imgUrl }"></a>
 				</div>
 			</div>
 		</div>
@@ -200,7 +201,6 @@
 	  var infoTitle = $("#satArticleTitle").html();
 	  var infoSummary = infoTitle;
 	  var currUrl = window.location.href;
-	  //var currUrl ;
 	  var iconUrl = $("#satArticleImg").attr("src");
 	  var openid = $("#openid").val();//原来的openid
 	  var mOpenid = $("#mOpenid").val();//我的openid
@@ -208,7 +208,7 @@
 	  var articleId = $("#satArticleId").val();
 	  var list;
 	  var newName, newDescription, newImageUrl, newUrl,adId;
-	
+	  var adUrl = $("#adUrl").val();
 	//上传图片和预览
 	function previewImage(file) {
 	    var MAXWIDTH = 100;
@@ -292,8 +292,6 @@
 	$("#share").click(function(){
 		//alert(adId);
 		$("#adOuter").attr("style", "display:none");
-		//currUrl = currUrl + "&adId=" + adId;
-		alert(currUrl);
 	 });
 	
 	//新增广告分享按钮
@@ -320,6 +318,40 @@
         	$('#newDescription').val($('#newDescription').val().substr(0,300));
         }
 	});
+	//更新广告点击量
+	function updateClickAd() {
+		//alert("article id" + articleId);
+		//alert("openid" + mOpenid);
+		updateAdClickCount();
+		window.location = adUrl;
+	}
+	
+	function updateAdClickCount() {
+		var url = "<%=request.getContextPath()%>/ad/updateAdClickCount";
+		$.ajax({
+			url : url,
+			type : 'POST',
+			dataType : 'json',
+			async : true,
+			data : {
+				"openid" : mOpenid,
+				"articleId" : articleId,
+			},
+			success : function(data) {
+				if(data.indexOf("success") > 0){
+					//gotoadList();
+					alert("更新广告点击量成功");
+				} else if(data.indexOf("failed") > 0) {
+					alert("更新失败");
+				} else {
+					alert("更新失败");
+				}
+			},
+			error : function() {
+				alert("网络连接异常");
+			}
+		});
+	}
 	
 	//上传广告
 	function uploadAd() {
@@ -385,11 +417,10 @@
 		    //描述和图片需要重新定义，描述取正文的第一段文字，没有文字则为空
 		    //图片取正文第一张图片；没有图片用默认的图片；
 		    //alert(infoTitle + "　infoSummary　" +infoSummary + " currUrl " + currUrl);
-		    //alert(currUrl);
 			wx.onMenuShareAppMessage({
 		    	title: infoTitle,
 			    desc: infoSummary,
-			    link: currUrl,
+			    link: currUrl + "&from=client",
 			    imgUrl: iconUrl,
 			    trigger: function (res) {
 			    	//alert("<input type='text' value='aaaa' >");
@@ -443,9 +474,9 @@
 	  
 	  function updateShareCnt(){
 			var url = "<%=request.getContextPath()%>/satarticle/updateUserShareCount";
-			//alert("adId " + adId);
+			alert("adId " + adId);
 			if(!isNull(articleId) && !isNull(mOpenid) && !isNull(adId)) {
-				//alert(adId);
+				alert(adId);
 				$.ajax({
 					url : url,
 					type : 'POST',

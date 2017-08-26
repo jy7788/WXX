@@ -1,17 +1,19 @@
 package com.cn.hnust.controller.sat;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,8 +28,11 @@ import com.cn.hnust.model.WeixinContext;
 import com.cn.hnust.model.WeixinFinalValue;
 import com.cn.hnust.model.sat.SatAdvertisement;
 import com.cn.hnust.model.sat.SatArticle;
+import com.cn.hnust.model.sat.SatArticleShare;
 import com.cn.hnust.model.sat.SatUser;
+import com.cn.hnust.service.sat.ISatAdService;
 import com.cn.hnust.service.sat.ISatArticleService;
+import com.cn.hnust.service.sat.ISatArticleShareService;
 import com.cn.hnust.service.sat.ISatUserService;
 import com.cn.hnust.util.JsonUtil;
 import com.cn.hnust.util.ParamUtil;
@@ -39,7 +44,12 @@ public class SatArticleController {
 	@Autowired
 	private ISatArticleService satArticleService;
 	@Autowired
+	private ISatArticleShareService satArticleShareService;
+	@Autowired
 	private ISatUserService satUserService;
+	
+	@Autowired
+	private ISatAdService satAdService;
 	
 	/**
 	 * 进入新闻中心
@@ -101,6 +111,97 @@ public class SatArticleController {
 	@RequestMapping(value="/detail",method=RequestMethod.GET)
 	public String satArticleDetail(@RequestParam("id") String id, @RequestParam("openid") String openid, HttpServletRequest request, Model model) {
 		SatArticle satArticle = satArticleService.loadContentById(id);
+		String adId = request.getParameter("adId");
+		String from = request.getParameter("from");
+		if(satArticle != null) {
+			model.addAttribute("satArticle", satArticle);
+		}
+		if(openid != null) {
+			SatUser satUser = satUserService.loadByOpenId(openid);
+			model.addAttribute("satUser", satUser);
+		}
+		if(!StringUtils.isEmpty(from) ) {//分享之后的文章
+			//System.out.println("from " + from + "adid " + adId);
+			SatArticleShare articleShare = satArticleShareService.load(openid, id);
+			System.out.println("adid " + articleShare.getAdvisId());
+			if(articleShare != null && articleShare.getAdvisId() != null) {
+				SatAdvertisement ad = satAdService.load(articleShare.getAdvisId());//得到分享文章对应的广告
+				model.addAttribute("ad", ad);
+			}
+			String appId=WeixinContext.getInstance().getAppId();//应用id  
+	        String appsecret=WeixinContext.getInstance().getAppSecurt();//应用秘钥  
+	       //1,获取access_token  
+//	       AccessToken accessToken = WeixinContext.getInstance().get;  
+//	       String access_token=accessToken.getAccess_token();  
+	       //2,获取调用微信jsapi的凭证  
+	       JsapiTicket ticket = WeixinContext.getInstance().getTicket(); 
+	       System.out.println("ticket " + ticket.getTicket());
+//	       Map<String,String> map = WeixinBasicKit.sign(ticket.getTicket(), WeixinFinalValue.SERVER_URL + "satarticle/detail?id=" + id + "&openid=" + openid );  
+	       Map<String,String> map = WeixinBasicKit.sign(ticket.getTicket(), WeixinFinalValue.SERVER_URL + "satarticle/detail?id="
+	    		   					+ id + "&openid=" + openid + "&from=" + from );  
+	      
+		   request.setAttribute("timestamp", map.get("timestamp"));  
+		   request.setAttribute("nonceStr", map.get("nonceStr"));  
+		   request.setAttribute("signature", map.get("signature"));  
+		   request.setAttribute("appId", appId);  
+		      
+		   System.out.println("apiticket " + ticket.getTicket() );
+		   System.out.println("nonceStr " + map.get("nonceStr"));
+		   System.out.println("timeStamp " + map.get("timestamp")); 
+		   System.out.println("appId " + appId);
+		   System.out.println("url " + map.get("url"));
+		   System.out.println("signature " +  map.get("signature"));
+			return "sat/mobile/html/ShareInformationDetail.jsp";
+		} else {//原文章
+			String appId=WeixinContext.getInstance().getAppId();//应用id  
+	        String appsecret=WeixinContext.getInstance().getAppSecurt();//应用秘钥  
+	       //1,获取access_token  
+	//       AccessToken accessToken = WeixinContext.getInstance().get;  
+	//       String access_token=accessToken.getAccess_token();  
+	       //2,获取调用微信jsapi的凭证  
+	       JsapiTicket ticket = WeixinContext.getInstance().getTicket(); 
+	       System.out.println("ticket " + ticket.getTicket());
+	//       Map<String,String> map = WeixinBasicKit.sign(ticket.getTicket(), WeixinFinalValue.SERVER_URL + "satarticle/detail?id=" + id + "&openid=" + openid );  
+	       Map<String,String> map = WeixinBasicKit.sign(ticket.getTicket(), WeixinFinalValue.SERVER_URL + "satarticle/detail?id=" + id + "&openid=" + openid );  
+	      
+		   request.setAttribute("timestamp", map.get("timestamp"));  
+		   request.setAttribute("nonceStr", map.get("nonceStr"));  
+		   request.setAttribute("signature", map.get("signature"));  
+		   request.setAttribute("appId", appId);  
+		      
+		   System.out.println("apiticket " + ticket.getTicket() );
+		   System.out.println("nonceStr " + map.get("nonceStr"));
+		   System.out.println("timeStamp " + map.get("timestamp")); 
+		   System.out.println("appId " + appId);
+		   System.out.println("url " + map.get("url"));
+		   System.out.println("signature " +  map.get("signature"));
+			return "sat/mobile/html/InformationDetail.jsp";
+		}
+	}
+	
+	/**
+	 * 新闻中心详情
+	 * @author fanfte
+	 * @param id
+	 * @param model
+	 * @return
+	 * 2017年8月2日
+	 */
+	@RequestMapping(value="/readArticle",method=RequestMethod.GET)
+	public String readArticle(HttpServletRequest request, Model model) {
+		String id = request.getParameter("id");
+		String openid = request.getParameter("openid");
+		String adId = request.getParameter("adId");
+		String from = request.getParameter("from");
+		SatAdvertisement ad = satAdService.load(adId);
+		if(ad != null) {
+			model.addAttribute("ad", ad);
+		}
+		if(!StringUtils.isEmpty(from)) {
+			System.out.println("from " + from);
+			return "redirect:" + WeixinFinalValue.SERVER_URL + "satarticle/readArticle?id=" + id + "&openid=" + openid + "&adId=" + adId;
+		}
+		SatArticle satArticle = satArticleService.loadContentById(id);
 		
 		if(satArticle != null) {
 			model.addAttribute("satArticle", satArticle);
@@ -132,7 +233,7 @@ public class SatArticleController {
 	   System.out.println("url " + map.get("url"));
 	   System.out.println("signature " +  map.get("signature"));
 		
-		return "sat/mobile/html/InformationDetail.jsp";
+		return "sat/mobile/html/SharesInformationDetail.jsp";
 	}
 	
 	/**
@@ -196,17 +297,38 @@ public class SatArticleController {
 	 */
 	@RequestMapping(value="/updateUserShareCount", method=RequestMethod.POST)
 	@ResponseBody
-	public String updateShareCount(@RequestParam("articleId") String articleId, @RequestParam("openid") String openid) {
-//		System.out.println(map.size());
-		System.out.println(articleId + "   " +openid);
-		Map<String,Object> map = new HashMap<>();
-		map.put("articleId", articleId);
-		map.put("openid", openid);
-		String jsondata = ParamUtil.getJSONString(1, map);
-		System.out.println("jsonData " + jsondata);
-		String result = WeixinBasicKit.sendJsonPost(WeixinFinalValue.SERVER_URL + "satarticle/getDataJson", jsondata.toString());
-		System.out.println(result);
-		return "share success";
+	public String updateShareCount(HttpServletRequest request) {
+		String articleId = request.getParameter("articleId");
+		String openid = request.getParameter("openid");
+		String adId = request.getParameter("adId");
+		System.out.println(articleId + "  " + openid + " " + adId);
+		if(!StringUtils.isEmpty(articleId) && !StringUtils.isEmpty(openid)
+				) {
+			SatArticle satArticle = satArticleService.loadArticleById(articleId);
+			if(satArticle != null) {//更新原文章分享次数
+				satArticle.setShares(satArticle.getShares() + 1);
+				satArticle.setUpdateTime(new Date());
+				satArticleService.update(satArticle);
+			}
+			SatArticleShare share = satArticleShareService.load(openid, articleId);
+			
+			if(share != null) {//分享过更新分享次数t_sat_article
+				share.setShares(share.getShares() + 1);
+				share.setUpdateTime(new Date());
+				satArticleShareService.update(share);
+			} else {//没有分享过新增文章分享记录  在文章分享表t_sat_article_share
+				SatArticleShare shareArticle = new SatArticleShare();
+				shareArticle.setId(UUID.randomUUID().toString());
+				shareArticle.setArticleId(articleId);
+				shareArticle.setAdvisId(adId);
+				shareArticle.setCreateTime(new Date());
+				shareArticle.setUpdateTime(new Date());
+				shareArticle.setUserId(openid);
+				satArticleShareService.insert(shareArticle);
+			}
+			return "share success";
+		}
+		return "share failed";
 	}
 	
 	@RequestMapping(value="/getDataJson", method=RequestMethod.POST)

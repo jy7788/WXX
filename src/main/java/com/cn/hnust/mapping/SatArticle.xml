@@ -120,16 +120,14 @@
   <update id="update" parameterType="com.cn.hnust.model.sat.SatArticle" >
     update t_sat_article
     set title = #{title,jdbcType=VARCHAR},
-      open_id = #{openid,jdbcType=VARCHAR},
       <!-- nickname = #{nickname,jdbcType=VARCHAR}, -->
       stars = #{stars,jdbcType=INTEGER},
       shares = #{shares,jdbcType=INTEGER},
       watches = #{watches,jdbcType=INTEGER},
-      self_created = #{selfCreated,jdbcType=INTEGER},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       url = #{url,jdbcType=VARCHAR},
       desc_img_url = #{descImgUrl,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR} and open_id = #{openid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR} 
   </update>
   
   <select id="listArticlesByClassifyId" resultMap="BaseResultMap" parameterType="Map">
@@ -171,5 +169,12 @@
 		</where>
 		order by create_time desc
   </select>
+  
+  <!-- <insert id="insertNewShareArticle" parameterType="Map">
+  		insert into t_sat_article_share
+  		(id, user_id, article_id, advis_id, create_time, shares, stars, watches, advis_click_count)
+  		values
+  		(#{id}, #{openid}, )
+  </insert> -->
   
 </mapper>

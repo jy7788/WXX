@@ -22,8 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cn.hnust.model.sat.SatAdvertisement;
-import com.cn.hnust.model.sat.SatArticle;
+import com.cn.hnust.model.sat.SatArticleShare;
 import com.cn.hnust.service.sat.ISatAdService;
+import com.cn.hnust.service.sat.ISatArticleShareService;
 import com.cn.hnust.util.JsonUtil;
 import com.cn.hnust.util.SatUtil;
 
@@ -31,6 +32,8 @@ import com.cn.hnust.util.SatUtil;
 @RequestMapping("ad")
 public class AdvertisementController {
 	
+	@Autowired
+	private ISatArticleShareService satArticleShareService;
 	@Autowired
 	private ISatAdService satAdService;
 	/**
@@ -145,7 +148,7 @@ public class AdvertisementController {
 				ad.setCreateTime(new Date());
 				ad.setLinkUrl(linkUrl);
 				satAdService.insertAd(ad);
-				return "insert success";
+				return JsonUtil.getInstance().obj2Json(ad);
 			} else {
 				return "ads full";
 			}
@@ -187,6 +190,25 @@ public class AdvertisementController {
 		List<SatAdvertisement> listads = satAdService.getAdsByUserId(openid);
 		if(listads != null  && listads.size() > 0 ){
 			return JsonUtil.getInstance().list2json(listads);
+		} else {
+			return "get failed";
+		}
+	}
+	
+	@RequestMapping(value="/updateAdClickCount", method=RequestMethod.POST)
+	@ResponseBody
+	public String updateAdClickCount(HttpServletRequest request) {
+		String openid = request.getParameter("openid");
+		String articleId = request.getParameter("articleId");
+		SatArticleShare share = null;
+		if(!StringUtils.isEmpty(openid) && !StringUtils.isEmpty(articleId)) {
+			 share = satArticleShareService.load(openid, articleId);
+		}
+		if(share != null ){
+			share.setAdvisClickCount(share.getAdvisClickCount() + 1);
+			share.setUpdateTime(new Date());
+			satArticleShareService.update(share);
+			return "update success";
 		} else {
 			return "get failed";
 		}
