@@ -185,7 +185,7 @@ public class AdvertisementController {
 	@ResponseBody
 	public String listArticlesByClassifyName(@RequestParam("openid") String openid) {
 		List<SatAdvertisement> listads = satAdService.getAdsByUserId(openid);
-		if(listads != null ){
+		if(listads != null  && listads.size() > 0 ){
 			return JsonUtil.getInstance().list2json(listads);
 		} else {
 			return "get failed";

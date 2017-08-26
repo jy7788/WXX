@@ -107,47 +107,48 @@
 			</div>
 		</div>
 			
-			
-		<div class="sat_alert_details" style="display:block" id="adOuter">
-		<div class="sat_xinjian" style="display:block" id="adNewDiv"> <!--style="display:none"-->
+		<div class="sat_alert_details" style="display:none" id="adOuter">
+		<div class="sat_xinjian" style="display:none" id="adNewDiv"> <!--style="display:none"-->
 			<h5 class="sat_alert_h5">新建签名</h5>
 			<div class="weui_cell nobef">
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="text" placeholder="请添加名称">
+					<input class="weui_input" type="text" id="newName" placeholder="请添加名称"> 
 				</div>
 			</div>
 			<div class="weui_cell nobef">
 				<div class="weui_cell_bd weui_cell_primary article_cell">
-					<textarea class="weui_textarea" placeholder="请添加描述" rows="3"></textarea>
-					<div class="weui_textarea_counter"><span>120</span>/150</div>
+					<textarea class="weui_textarea" placeholder="请添加描述" rows="3" id="newDescription"></textarea>
+					<div class="weui_textarea_counter"><span id="curLen"></span>/150</div>
 				</div>
 			</div>
 			<div class="weui_uploader">
 				<div class="weui_uploader_bd">
-					<ul class="weui_uploader_files" id="img2"></ul>
+					<ul class="weui_uploader_files" id='img'></ul>
 					<div class="weui_uploader_input_wrp">
-						<input class="weui_uploader_input" type="file" accept="image/*" multiple="" readonly>
+						<input class="weui_uploader_input" type="file" accept="image/*" onchange="previewImage(this)">
+						<input  type="text" id="imageUrl" value="" hidden="true" />
 					</div>
 				</div>
 			</div>
 			<div class="weui_cell nobef">
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="text" placeholder="请添加上传路径">
+					<input class="weui_input" type="text" placeholder="请添加上传路径" val="http://" id="newUrl">
 				</div>
 			</div>
 				<div class="button_sp_area">
-					<a class="weui_btn weui_btn_mini weui_btn_default">取消</a>
-					<a class="weui_btn weui_btn_mini weui_btn_primary">分享</a>
+					<a class="weui_btn weui_btn_mini weui_btn_default" id="cancelEdit2">取消</a>
+					<a class="weui_btn weui_btn_mini weui_btn_primary" id="share2">分享</a>
 					
 				</div>
 		</div>
 		<div class="sat_tianjia" id="adListDiv">
-			<h5 class="sat_alert_h5">添加签名<span>+新建</span></h5>
+			<h5 class="sat_alert_h5">添加签名<span id="addAdButton" onclick="addAd()">+新建</span></h5>
 			<div class="weui_cell nobef weui_cell_select">
                 <div class="weui_cell_bd weui_cell_primary">
-                    <select class="weui_select" name="select1">
-                        <option selected="" value="1">理财通发行推广</option>
+                    <select class="weui_select" name="select1" id="select1">
+                        <option selected="" value="1" >理财通发行推广</option>
                         <option value="2">夏季上新折扣季</option>
+                        <option value="3">夏季上新折扣季</option>
                     </select>
                 </div>
             </div>
@@ -155,7 +156,7 @@
 				<div class="weui_uploader_bd">
 					<ul class="weui_uploader_files" >
 						<li>
-							<img src="<%=request.getContextPath()%>/sat/mobile/img/tupian.png" height="112" width="274" alt="">
+							<img id="imgDetail" src="<%=request.getContextPath()%>/sat/mobile/img/tupian.png" height="112" width="274" alt="">
 						</li>
 					</ul>
 				</div>
@@ -181,9 +182,8 @@
 	            </label>
 	        </div>
 			<div class="button_sp_area">
-				<a class="weui_btn weui_btn_mini weui_btn_default">取消</a>
-				<a class="weui_btn weui_btn_mini weui_btn_primary">分享</a>
-				
+				<a class="weui_btn weui_btn_mini weui_btn_default" id="cancelEdit">取消</a>
+				<a class="weui_btn weui_btn_mini weui_btn_primary" id="share">分享</a>
 			</div>
 		</div>
 	</div>
@@ -193,7 +193,68 @@
 	<script src='<%=request.getContextPath()%>/sat/assets/jquery.min.js'></script>
 	<script src='<%=request.getContextPath()%>/sat/assets/jquery-weui.min.js'></script>
 	<script src='<%=request.getContextPath()%>/sat/mobile/js/rem.js'></script>
+	<script src='<%=request.getContextPath()%>/js/base.js'></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/lrz/lrz.bundle.js"></script>
 	<script>
+	
+	var infoTitle = $("#satArticleTitle").html();
+	  var infoSummary = infoTitle;
+	  var currUrl = window.location.href;
+	  var iconUrl = $("#satArticleImg").attr("src");
+	  var openid = $("#openid").val();//原来的openid
+	  var mOpenid = $("#mOpenid").val();//我的openid
+	  var articleOpenid = $("#articleOpenid").val();
+	  var articleId = $("#satArticleId").val();
+	  var list;
+	  var newName, newDescription, newImageUrl, newUrl;
+	
+	//上传图片和预览
+	function previewImage(file) {
+	    var MAXWIDTH = 100;
+	    var MAXHEIGHT = 200;
+	    if (file.files && file.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (evt) {         
+	            $('#img').html('<li class="weui_uploader_file" style="background-image:url('+evt.target.result+')"></li>');          
+	        };
+	        reader.readAsDataURL(file.files[0]);//
+	        
+	        lrz(file.files[0], {width: 800})  
+	        .then(function (rst) {  
+	            var formData = new FormData();  
+	            formData.append("file", rst.file);  
+	            $.ajax({  
+	                type: "POST",  
+	                url: "<%=request.getContextPath()%>/ad/uploadImage/",  
+	                data: formData,  
+	                async: false,  
+	                cache: false,  
+	                contentType: false,  
+	                processData: false,  
+	                beforeSend: function (XMLHttpRequest) {  
+	                },  
+	                success: function (data) {  
+	  					if(data.indexOf("failed") > 0) {
+	  						alert("图片上传失败");
+	  					}else {
+	  						alert("图片上传成功");
+	  						$("#imageUrl").val(data);
+	  					}
+	                },  
+	                complete: function (XMLHttpRequest, textStatus) {  
+	                },  
+	                error: function (XMLHttpRequest, textStatus, errorThrown) { //上传失败  
+	                    alert('操作错误');  
+	                }  
+	            });  
+	            return rst;  
+	        });  
+	        
+	        console.log(file.files[0]);
+	    }
+	}
+	
+	
 	$(function() {
 		FastClick.attach(document.body);
 	});
@@ -207,6 +268,83 @@
 		 loadXMLDoc();
 		 //初始化库结束
 	});	 
+	
+	//取消按钮
+	$("#cancelEdit").click(function(){
+		$("#adOuter").attr("style", "display:none");
+	 });
+	//取消按钮
+	$("#cancelEdit2").click(function(){
+		$("#adOuter").attr("style", "display:none");
+	 });
+	//选定广告标签更改事件
+	$("#select1").change(function(){
+		 var index =  $("#select1").val();
+		 //alert(list[index].imgUrl);
+		 $("#imgDetail").attr("src", list[index].imgUrl);
+	 });
+	//绑定广告
+	$("#share").click(function(){
+		
+	 });
+	//新增广告分享按钮
+	$("#share2").click(function(){
+		newName =$("#newName").val().trim(); 
+		newDescription =$("#newDescription").val().trim(); 
+		newImageUrl =$("#imageUrl").val().trim(); 
+		newUrl =$("#newUrl").val().trim(); 
+		if(!isNull(newName) && !isNull(newDescription) && 
+				!isNull(newImageUrl) && !isNull(newUrl) && !isNull(mOpenid)) {
+		//alert(newName + newDescription + newImageUrl + newUrl + mOpenid);
+			uploadAd();
+		} else {
+			alert("字段不能为空");
+		}
+	 });
+	//新增广告字数限制和统计
+	$("#newDescription").bind('propertychange input', function () {  
+        var counter = $('#newDescription').val().length;
+        if(counter < 300) {
+	        $("#curLen").text(counter);
+        }else {
+        	$("#curLen").text(300);
+        	$('#newDescription').val($('#newDescription').val().substr(0,300));
+        }
+	});
+	
+	//上传广告
+	function uploadAd() {
+		var url = "<%=request.getContextPath()%>/ad/insert";
+		$.ajax({
+			url : url,
+			type : 'POST',
+			dataType : 'json',
+			async : true,
+			data : {
+				"name" : newName,
+				"description" : newDescription,
+				"image" : newImageUrl,
+				"linkUrl" : newUrl,
+				"openid" : mOpenid
+			},
+			success : function(data) {
+				if(data.indexOf("success") > 0){
+					//gotoadList();
+					alert("广告添加成功");
+					$("#adOuter").attr("style", "display:none");//显示广告
+					$("#adListDiv").attr("style", "display:none");//显示广告列表
+				} else if(data.indexOf("full") > 0) {
+					alert("广告位满了");
+				} else {
+					alert("新增失败");
+				}
+			},
+			error : function() {
+				alert("网络连接异常");
+			}
+		});
+	}
+	
 	  //初始化 微信硬件jsapi库
 	  function loadXMLDoc()
 	  {
@@ -233,14 +371,6 @@
 	               //alert("初始化库结束");
 	  }
 	  
-	  var infoTitle = $("#satArticleTitle").html();
-	  var infoSummary = infoTitle;
-	  var currUrl = window.location.href;
-	  var iconUrl = $("#satArticleImg").attr("src");
-	  var openid = $("#openid").val();//原来的openid
-	  var mOpenid = $("#mOpenid").val();//我的openid
-	  var articleOpenid = $("#articleOpenid").val();
-	  var articleId = $("#satArticleId").val();
 	  
 	  wx.ready(function () {
 		    //描述和图片需要重新定义，描述取正文的第一段文字，没有文字则为空
@@ -322,9 +452,60 @@
 				}
 			});
 		}
-	  
+	  //显示并获取我的广告签名
 	  function showNewDiv() {
-		  
+		  var url = "<%=request.getContextPath()%>/ad/getUserAds";
+		  //alert(mOpenid);
+			$.ajax({
+				url : url,
+				type : 'POST',
+				dataType : 'json',
+				async : true,
+				data : {
+					"openid" : mOpenid
+				},
+				success : function(data) {
+					if(data.indexOf("failed") > 0){
+						alert("获取不到广告");
+						
+					}else{
+						list =$.parseJSON(data);
+						console.log(list);
+						$("#adOuter").attr("style", "display:block");//显示广告
+						$("#adListDiv").attr("style", "display:block");//显示广告列表
+						$("#adNewDiv").attr("style", "display:none");//显示广告列表
+						$("#select1").empty();//清空选择option内容
+						//更新签名标题内容
+						$.each(list, function(index, element) {
+					    	$("#select1").append("<option value='" + index +"'>" + element.name + "</option>"); 
+					    });  
+						$("#imgDetail").attr("src", list[0].imgUrl);//设置第一个广告的图片
+					}
+				},
+				error : function() {
+					alert("网络连接异常");
+				}
+			});
 	  }
+	  //得到Json数组长度
+	  function getJsonLength(jsonData){
+		  var jsonLength = 0;
+		  for(var item in jsonData){
+		  	jsonLength++;
+		  }
+		  return jsonLength;
+	  }
+	  //显示新建签名层
+	  function addAd() {
+		  //alert(getJsonLength(list));
+		  var listLen = getJsonLength(list);
+		  if(listLen < 3) {
+			  $("#adNewDiv").attr("style", "display:block");
+			  $("#adListDiv").attr("style", "display:none");
+		  }else {
+			  alert("广告位已满，无法添加");
+		  }
+	  }
+	  
 	</script>
 </html>

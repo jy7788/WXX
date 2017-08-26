@@ -258,4 +258,5 @@ public class SatArticleController {
 			return "get failed";
 		}
 	}
+	
 }
