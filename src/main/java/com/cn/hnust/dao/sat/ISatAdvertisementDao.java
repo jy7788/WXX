@@ -21,4 +21,5 @@ public interface ISatAdvertisementDao extends IBaseDao<SatAdvertisement>{
 	public SatAdvertisement loadByArticleIdAndOpenId(String openid, String articleId);
 	
 	public int selectCount(String openid);
+	
 }

@@ -70,4 +70,9 @@ public class SatArticleService implements ISatArticleService{
 	public List<SatArticle> listByClassifyName(String name) {
 		return satArticleDao.listArticleByClassifyName(name);
 	}
+
+	@Override
+	public List<SatArticle> listSatArticleLike(String title) {
+		return satArticleDao.listArticlesLike(title);
+	}
 }

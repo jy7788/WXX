@@ -24,6 +24,7 @@ import com.cn.hnust.model.JsapiTicket;
 import com.cn.hnust.model.WUser;
 import com.cn.hnust.model.WeixinContext;
 import com.cn.hnust.model.WeixinFinalValue;
+import com.cn.hnust.model.sat.SatAdvertisement;
 import com.cn.hnust.model.sat.SatArticle;
 import com.cn.hnust.model.sat.SatUser;
 import com.cn.hnust.service.sat.ISatArticleService;
@@ -235,7 +236,6 @@ public class SatArticleController {
 	@RequestMapping(value="/listArticlesByClassifyName", method=RequestMethod.POST)
 	@ResponseBody
 	public String listArticlesByClassifyName(@RequestParam("classifyName") String classifyName) {
-//		System.out.println(map.size());
 		List<SatArticle> list = null;
 		System.out.println(classifyName );
 		if(classifyName.equals("本周头条")) {
@@ -245,10 +245,17 @@ public class SatArticleController {
 			System.out.println(list.size());
 		}
 		return JsonUtil.getInstance().list2json(list);
-		/*if(list.size() > 0) {
+	}
+	
+	@RequestMapping(value="/getLike", method=RequestMethod.POST)
+	@ResponseBody
+	public String listArticlesLike(@RequestParam("title") String title) {
+		List<SatArticle> list = satArticleService.listSatArticleLike(title);
+		if(list != null && list.size() !=0){
+			System.out.println(JsonUtil.getInstance().list2json(list));
 			return JsonUtil.getInstance().list2json(list);
 		} else {
-			return "request unsuccess";
-		}*/
+			return "get failed";
+		}
 	}
 }

@@ -19,4 +19,6 @@ public interface ISatArticleService {
 	public List<SatArticle> list();
 	public SatArticle loadMyArticleContent(String id);
 	public List<SatArticle> listByClassifyName(String name);
+	
+	public List<SatArticle> listSatArticleLike(String title);
 }

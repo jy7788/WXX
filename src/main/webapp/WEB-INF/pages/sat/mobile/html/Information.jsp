@@ -34,14 +34,14 @@
 		<div class="zixun_head">
 			<div class="head_top">
 				<div class="search">
-					<input type="text" placeholder="请输入文章关键字">
-					<span><img src="" alt="搜索"></span>
+					<input type="text" placeholder="请输入文章关键字" id="inputKey">
+					<span id="searchButton" onclick="getSearchData()"><img src="" alt="搜索"></span>
 				</div>
 				<div class="remove">
 					<span>取消</span>
 				</div>
 			</div>
-			<div class="head_center">
+			<div class="head_center" id="hotSearch" >
 				<h6 class="head_sousuo">热门搜索</h6>
 				<ul>
 					<li>腾讯科技</li>
@@ -52,13 +52,13 @@
 					<li>抗战</li>
 				</ul>
 				<h6 class="head_sousuo">最近搜索</h6>
-				<ol>
+				<ol id="recentSearch">
 					<li>华为</li>
 					<li>百度视频</li>
 					<li>腾讯科技</li>
 				</ol>
 			</div>
-			<div class="head_center" style="display:none">
+			<div class="head_center" style="display:none" id="searchListDiv">
 				<p class="head_cen_p">搜索到<span>200</span>条相关内容</p>
 				<div class="weui_tab" style="height:auto">
 					<div class="weui_panel_bd">
@@ -118,7 +118,7 @@
 				</div>
 			</div>
 					
-			<div class="head_bottom">
+			<div class="head_bottom" id="clearRecord" onclick="clearAllRecords()">
 				<p>清空最近搜索记录</p>
 			</div>
 		</div>
@@ -428,7 +428,7 @@
 		})
 		var openid = $("#openid").val();
 		//新闻列表展示
-		function DisplayNewsItems(list) {  
+		function DisplayNewsItems(list, obj) {  
 			var dispContent = "";
 			
 			//alert(openid);
@@ -449,10 +449,11 @@
 		    	//$("#dialogText")
 		    	dispContent += content;
 		    });  
-		    $("#newsListDiv").html("");
-			$("#newsListDiv").html(dispContent);
+		    obj.html("");
+			obj.html(dispContent);
 		}  
 		
+		//根据类别获取数据
 		function updateNewsCategory(text){
 			//alert("get more detail");
 			var url = "<%=request.getContextPath()%>/satarticle/listArticlesByClassifyName";
@@ -468,8 +469,10 @@
 					if(data.indexOf("unsuccess") > 0){
 						//alert(data);
 					} else {
+						//alert(data);
 						var dataRole =$.parseJSON(data);
-						DisplayNewsItems(dataRole);
+						//$("#searchListDiv").attr("style", "display:block");
+						DisplayNewsItems(dataRole, $("#newsListDiv"));
 					}
 					/* if(data.indexOf("success") > 0){
 						//alert("")
@@ -483,5 +486,46 @@
 					//alert("网络连接异常");
 				}
 			});
+		}
+		
+		function getSearchData() {
+			var url = "<%=request.getContextPath()%>/satarticle/getLike";
+			var title = $("#inputKey").val();
+			$.ajax({
+				url : url,
+				type : 'POST',
+				dataType : 'json',
+				async : true,
+				data : {
+					"title" : title
+				},
+				success : function(data) {
+					if(data.indexOf("failed") > 0){
+						alert("没有搜索到");
+					} else {
+						//alert(data);
+						//不显示搜索框
+						$("#searchListDiv").attr("style", "display:block");
+						$("#hotSearch").attr("style", "display:none");
+						$("#clearRecord").attr("style", "display:none");
+						var dataRole =$.parseJSON(data);
+						DisplayNewsItems(dataRole,$("#searchListDiv"));
+					}
+					/* if(data.indexOf("success") > 0){
+						//alert("")
+						alert(data);
+						//alert("更新转发量成功");
+					}else{
+						//alert("系统异常，更新转发量失败");
+					} */
+				},
+				error : function() {
+					alert("网络连接异常");
+				}
+			});
+		}
+		
+		function clearAllRecords() {
+			$("#recentSearch").children().remove();
 		}
 	</script>

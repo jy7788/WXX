@@ -163,4 +163,13 @@
   	where c.user_id = #{openid}
   </select>
   
+  <select id="listByTitle" resultMap="BaseResultMap" parameterType="Map">
+  		select <include refid="Base_Column_List" />
+  		from t_sat_article
+		<where>
+			<if test="title!= null">title like #{title}</if>
+		</where>
+		order by create_time desc
+  </select>
+  
 </mapper>

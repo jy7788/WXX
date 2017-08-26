@@ -6,7 +6,7 @@ body,
   width: 100%;
   height: 100%;
   background: #fff;
-  font-family: "寰蒋闆呴粦";
+  font-family: "微软雅黑";
 }
 body {
   font-size: 62.5%;
@@ -447,30 +447,30 @@ body {
   margin-top: .213rem;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a .sat_footer_b.zixun {
-  background: url(../img/information锛峸eixuanzhong-icon.png) no-repeat;
+  background: url(../img/information－weixuanzhong-icon.png) no-repeat;
   background-size: 100%;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a .sat_footer_b.chanpin {
-  background: url(../img/product锛峸eixuanzhong-icon.png) no-repeat;
+  background: url(../img/product－weixuanzhong-icon.png) no-repeat;
   background-size: 100%;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a .sat_footer_b.user {
-  background: url(../img/Personal-Center锛峸eixuanzhong-icon.png) no-repeat;
+  background: url(../img/Personal-Center－weixuanzhong-icon.png) no-repeat;
   background-size: 100%;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a.clicked {
   color: #f65f5c;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a.clicked .sat_footer_b.zixun {
-  background: url(../img/information锛峹uanzhong-icon.png) no-repeat;
+  background: url(../img/information－xuanzhong-icon.png) no-repeat;
   background-size: 100%;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a.clicked .sat_footer_b.chanpin {
-  background: url(../img/product锛峹uanzhong-icon.png) no-repeat;
+  background: url(../img/product－xuanzhong-icon.png) no-repeat;
   background-size: 100%;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a.clicked .sat_footer_b.user {
-  background: url(../img/Personal-Center锛峹uanzhong-icon.png) no-repeat;
+  background: url(../img/Personal-Center－xuanzhong-icon.png) no-repeat;
   background-size: 100%;
 }
 .sat_content .footer .tuiguang_foot {
@@ -480,7 +480,7 @@ body {
   color: #fff;
   font-size: .6816rem;
 }
-/* 鎴戠殑涓績---涓汉璧勬枡鏍峰紡 */
+/* 我的中心---个人资料样式 */
 .head_png {
   width: 90%!important;
   position: fixed;
@@ -523,7 +523,7 @@ body {
   background: -moz-linear-gradient(left, #fdc147, #fc9e47);
   /* Firefox 3.6 - 15 */
   background: linear-gradient(left, #fdc147, #fc9e47);
-  /* 鏍囧噯鐨勮娉� */
+  /* 标准的语法 */
   display: none;
 }
 .head_png.shousuo .touxiang {
@@ -602,7 +602,7 @@ body {
   border-radius: 0 .426rem 0 0;
   background: #f39800;
 }
-/* 寮瑰嚭妗嗘搷浣� */
+/* 弹出框操作 */
 .sat_alert {
   width: 100%;
   position: absolute;
@@ -630,7 +630,7 @@ body {
   font-size: .7242rem;
   border-bottom: .0426rem solid #d9d9d9;
 }
-/* 娉ㄥ唽椤甸潰 */
+/* 注册页面 */
 .sat_login {
   width: 100%;
   height: 100%;
@@ -721,7 +721,7 @@ body {
 .sat_login .login_footer img {
   text-align: center;
 }
-/* 鏂伴椈璇︽儏椤� */
+/* 新闻详情页 */
 .data_header {
   width: 100%;
   -webkit-flex: 1;
@@ -764,9 +764,6 @@ body {
 .data_header .data_main .main_cont {
   color: #666;
   font-size: .5974rem;
-}
-.data_header .data_main .main_cont img{
-  width:100%;
 }
 .data_header .data_main .laiyuan {
   font-size: .5112rem;
@@ -816,7 +813,7 @@ body {
 }
 .data_header .weui_cell .article_cell textarea {
   font-size: .5974rem;
-  font-family: "寰蒋闆呴粦";
+  font-family: "微软雅黑";
   color: #333;
 }
 .data_header .Myattrn_head {
@@ -951,7 +948,7 @@ body {
   -webkit-transform: scaleY(0.5);
   transform: scaleY(0.5);
 }
-/* 鏂囩珷鍘熷垱椤甸潰 */
+/* 文章原创页面 */
 .right_bottom {
   position: fixed;
   width: 3.408rem;
@@ -1063,7 +1060,7 @@ body {
   font-style: normal;
   background: #eaeaea;
 }
-/* 鎺ㄥ箍鎺掕姒滆〃鏍� */
+/* 推广排行榜表格 */
 .monitable {
   width: 90%;
   margin: 0 auto;
@@ -1098,7 +1095,7 @@ body {
 .monitable .table_tr:nth-of-type(4) p.ranking {
   background: url(../img/dianzan-icon.png) no-repeat center -2px;
 }
-/* 浜у搧涓績椤甸潰 */
+/* 产品中心页面 */
 .chanpin {
   width: 80%;
   margin: 0 auto;
@@ -1109,7 +1106,7 @@ body {
 .chanpin img {
   padding-left: 10px;
 }
-/* 鎴戠殑寰珯椤甸潰 */
+/* 我的微站页面 */
 .weizhan_moshi {
   position: absolute;
   bottom: .652rem;
@@ -1133,7 +1130,7 @@ body {
   color: #fff;
   background: rgba(255, 160, 0, 0.8);
 }
-/* 骞垮憡绛惧悕椤甸潰 */
+/* 广告签名页面 */
 .main.guanggao .sat_zhuanzai {
   width: 100%;
   padding: .426rem .852rem;
@@ -1250,7 +1247,7 @@ body {
   font-size: 1.12rem;
   color: #f39800;
 }
-/* 骞垮憡璇︽儏椤甸潰 */
+/* 广告详情页面 */
 .guanggaoxq {
   width: 100%;
 }
@@ -1300,7 +1297,7 @@ body {
 }
 .guanggaoxq .weui_cell_bd .weui_textarea {
   color: #808080;
-  font-family: "寰蒋闆呴粦";
+  font-family: "微软雅黑";
 }
 .guanggaoxq .weui_uploader {
   padding: .852rem;
@@ -1323,7 +1320,7 @@ body {
 .guanggaoxq .weui_uploader .weui_uploader_bd .weui_uploader_input_wrp {
   width: 100%;
 }
-/* 鏂囩珷杞彂寮瑰嚭妗� */
+/* 文章转发弹出框 */
 .sat_alert_details {
   display: none;
   width: 100%;
@@ -1378,7 +1375,7 @@ body {
 .sat_alert_details .sat_xinjian .weui_cell .weui_cell_bd .weui_textarea,
 .sat_alert_details .sat_tianjia .weui_cell .weui_cell_bd .weui_textarea {
   color: #808080;
-  font-family: "寰蒋闆呴粦";
+  font-family: "微软雅黑";
 }
 .sat_alert_details .sat_xinjian .button_sp_area,
 .sat_alert_details .sat_tianjia .button_sp_area {

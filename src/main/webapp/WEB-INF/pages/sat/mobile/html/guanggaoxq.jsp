@@ -36,7 +36,7 @@
 		
 		<div class="sat_data guanggaoxq">
 			<div class="sat_zhuanzai">
-				<p>已有签名<span>2</span>/<i>3</i></p>
+				<p>已有签名<span>${adSize }</span>/<i>3</i></p>
 				<b onclick="setEdit()" id="editButton" >编辑</b>
 			</div>
 			<div class="weui_cell">
@@ -57,9 +57,12 @@
 					<div class="weui_cell_bd">图片</div>
 				</div>
 				<div class="weui_uploader_bd">
-					<img src="${ad.imgUrl }" height="112" width="274" alt="" id="image">
+					<img src="${ad.imgUrl }" height="112" width="274" alt=""  id="image">
+					<ul class="weui_uploader_files" id='img'></ul>
 					<div class="weui_uploader_input_wrp">
-						<input class="weui_uploader_input" type="file" accept="image/*" multiple="" readonly >
+						<!-- <input class="weui_uploader_input" type="file" accept="image/*" multiple="" readonly > -->
+						<input class="weui_uploader_input" type="file" accept="image/*" id="headimgurl" onchange="previewImage(this)">
+						<input  type="text" id="imageUrl" value="" hidden="true" />
 					</div>
 				</div>
 			</div>
@@ -76,9 +79,60 @@
 	<script src='<%=request.getContextPath()%>/sat/assets/jquery.min.js'></script>
 	<script src='<%=request.getContextPath()%>/sat/assets/jquery-weui.min.js'></script>
 	<script src='<%=request.getContextPath()%>/sat/mobile/js/rem.js'></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/lrz/lrz.bundle.js"></script>
 	<script>
 		var openid = $("#openid").val();
-	
+		//上传图片预览
+		function previewImage(file) {
+		    var MAXWIDTH = 100;
+		    var MAXHEIGHT = 200;
+		    if (file.files && file.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (evt) {         
+		            $("#image").attr("hidden", "true");
+		            $('#img').html('<li class="weui_uploader_file" style="background-image:url('+evt.target.result+')"></li>');
+		        };
+		        reader.readAsDataURL(file.files[0]);//
+		        
+		        lrz(file.files[0], {width: 800})  
+		        .then(function (rst) {  
+		            var formData = new FormData();  
+		            formData.append("file", rst.file);  
+		            $.ajax({  
+		                type: "POST",  
+		                url: "<%=request.getContextPath()%>/ad/uploadImage/",  
+		                data: formData,  
+		                async: false,  
+		                cache: false,  
+		                contentType: false,  
+		                processData: false,  
+		                beforeSend: function (XMLHttpRequest) {  
+		                    //showLoader();  
+		                },  
+		                success: function (data) {  
+		  					//var dataObj=eval("("+data+")");
+		  					if(data.indexOf("failed") > 0) {
+		  						alert("图片上传失败");
+		  					}else {
+		  						alert("图片上传成功");
+		  						$("#imageUrl").val(data);
+		  						$("#image").attr("src",data);
+		  					}
+		                },  
+		                complete: function (XMLHttpRequest, textStatus) {  
+		                    //hideLoader();  
+		                },  
+		                error: function (XMLHttpRequest, textStatus, errorThrown) { //上传失败  
+		                    //hideLoader();  
+		                    alert('操作错误');  
+		                }  
+		            });  
+		            return rst;  
+		        });  
+		        
+		        console.log(file.files[0]);
+		    }
+		}
 	
 		$(function() {
 			FastClick.attach(document.body);
@@ -96,7 +150,7 @@
 		});
 		
 		function gotoadList() {
-			window.location.href = "<%=request.getContextPath()%>/ad/list/" + openid;
+			window.location = "<%=request.getContextPath()%>/ad/list/" + openid;
 		}
 		
 		function setEdit() {
@@ -116,7 +170,7 @@
 				var description = $("#description").val().trim();
 				var image = $("#image").attr("src").trim();
 				var linkUrl = $("#linkUrl").val().trim();
-				
+				//alert(image);
 				if(adId != null && name != null && description != null && image != null && linkUrl != null) {
 					var url = "<%=request.getContextPath()%>/ad/update";
 					$.ajax({

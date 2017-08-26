@@ -30,12 +30,27 @@
 <body >
 <input type="text" id="path" hidden="false" value="<%=request.getContextPath()%>">
 	<div class="sat_content">
-		<div class="header">
+		<div class="header" style="position:relative;">
 			<img src="<%=request.getContextPath()%>/sat/mobile/img/panner.PNG" alt="" style="width:100%;">
+			<div class="weizhan_moshi">
+				<span class="moshi_list">浏览模式</span>
+				<span class="moshi_list chocked">编辑模式</span>
+			</div>
 		</div>
 		<div class="main" >
 			<div>
-			<div class="weui_cell wenzhang_list">
+			<div class="nav bornone">
+				<div class="sat_nav ">
+					<div class="main_swiper_list"><span>转载</span></div>
+				</div>
+				<div class="sat_nav click">
+					<div class="main_swiper_list"><span>收藏</span></div>
+				</div>
+				<div class="sat_nav lianxiwo" style="display:none">
+					<div class="main_swiper_list"><span>联系我</span></div>
+				</div>
+			</div>
+			<%-- <div class="weui_cell wenzhang_list">
 				<div class="weui_cell_hd"><i class="yuan">原创</i><img src="<%=request.getContextPath()%>/sat/mobile/img/xinwentupian-img.png" width="100" alt=""></div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<p class="text">文字标题文字标题文题sssssssssssss</p>
@@ -47,14 +62,13 @@
 						<b><i>删除</i></b>
 					</div>
 				</div>
-			</div>
+			</div> --%>
 			
 			<c:forEach items="${myArticles}" var="satArticle">
-				<c:choose>
-					<c:when test="${ satArticle.selfCreated == 1 }">
-						<a href="<%=request.getContextPath()%>/satarticle/myArticleDetail?id=${satArticle.id}&openid=${openid} "> 
+				
+				<a href="<%=request.getContextPath()%>/satarticle/myArticleDetail?id=${satArticle.id}&openid=${openid} "> 
 						<div class="weui_cell wenzhang_list" id="articleTab" onclick="gotoMyArticleDetail(${openid}, ${satArticle.id})">
-						<div class="weui_cell_hd"><i class="yuan">原创</i><img src="${satArticle.descImgUrl}" width="100" alt=""></div>
+						<div class="weui_cell_hd"><i class="yuan">转载</i><img src="${satArticle.descImgUrl}" width="100" alt=""></div>
 						<div class="weui_cell_bd weui_cell_primary">
 							<p class="text">${satArticle.title} </p>
 							<div class="wenzhang_eye">
@@ -67,93 +81,9 @@
 						</div>
 						</div>
 						</a>
-					</c:when>
-					<c:otherwise>
-						<a href="<%=request.getContextPath()%>/satarticle/myArticleDetail?id=${satArticle.id}&openid=${openid} ">
-						<div class="weui_cell wenzhang_list" onclick="gotoMyArticleDetail(${openid}, ${satArticle.id})">
-						<div class="weui_cell_hd"><i class="yuan">转载</i><img src="${satArticle.descImgUrl}" width="100" alt=""></div>
-						<div class="weui_cell_bd weui_cell_primary">
-							<p class="text">${satArticle.title}</p>
-							<div class="wenzhang_eye">
-								<span><img src="<%=request.getContextPath()%>/sat/mobile/img/fenxiang-icon.png" width="20" alt=""><i>${satArticle.shares}</i></span>
-								<span><img src="<%=request.getContextPath()%>/sat/mobile/img/guanzhu-icon.png" width="20" alt=""><i>${satArticle.watches}</i></span>
-								<span></span>
-								<b></b>
-								<b><i>删除</i></b>
-							</div>
-						</div>
-						</div>
-						</a>
-					</c:otherwise>
-				</c:choose>	
-			
 				
 			</c:forEach>
-			<!-- <div class="weui_cell wenzhang_list">
-				<div class="weui_cell_hd"><i class="zhuan">原创</i><img src="../img/xinwentupian-img.png" width="100" alt=""></div>
-				<div class="weui_cell_bd weui_cell_primary">
-					<p class="text">文字标题</p>
-					<div class="wenzhang_eye">
-						<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-						<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-						<span></span>
-						<b>编辑</b>
-						<b>删除</b>
-					</div>
-				</div>
-			</div>
-			<div class="weui_cell wenzhang_list">
-				<div class="weui_cell_hd"><i class="yuan">原创</i><img src="../img/xinwentupian-img.png" width="100" alt=""></div>
-				<div class="weui_cell_bd weui_cell_primary">
-					<p class="text">文字标题文字标题文题</p>
-					<div class="wenzhang_eye">
-						<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-						<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-						<span></span>
-						<b>编辑</b>
-						<b>删除</b>
-					</div>
-				</div>
-			</div>
-			<div class="weui_cell wenzhang_list">
-				<div class="weui_cell_hd"><i class="zhuan">原创</i><img src="../img/xinwentupian-img.png" width="100" alt=""></div>
-				<div class="weui_cell_bd weui_cell_primary">
-					<p class="text">文字标题</p>
-					<div class="wenzhang_eye">
-						<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-						<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-						<span></span>
-						<b>编辑</b>
-						<b>删除</b>
-					</div>
-				</div>
-			</div>
-			<div class="weui_cell wenzhang_list">
-				<div class="weui_cell_hd"><i class="yuan">原创</i><img src="../img/xinwentupian-img.png" width="100" alt=""></div>
-				<div class="weui_cell_bd weui_cell_primary">
-					<p class="text">文字标题文字标题文题</p>
-					<div class="wenzhang_eye">
-						<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-						<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-						<span></span>
-						<b>编辑</b>
-						<b>删除</b>
-					</div>
-				</div>
-			</div>
-			<div class="weui_cell wenzhang_list">
-				<div class="weui_cell_hd"><i class="zhuan">原创</i><img src="../img/xinwentupian-img.png" width="100" alt=""></div>
-				<div class="weui_cell_bd weui_cell_primary">
-					<p class="text">文字标题</p>
-					<div class="wenzhang_eye">
-						<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-						<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-						<span></span>
-						<b>编辑</b>
-						<b>删除</b>
-					</div>
-				</div>
-			</div> -->
+			
 			</div>
 		</div>
 		<div class="footer">
@@ -162,15 +92,15 @@
 				<li class="sat_footer_li"><a href="<%=request.getContextPath()%>/product/list" class=""><b class="sat_footer_b chanpin"></b>产品</a></li>
 				<li class="sat_footer_li"><a class="clicked"><b class="sat_footer_b user"></b>我的</a></li>
 			</ul>
+		</div> 
+	</div>
+<%-- 	<div class="right_bottom">
+		<div class="bianxie">
+			<div class="bianjipen"><img src="<%=request.getContextPath()%>/sat/mobile/img/pen.PNG" alt=""></div>
+			<div class="bianji yuan" ><a href="<%=request.getContextPath()%>/satarticle/gotoArticleSelfCreate">原创</a></div>
+			<div class="bianji zhuan" ><a href="<%=request.getContextPath()%>/satarticle/gotoArticleReproduce">转载</a></div>
 		</div>
-	</div>
-<div class="right_bottom">
-	<div class="bianxie">
-		<div class="bianjipen"><img src="<%=request.getContextPath()%>/sat/mobile/img/pen.PNG" alt=""></div>
-		<div class="bianji yuan" ><a href="<%=request.getContextPath()%>/satarticle/gotoArticleSelfCreate">原创</a></div>
-		<div class="bianji zhuan" ><a href="<%=request.getContextPath()%>/satarticle/gotoArticleReproduce">转载</a></div>
-	</div>
-</div>
+	</div> --%>
 </body>
 	<script src="<%=request.getContextPath()%>/sat/assets/fastclick.js"></script>
 	<script src='<%=request.getContextPath()%>/sat/assets/jquery.min.js'></script>

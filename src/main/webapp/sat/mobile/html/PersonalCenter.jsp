@@ -43,7 +43,7 @@
 		</div>
 		<div class="weui-row head_b">
 			<div class="weui-col-50 tx_center myguanzhu"><span>我的关注</span><b>888</b></div>
-			<div class="weui-col-50 tx_center myguanzhu"><span>我的粉丝</span><b>808</b></div>
+			<div class="weui-col-50 tx_center myguanzhu"><span>我的金币</span><b>808</b></div>
 		</div>
 		<div class="main">
 		      <div class="bd ">

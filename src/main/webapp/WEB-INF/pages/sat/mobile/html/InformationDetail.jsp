@@ -44,6 +44,10 @@
 <input type="text" id="satArticleId" hidden="true" value="${satArticle.id}">
 
 	<div class="sat_content">
+		<div class="sat_zhuanzai">
+			<p><span id="size"> </span><i></i></p>
+			<b onclick="showNewDiv()">+新建</b>
+		</div>
 		<div class="data_header">
 			<div class="head_png weui_cell">
 				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="42" alt=""></div>
@@ -103,6 +107,86 @@
 			</div>
 		</div>
 			
+			
+		<div class="sat_alert_details" style="display:block" id="adOuter">
+		<div class="sat_xinjian" style="display:block" id="adNewDiv"> <!--style="display:none"-->
+			<h5 class="sat_alert_h5">新建签名</h5>
+			<div class="weui_cell nobef">
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="text" placeholder="请添加名称">
+				</div>
+			</div>
+			<div class="weui_cell nobef">
+				<div class="weui_cell_bd weui_cell_primary article_cell">
+					<textarea class="weui_textarea" placeholder="请添加描述" rows="3"></textarea>
+					<div class="weui_textarea_counter"><span>120</span>/150</div>
+				</div>
+			</div>
+			<div class="weui_uploader">
+				<div class="weui_uploader_bd">
+					<ul class="weui_uploader_files" id="img2"></ul>
+					<div class="weui_uploader_input_wrp">
+						<input class="weui_uploader_input" type="file" accept="image/*" multiple="" readonly>
+					</div>
+				</div>
+			</div>
+			<div class="weui_cell nobef">
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="text" placeholder="请添加上传路径">
+				</div>
+			</div>
+				<div class="button_sp_area">
+					<a class="weui_btn weui_btn_mini weui_btn_default">取消</a>
+					<a class="weui_btn weui_btn_mini weui_btn_primary">分享</a>
+					
+				</div>
+		</div>
+		<div class="sat_tianjia" id="adListDiv">
+			<h5 class="sat_alert_h5">添加签名<span>+新建</span></h5>
+			<div class="weui_cell nobef weui_cell_select">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <select class="weui_select" name="select1">
+                        <option selected="" value="1">理财通发行推广</option>
+                        <option value="2">夏季上新折扣季</option>
+                    </select>
+                </div>
+            </div>
+			<div class="weui_uploader">
+				<div class="weui_uploader_bd">
+					<ul class="weui_uploader_files" >
+						<li>
+							<img src="<%=request.getContextPath()%>/sat/mobile/img/tupian.png" height="112" width="274" alt="">
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="weui_cells weui_cells_radio">
+	            <label class="weui_cell nobef weui_check_label" for="x11">
+	                <div class="weui_cell_ft">
+	                    <input type="radio" class="weui_check" name="radio1" id="x11" checked="checked">
+	                    <span class="weui_icon_checked"></span>
+	                </div>
+	                <div class="weui_cell_bd weui_cell_primary">
+	                    <p>固定吸顶</p>
+	                </div>
+	            </label>
+	            <label class="weui_cell nobef weui_check_label" for="x13"> 
+	                <div class="weui_cell_ft">
+	                    <input type="radio" name="radio1" class="weui_check" id="x13">
+	                    <span class="weui_icon_checked"></span>
+	                </div>
+	                <div class="weui_cell_bd weui_cell_primary">
+	                    <p>置于文章底部</p>
+	                </div>
+	            </label>
+	        </div>
+			<div class="button_sp_area">
+				<a class="weui_btn weui_btn_mini weui_btn_default">取消</a>
+				<a class="weui_btn weui_btn_mini weui_btn_primary">分享</a>
+				
+			</div>
+		</div>
+	</div>
 	</div>
 </body>
 	<script src="<%=request.getContextPath()%>/sat/assets/fastclick.js"></script>
@@ -238,5 +322,9 @@
 				}
 			});
 		}
+	  
+	  function showNewDiv() {
+		  
+	  }
 	</script>
 </html>

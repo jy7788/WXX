@@ -122,4 +122,11 @@ public class SatArticleDao extends BaseDao<SatArticle> implements ISatArticleDao
 		params.put("openid", openid);
 		return super.list("listMyCollections", params);
 	}
+
+	@Override
+	public List<SatArticle> listArticlesLike(String str) {
+		Map<String, Object > params = new HashMap<String, Object>();
+		params.put("title", "%" + str + "%");
+		return super.list("listByTitle", params);
+	}
 }

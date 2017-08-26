@@ -99,17 +99,18 @@
 		alert(openid); */
 		
 		var openid = $("#openid").val();
+		var size = $("#size").text();
 		function gotoLink(link) {
 			alert("aaa");
 			alert(link);
 		}
 		
 		function newAd() {
-			if(size == 3) {
+			if(size >= 3) {
 				alert("广告位已满,无法新建");
 			} else {
 				if(openid != null && openid != "") {
-					window.location.href = "<%=request.getContextPath()%>/ad/gotoInsert/" + openid;
+					window.location = "<%=request.getContextPath()%>/ad/gotoInsert/" + openid;
 				}
 			}
 		}

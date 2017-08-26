@@ -236,4 +236,12 @@ public class TestSatArticleDao {
 			System.out.println(a.getDescImgUrl());
 		}
 	}
+	
+	@Test
+	public void testListMyLike() {
+		List<SatArticle> list = satArticleDao.listArticlesLike("的");
+		for(SatArticle a : list) {
+			System.out.println(a.getDescImgUrl());
+		}
+	}
 }

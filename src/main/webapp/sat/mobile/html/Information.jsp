@@ -29,6 +29,7 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/sat/mobile/css/style.css">
 </head>
 <body >
+<input hidden="true" value="${openid}" id="openid" type="text">
 	<div class="sat_content">
 		<div class="zixun_head">
 			<div class="head_top">
@@ -59,7 +60,7 @@
 			</div>
 			<div class="head_center" style="display:none">
 				<p class="head_cen_p">搜索到<span>200</span>条相关内容</p>
-				<div class="weui_tab">
+				<div class="weui_tab" style="height:auto">
 					<div class="weui_panel_bd">
 						<a href="javascript:;" class="weui_media_box weui_media_appmsg">
 							<div class="weui_media_hd">
@@ -142,10 +143,10 @@
 			</div>
 				
 			<div class="nav">
-				<div class="sat_nav ">
-					<div class="main_swiper_list"><span>本周头条</span></div>
-				</div>
 				<div class="sat_nav click">
+					<div class="main_swiper_list" onclick="updateNewsCategory()"><span>本周头条</span></div>
+				</div>
+				<div class="sat_nav ">
 					<div class="main_swiper_list"><span>时事政坛</span></div>
 				</div>
 				<div class="sat_nav">
@@ -174,12 +175,11 @@
 						</div>
 					</div>
 				</div>
-					
 				
 			</div>
-			<div class="weui_tab">
+			<div class="weui_tab" style="height:auto">
 				<div>
-					<div class="weui_panel_bd">
+					<div class="weui_panel_bd" id = "newsListDiv">
 					<c:forEach items="${articleList}" var="satArticle">
 						<a href="detail?id=${satArticle.id}&openid=${openid}" class="weui_media_box weui_media_appmsg">
 						<div class="weui_media_hd">
@@ -188,7 +188,7 @@
 						<div class="weui_media_bd">
 							<p class="weui_media_desc">${satArticle.title} </p>
 							<p class="zuozhe">
-								<b>${satArticle.openid}</b>
+								<b>作者</b>
 								<span><img src="<%=request.getContextPath()%>/sat/mobile/img/fenxiang-icon.png" width="20" alt=""><i>${satArticle.shares }</i></span>
 								<span><img src="<%=request.getContextPath()%>/sat/mobile/img/guanzhu-icon.png" width="20" alt=""><i>${satArticle.watches }</i></span>
 							</p>
@@ -419,20 +419,29 @@
 		$(".remove").on("click",function(){
 			$(".zixun_head").hide();
 		}) 
-		
+		//导航点击效果
+		$(".sat_nav").click(function(){
+			$(this).addClass("click").siblings().removeClass("click");
+			var text=$(this).text();
+			//alert($.trim(text));
+			updateNewsCategory($.trim(text));
+		})
+		var openid = $("#openid").val();
 		//新闻列表展示
 		function DisplayNewsItems(list) {  
 			var dispContent = "";
+			
+			//alert(openid);
 		    $.each(list, function(index, element) {
 		    	//alert(element.title);
-		    	var content = "<a href='" + element.url + "'" +  "class='weui_media_box weui_media_appmsg'>" 
+		    	var content = "<a href='" + "detail?id=" + element.id + "&openid=" + openid + "'" +  " class='weui_media_box weui_media_appmsg'>" 
 		    	              + "<div class='weui_media_hd'>" 
 		    	              + "<img class='weui_media_appmsg_thumb' src='" + element.descImgUrl + "'" + " alt=''>"
 		    	              + "</div>"
 		    	              + "<div class='weui_media_bd'>"
 		    	              + "<p class='weui_media_desc'>"
-		    	              + "<p class='weui_media_desc'>" + element.title  + "ssssss"+ "</p>"
-		    	              + "<p class='zuozhe'>" + element.open_id 
+		    	              + "<p class='weui_media_desc'>" + element.title + "</p>"
+		    	              + "<p class='zuozhe'>" 
 		    	              + "<b class='zhuanfa'>转发" + element.shares + "</b></p>" 
 		    	              + "</div>"
 		    	              + "</a>";
@@ -440,25 +449,28 @@
 		    	//$("#dialogText")
 		    	dispContent += content;
 		    });  
-		    //$("#div_this_week").html("");
-			$("#div_this_week").html(dispContent);
+		    $("#newsListDiv").html("");
+			$("#newsListDiv").html(dispContent);
 		}  
 		
-		function getMoreDetail(category){
+		function updateNewsCategory(text){
 			//alert("get more detail");
-			var url = "<%=request.getContextPath()%>/satarticle/getArticlesByCategory";
+			var url = "<%=request.getContextPath()%>/satarticle/listArticlesByClassifyName";
 			$.ajax({
 				url : url,
 				type : 'POST',
 				dataType : 'json',
 				async : true,
 				data : {
-					"categoryId" : category
+					"classifyName" : text
 				},
 				success : function(data) {
-					var dataRole =$.parseJSON(data);
-					//alert(dataRole);
-					DisplayNewsItems(dataRole);
+					if(data.indexOf("unsuccess") > 0){
+						//alert(data);
+					} else {
+						var dataRole =$.parseJSON(data);
+						DisplayNewsItems(dataRole);
+					}
 					/* if(data.indexOf("success") > 0){
 						//alert("")
 						alert(data);
@@ -468,7 +480,7 @@
 					} */
 				},
 				error : function() {
-					alert("网络连接异常");
+					//alert("网络连接异常");
 				}
 			});
 		}
