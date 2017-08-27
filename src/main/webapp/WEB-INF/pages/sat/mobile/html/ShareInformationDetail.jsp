@@ -43,18 +43,22 @@
 <input type="text" id="satArticleImg" hidden="true" value="${satArticle.descImgUrl}">
 <input type="text" id="satArticleId" hidden="true" value="${satArticle.id}">
 <input type="text" id="adUrl" hidden="true" value="${ad.linkUrl}">
+<input type="text" id="auth" hidden="true" value="${auth}">
 
 	<div class="sat_content">
 		<div class="sat_zhuanzai">
 			<p><span id="size"> </span><i></i></p>
-			<b onclick="showNewDiv()">+新建</b>
+			<b id="newAd" onclick="showNewDiv()">+新建</b>
 		</div>
 		<div class="data_header">
 			<div class="head_png weui_cell">
 				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="42" alt=""></div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<p>修改头像</p>
-					<p><a href="tel:${satUser.phoneNum}"><img src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt=""></a><img src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt=""><img src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt=""></p>
+					<p>${satUser.username}</p>
+					<p><a href="tel:${satUser.phoneNum}">
+					<img src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt=""></a>
+					<img id="getQrCode" src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt="">
+					<img id="visitStation" src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt=""></p>
 				</div>
 				<div class="weui_cell_ft sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/huisesejiantou-icon.png" width="10" alt=""></div>
 			</div>
@@ -209,6 +213,7 @@
 	  var list;
 	  var newName, newDescription, newImageUrl, newUrl,adId;
 	  var adUrl = $("#adUrl").val();
+	  var auth;
 	//上传图片和预览
 	function previewImage(file) {
 	    var MAXWIDTH = 100;
@@ -268,6 +273,11 @@
 		  //初始化库 
 		 loadXMLDoc();
 		 //初始化库结束
+		 auth=$("#auth").val();
+		 //alert(auth);
+		 if(auth.indexOf("read") > 0) {//可编辑，是同一个用户
+			 $("#newAd").attr("hidden", true);
+		 }
 	});	
 	
 	//收藏文章
@@ -598,5 +608,13 @@
 		  }
 	  }
 	  
+	//得到用户二维码
+	  $("#getQrCode").click(function() {
+		  
+	  });
+	  //访问微站
+	  $("#visitStation").click(function() {
+		  window.location = "/satarticle/othersStation?openid=" + mOpenid;
+	  });
 	</script>
 </html>

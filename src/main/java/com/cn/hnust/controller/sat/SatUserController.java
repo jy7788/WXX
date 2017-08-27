@@ -325,4 +325,14 @@ public class SatUserController {
 		return "redirect:" + url;
 	}
 	
+	/*@RequestMapping("/isUserRegistered")
+	@ResponseBody
+	public String isUserRegistered(HttpServletRequest request) {
+		String openid = request.getParameter("openid");
+		//satUserService
+		return "redirect:" + url;
+	}*/
+	
+	
+	
 }

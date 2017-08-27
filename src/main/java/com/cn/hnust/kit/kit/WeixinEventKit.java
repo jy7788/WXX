@@ -9,9 +9,11 @@ import com.cn.hnust.model.User;
 import com.cn.hnust.model.WeixinFinalValue;
 import com.cn.hnust.model.WeixinMenu;
 import com.cn.hnust.model.pa.PAUser;
+import com.cn.hnust.model.sat.SatUser;
 import com.cn.hnust.service.IUserService;
 import com.cn.hnust.service.IWeixinMenuService;
 import com.cn.hnust.service.pa.IPAUserService;
+import com.cn.hnust.service.sat.ISatUserService;
 import com.cn.hnust.web.servlet.BeanFactoryContext;
 
 
@@ -23,6 +25,8 @@ public class WeixinEventKit {
 	
 //	@Resource
 //	private static IPAUserService pAUserService;
+	@Resource
+	private static ISatUserService satUserService;
 	
 	public static String handlerEventMsg(Map<String, String> msgMap) throws IOException {
 		String event = msgMap.get("Event");
@@ -40,18 +44,13 @@ public class WeixinEventKit {
 	private static String handleSubscribeEvent(Map<String, String> msgMap) throws IOException {
 		String openId = msgMap.get("FromUserName");
 		System.out.println("openid" + openId);
-		
-		IPAUserService userService = (IPAUserService) BeanFactoryContext.getService("pAUserService");
-		PAUser user = userService.loadByOpenId(openId);
-//		if(user==null) {
-//			IWUserService wUserService = (IWUserService) BeanFactoryContext.getService("wUserService");
-//			WUser wUser = wUserService.queryByOpenid(openId);
-//			user = wUser.getUser();
-//			userService.add(user);
-//		} else {
-//			user.setStatus(1);
-//			userService.update(user);
-//		}
+		System.out.println(msgMap);
+		SatUser user = satUserService.loadByOpenId(openId);
+		if(user != null) {
+			
+		} else {
+			
+		}
 		//未绑定去绑定用户
 		if(user == null || user.getBind() == 0) {
 			String bindUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeixinFinalValue.APPID + "&redirect_uri=" + WeixinFinalValue.SERVER_URL +"pauser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";

@@ -114,9 +114,22 @@ public class SatArticleController {
 	@RequestMapping(value="/detail",method=RequestMethod.GET)
 	public String satArticleDetail(@RequestParam("id") String id, @RequestParam("openid") String openid, HttpServletRequest request, Model model) {
 		SatArticle satArticle = satArticleService.loadContentById(id);
+		String visitorOpenid = request.getParameter("visitorOpenid");  
 		String adId = request.getParameter("adId");
 		String from = request.getParameter("from");
-		System.out.println(openid);
+		System.out.println(openid + "adid " + adId + " visitorOpenid " + visitorOpenid);
+		
+		/*Map<String, String[]> parameterMap = request.getParameterMap();
+		StringBuffer url = new StringBuffer();
+		url.append(WeixinFinalValue.SERVER_URL + "satarticle/detail?");
+		for (String key : parameterMap.keySet()) {
+			url.append(key).append("=" + request.getParameter(key) +"&");
+			//System.out.println("key= "+ key + " and value= " + parameterMap.get(key));
+	    }
+		String reqUrl = url.toString();
+		reqUrl = reqUrl.substring(0, reqUrl.length() - 1);
+		System.out.println(reqUrl);*/
+		
 		if(satArticle != null) {
 			model.addAttribute("satArticle", satArticle);
 		}
@@ -126,6 +139,7 @@ public class SatArticleController {
 			model.addAttribute("satUser", satUser);
 		}
 		if(!StringUtils.isEmpty(from) ) {//分享之后的文章
+			model.addAttribute("auth", "aread");
 			SatArticleShare articleShare = null;
 			//更新文章查看次数
 			if(!StringUtils.isEmpty(openid) && !StringUtils.isEmpty(id)) {
@@ -150,7 +164,6 @@ public class SatArticleController {
 	       //2,获取调用微信jsapi的凭证  
 	       JsapiTicket ticket = WeixinContext.getInstance().getTicket(); 
 	       System.out.println("ticket " + ticket.getTicket());
-//	       Map<String,String> map = WeixinBasicKit.sign(ticket.getTicket(), WeixinFinalValue.SERVER_URL + "satarticle/detail?id=" + id + "&openid=" + openid );  
 	       Map<String,String> map = WeixinBasicKit.sign(ticket.getTicket(), WeixinFinalValue.SERVER_URL + "satarticle/detail?id="
 	    		   					+ id + "&openid=" + openid + "&from=" + from );  
 	      
@@ -158,12 +171,6 @@ public class SatArticleController {
 		   request.setAttribute("nonceStr", map.get("nonceStr"));  
 		   request.setAttribute("signature", map.get("signature"));  
 		   request.setAttribute("appId", appId);  
-		      
-		   System.out.println("apiticket " + ticket.getTicket() );
-		   System.out.println("nonceStr " + map.get("nonceStr"));
-		   System.out.println("timeStamp " + map.get("timestamp")); 
-		   System.out.println("appId " + appId);
-		   System.out.println("url " + map.get("url"));
 		   System.out.println("signature " +  map.get("signature"));
 			return "sat/mobile/html/ShareInformationDetail.jsp";
 		} else {//原文章
@@ -171,7 +178,7 @@ public class SatArticleController {
 			satArticle.setWatches(satArticle.getWatches() + 1);
 			satArticle.setUpdateTime(new Date());
 			satArticleService.update(satArticle);
-			
+			model.addAttribute("auth", "aedit");
 			String appId=WeixinContext.getInstance().getAppId();//应用id  
 	        String appsecret=WeixinContext.getInstance().getAppSecurt();//应用秘钥  
 	       //1,获取access_token  
@@ -180,8 +187,8 @@ public class SatArticleController {
 	       //2,获取调用微信jsapi的凭证  
 	       JsapiTicket ticket = WeixinContext.getInstance().getTicket(); 
 	       System.out.println("ticket " + ticket.getTicket());
-	//       Map<String,String> map = WeixinBasicKit.sign(ticket.getTicket(), WeixinFinalValue.SERVER_URL + "satarticle/detail?id=" + id + "&openid=" + openid );  
-	       Map<String,String> map = WeixinBasicKit.sign(ticket.getTicket(), WeixinFinalValue.SERVER_URL + "satarticle/detail?id=" + id + "&openid=" + openid );  
+	//       Map<String,String> map = WeixinBasicKit.sign(ticket.getTicket(), WeixinFinalValue.SERVER_URL + "satarticle/detail?id=" + id + "&openid=" + openid );
+	       Map<String,String> map = WeixinBasicKit.sign(ticket.getTicket(), WeixinFinalValue.SERVER_URL + "satarticle/detail?id=" + id + "&openid=" + openid);  
 	      
 		   request.setAttribute("timestamp", map.get("timestamp"));  
 		   request.setAttribute("nonceStr", map.get("nonceStr"));  
@@ -286,12 +293,51 @@ public class SatArticleController {
 	@RequestMapping(value="/listMyArticles/{openid}",method=RequestMethod.GET)
 	public String satArticleListMyArticles(@PathVariable String openid, Model model) {
 		List<SatArticle> myArticles = satArticleService.listSatArticlesByOpenId(openid);
+		List<SatArticleShare> share = satArticleShareService.listByOpenid(openid);
+		for(SatArticle a : myArticles) {
+			for(SatArticleShare s: share) {
+				if(a.getId().equals(s.getArticleId())) {
+					a.setShares(s.getShares());
+					a.setStars(s.getStars());
+					a.setWatches(s.getWatches());
+				}
+			}
+		}
 		System.out.println("size" + myArticles.size());
 		if(myArticles != null) {
 			model.addAttribute("myArticles", myArticles);
 			model.addAttribute("openid", openid);
 		}
 		return "sat/mobile/html/articleList.jsp";
+	}
+	
+	/**
+	 * 别人的微站
+	 * @author fanfte
+	 * @param openid
+	 * @param model
+	 * @return
+	 * 2017年8月2日
+	 */
+	@RequestMapping(value="/othersStation",method=RequestMethod.GET)
+	public String othersStation(@RequestParam String openid, Model model) {
+		List<SatArticle> myArticles = satArticleService.listSatArticlesByOpenId(openid);
+		List<SatArticleShare> share = satArticleShareService.listByOpenid(openid);
+		for(SatArticle a : myArticles) {
+			for(SatArticleShare s: share) {
+				if(a.getId().equals(s.getArticleId())) {
+					a.setShares(s.getShares());
+					a.setStars(s.getStars());
+					a.setWatches(s.getWatches());
+				}
+			}
+		}
+		System.out.println("size" + myArticles.size());
+		if(myArticles != null) {
+			model.addAttribute("myArticles", myArticles);
+			model.addAttribute("openid", openid);
+		}
+		return "sat/mobile/html/othersList.jsp";
 	}
 	
 	@RequestMapping("/gotoArticleSelfCreate")
@@ -332,6 +378,9 @@ public class SatArticleController {
 			SatArticleShare share = satArticleShareService.load(openid, articleId);
 			
 			if(share != null) {//分享过更新分享次数t_sat_article
+				if(StringUtils.isNoneEmpty(adId)) {
+					share.setAdvisId(adId);
+				}
 				share.setShares(share.getShares() + 1);
 				share.setUpdateTime(new Date());
 				satArticleShareService.update(share);

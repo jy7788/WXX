@@ -42,18 +42,22 @@
 <%-- <input type="text" id="articleOpenid" hidden="true" value="${satArticle.openid}"> --%>
 <input type="text" id="satArticleImg" hidden="true" value="${satArticle.descImgUrl}">
 <input type="text" id="satArticleId" hidden="true" value="${satArticle.id}">
+<input type="text" id="auth" hidden="true" value="${auth}">
 
 	<div class="sat_content">
 		<div class="sat_zhuanzai">
 			<p><span id="size"> </span><i></i></p>
-			<b onclick="showNewDiv()">+新建</b>
+			<b id="newAd" onclick="showNewDiv()">+新建</b>
 		</div>
 		<div class="data_header">
 			<div class="head_png weui_cell">
 				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="42" alt=""></div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<p>修改头像</p>
-					<p><a href="tel:${satUser.phoneNum}"><img src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt=""></a><img src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt=""><img src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt=""></p>
+					<p>${satUser.username}</p>
+					<p><a href="tel:${satUser.phoneNum}"><img src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt=""></a>
+					<img id="getQrCode" src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt="">
+					<img id="visitStation" src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt="">
+					</p>
 				</div>
 				<div class="weui_cell_ft sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/huisesejiantou-icon.png" width="10" alt=""></div>
 			</div>
@@ -208,7 +212,7 @@
 	  var articleId = $("#satArticleId").val();
 	  var list;
 	  var newName, newDescription, newImageUrl, newUrl,adId;
-	
+	  var auth;
 	//上传图片和预览
 	function previewImage(file) {
 	    var MAXWIDTH = 100;
@@ -303,6 +307,14 @@
 		  //初始化库 
 		 loadXMLDoc();
 		 //初始化库结束
+		 auth=$("#auth").val();
+		 //alert(auth);
+		 currUrl = "/satarticle/detail?id=" + articleId + "&openid=" + mOpenid;
+		 //alert(currUrl);
+		 if(auth.indexOf("read") > 0) {//可编辑，是同一个用户
+			 alert("aaa");
+			 $("#newAd").attr("hidden", true);
+		 }
 	});	 
 	
 	//取消按钮
@@ -398,7 +410,7 @@
 	      var signature=jQuery("#signature").text();
 	      wx.config({
 	               beta: true,
-	                debug: false,// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	                debug: true,// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 	                appId: appId, 
 	                timestamp: timestamp,
 	                nonceStr: nonceStr,
@@ -429,6 +441,7 @@
 			    trigger: function (res) {
 			    	//alert("<input type='text' value='aaaa' >");
 			    	alert("分享");
+			    	alert(currUrl);
 			    },
 			    success: function (res) {
 			        alert('已分享22');
@@ -448,9 +461,11 @@
 		        link: currUrl, // 分享链接
 		        imgUrl: iconUrl, // 分享图标
 		        trigger: function (res) {
-		        	
+		        	alert("分享time");
+			    	alert(currUrl);
 		 	    },
-		        success: function () {  
+		        success: function () { 
+		        	updateShareCnt();
 		        	alert("分享成功");
 		        },
 		        cancel: function (res) {
@@ -475,7 +490,7 @@
 				}
 			});
 		}); 
-	  
+	  //更新分享记录
 	  function updateShareCnt(){
 			var url = "<%=request.getContextPath()%>/satarticle/updateUserShareCount";
 			//alert("adId " + adId);
@@ -563,6 +578,14 @@
 			  alert("广告位已满，无法添加");
 		  }
 	  }
+	  //得到用户二维码
+	  $("#getQrCode").click(function() {
+		  
+	  });
+	  //访问微站
+	  $("#visitStation").click(function() {
+		  
+	  });
 	  
 	</script>
 </html>
