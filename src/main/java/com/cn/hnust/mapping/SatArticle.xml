@@ -63,7 +63,7 @@
     from t_sat_article
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  
+  <!-- 我的转发    -->  
   <select id="listBySatUserOpenId" resultMap="BaseResultMap" parameterType="Map" >
     select 
     	a.id, a.title, a.stars, a.shares, a.watches, a.create_time, a.update_time, a.url, a.desc_img_url 
@@ -93,6 +93,7 @@
     where id=#{id,jdbcType=VARCHAR} and open_id=#{openid,jdbcType=VARCHAR} and type != 1
     order by create_time desc 
   </select>
+  
   <select id="loadMyArticle" resultMap="BaseResultMap" parameterType="Map" >
     select 
     <include refid="Base_Column_List" />
@@ -158,7 +159,15 @@
   	a.id, a.title, a.stars, a.shares, a.watches, a.create_time, a.update_time, a.url, a.desc_img_url 
   	from t_sat_article a 
   	left join t_sat_article_collection c on (a.id = c.article_id)
-  	where c.user_id = #{openid}
+  	where c.user_id = #{openid} 
+  </select>
+  
+  <select id="listCollectArticles" resultMap="BaseResultMap" parameterType="Map">
+  	select 
+  	a.id, a.title, a.stars, a.shares, a.watches, a.create_time, a.update_time, a.url, a.desc_img_url 
+  	from t_sat_article a 
+  	left join t_sat_article_collection c on (a.id = c.article_id)
+  	where c.user_id = #{openid} and c.article_id = #{articleId} 
   </select>
   
   <select id="listByTitle" resultMap="BaseResultMap" parameterType="Map">
@@ -169,6 +178,16 @@
 		</where>
 		order by create_time desc
   </select>
+  
+  <delete id="deleteMyCollection" parameterType="Map">
+  		delete from t_sat_article_collection 
+  		where user_id=#{openid} and article_id=#{articleId}
+  </delete>
+  
+  <delete id="deleteMyShare" parameterType="Map">
+  		delete from t_sat_article_share 
+  		where user_id=#{openid} and article_id=#{articleId}
+  </delete>
   
   <!-- <insert id="insertNewShareArticle" parameterType="Map">
   		insert into t_sat_article_share

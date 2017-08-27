@@ -46,6 +46,14 @@
   	from t_sat_article_share  
   	where user_id = #{openid,jdbcType=VARCHAR} and article_id = #{articleId,jdbcType=VARCHAR}
   </select>
+  
+  <select id="listSharesByOpenid" resultMap="BaseResultMap" parameterType="Map">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from t_sat_article_share  
+  	where user_id = #{openid,jdbcType=VARCHAR}
+  </select>
+  
   <!-- <insert id="insertNewShareArticle" parameterType="Map">
   		insert into t_sat_article_share
   		(id, user_id, article_id, advis_id, create_time, shares, stars, watches, advis_click_count)

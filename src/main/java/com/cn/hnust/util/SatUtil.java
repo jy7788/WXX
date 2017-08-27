@@ -39,6 +39,14 @@ public class SatUtil {
         }
         return json.toJSONString();
     }
+    
+    public static String getJSONString(Map<String, Object> map) {
+        JSONObject json = new JSONObject();
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            json.put(entry.getKey(), entry.getValue());
+        }
+        return json.toJSONString();
+    }
 
     public static String MD5(String key) {
         char hexDigits[] = {

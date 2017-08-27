@@ -75,4 +75,29 @@ public class SatArticleService implements ISatArticleService{
 	public List<SatArticle> listSatArticleLike(String title) {
 		return satArticleDao.listArticlesLike(title);
 	}
+
+	@Override
+	public List<SatArticle> listArticleCollections(String openid, String articleId) {
+		return satArticleDao.listCollectArticles(openid, articleId);
+	}
+
+	@Override
+	public void collectArticle(String openid, String articleId) {
+		satArticleDao.collectArticle(openid, articleId);
+	}
+
+	@Override
+	public List<SatArticle> listMyCollections(String openid) {
+		return satArticleDao.listMyCollections(openid);
+	}
+
+	@Override
+	public void deleteMyCollection(String openid, String articleId) {
+		satArticleDao.deleteMyCollection(openid, articleId);
+	}
+
+	@Override
+	public void deleteMyShare(String openid, String articleId) {
+		satArticleDao.deleteMyShare(openid, articleId);
+	}
 }

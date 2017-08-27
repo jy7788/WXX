@@ -1,5 +1,7 @@
 package com.cn.hnust.service.sat;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -31,6 +33,11 @@ public class SatArticleShareService implements ISatArticleShareService{
 	@Override
 	public SatArticleShare load(String openid, String articleId) {
 		return satArticleShareDao.loadByUserIdAndArticleId(openid, articleId);
+	}
+
+	@Override
+	public List<SatArticleShare> listByOpenid(String openid) {
+		return satArticleShareDao.listByOpenid(openid);
 	}
 
 	

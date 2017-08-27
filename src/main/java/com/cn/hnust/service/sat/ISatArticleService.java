@@ -19,6 +19,10 @@ public interface ISatArticleService {
 	public List<SatArticle> list();
 	public SatArticle loadMyArticleContent(String id);
 	public List<SatArticle> listByClassifyName(String name);
-	
 	public List<SatArticle> listSatArticleLike(String title);
+	public List<SatArticle> listArticleCollections(String openid, String articleId);
+	public List<SatArticle> listMyCollections(String openid);
+	public void collectArticle(String openid, String articleId); 
+	public void deleteMyCollection(String openid,String articleId);
+	public void deleteMyShare(String openid,String articleId);
 }

@@ -96,7 +96,10 @@ public class SatArticleController {
 	        	System.out.println("goto article list");
 	        	return "redirect:" + WeixinFinalValue.SERVER_URL + "satarticle/gotoNewsList";
 	        }
-		}
+		} else { 
+        	System.out.println("goto article list");
+        	return "redirect:" + WeixinFinalValue.SERVER_URL + "satarticle/gotoNewsList";
+        }
 		return "sat/mobile/html/Information.jsp";
 	}
 	
@@ -113,18 +116,29 @@ public class SatArticleController {
 		SatArticle satArticle = satArticleService.loadContentById(id);
 		String adId = request.getParameter("adId");
 		String from = request.getParameter("from");
+		System.out.println(openid);
 		if(satArticle != null) {
 			model.addAttribute("satArticle", satArticle);
 		}
+		//发文者的openid
 		if(openid != null) {
 			SatUser satUser = satUserService.loadByOpenId(openid);
 			model.addAttribute("satUser", satUser);
 		}
 		if(!StringUtils.isEmpty(from) ) {//分享之后的文章
-			//System.out.println("from " + from + "adid " + adId);
-			SatArticleShare articleShare = satArticleShareService.load(openid, id);
-			System.out.println("adid " + articleShare.getAdvisId());
+			SatArticleShare articleShare = null;
+			//更新文章查看次数
+			if(!StringUtils.isEmpty(openid) && !StringUtils.isEmpty(id)) {
+				articleShare = satArticleShareService.load(openid, id);
+				if(articleShare != null) {
+					articleShare.setWatches(articleShare.getWatches() + 1);
+					articleShare.setUpdateTime(new Date());
+					satArticleShareService.update(articleShare);
+				}
+			}
+			//加载广告数据
 			if(articleShare != null && articleShare.getAdvisId() != null) {
+				System.out.println("adid " + articleShare.getAdvisId());
 				SatAdvertisement ad = satAdService.load(articleShare.getAdvisId());//得到分享文章对应的广告
 				model.addAttribute("ad", ad);
 			}
@@ -153,6 +167,11 @@ public class SatArticleController {
 		   System.out.println("signature " +  map.get("signature"));
 			return "sat/mobile/html/ShareInformationDetail.jsp";
 		} else {//原文章
+			//更新原文章阅读次数
+			satArticle.setWatches(satArticle.getWatches() + 1);
+			satArticle.setUpdateTime(new Date());
+			satArticleService.update(satArticle);
+			
 			String appId=WeixinContext.getInstance().getAppId();//应用id  
 	        String appsecret=WeixinContext.getInstance().getAppSecurt();//应用秘钥  
 	       //1,获取access_token  
@@ -345,8 +364,21 @@ public class SatArticleController {
 	}
 
 	@RequestMapping(value="/statistics", method = RequestMethod.GET)
-	public String getStatistics() {
-		return "sat/mobile/html/shujutongji.jsp";
+	public String getStatistics(HttpServletRequest request, Model model) {
+		String openid = request.getParameter("openid");
+		System.out.println("oepnid "+ openid); 
+		if(StringUtils.isNoneEmpty(openid)) {
+			System.out.println("oepnid "+ openid); 
+			SatUser user = satUserService.loadByOpenId(openid);
+			model.addAttribute("openid", openid);
+			if(user != null ) {
+				return "sat/mobile/html/shujutongji.jsp";
+			} else {
+				return "sat/mobile/html/shujutongji.jsp";
+			}
+		} else {
+			return "sat/mobile/html/shujutongji.jsp";
+		}
 	}
 	
 	
@@ -379,6 +411,107 @@ public class SatArticleController {
 		} else {
 			return "get failed";
 		}
+	}
+	/**
+	 * 收藏文章
+	 */
+	@RequestMapping(value="/collectArticle", method=RequestMethod.POST)
+	@ResponseBody
+	public String collectArticle(HttpServletRequest request) {
+		String articleId = request.getParameter("articleId");
+		String openid = request.getParameter("openid");
+		System.out.println("openid " + openid + "aid " + articleId);
+		if(!StringUtils.isEmpty(articleId) && !StringUtils.isEmpty(openid)) {
+			List<SatArticle> list = satArticleService.listArticleCollections(openid, articleId);
+			System.out.println("size " + list.size());
+			if(list != null && list.size() > 0){
+				return "already collected";
+			} else {
+				satArticleService.collectArticle(openid, articleId);
+				return "collect success";
+			}
+		}
+		return "collect failed";
+	}
+	
+	/**
+	 * 得到收藏列表
+	 */
+	@RequestMapping(value="/listMyCollections", method=RequestMethod.POST)
+	@ResponseBody
+	public String listMyCollections(HttpServletRequest request) {
+		String openid = request.getParameter("openid");
+		if(!StringUtils.isEmpty(openid)) {
+			List<SatArticle> list = satArticleService.listMyCollections(openid);
+			System.out.println("list coll " + list.size());
+			if(list != null && list.size() > 0){
+				String result = JsonUtil.getInstance().list2json(list);
+				return result;
+			} else {
+				return "list failed";
+			}
+		}
+		return "list failed";
+	}
+	
+	/**
+	 * 得到收藏列表
+	 */
+	@RequestMapping(value="/listMyShares", method=RequestMethod.POST)
+	@ResponseBody
+	public String listMyShares(HttpServletRequest request) {
+		String openid = request.getParameter("openid");
+		if(!StringUtils.isEmpty(openid)) {
+			List<SatArticleShare> share = satArticleShareService.listByOpenid(openid);
+			List<SatArticle> list = satArticleService.listSatArticlesByOpenId(openid);
+			System.out.println("list share " + list.size());
+			if(list != null && list.size() > 0){
+				for(SatArticle a: list) {
+					for(SatArticleShare s : share) {
+						if(a.getId().equals(s.getArticleId())) {
+							a.setShares(s.getShares());
+							a.setStars(s.getStars());
+							a.setWatches(s.getWatches());
+						}
+					}
+				}
+				String result = JsonUtil.getInstance().list2json(list);
+				return result;
+			} else {
+				return "list failed";
+			}
+		}
+		return "list failed";
+	}
+	
+	/**
+	 * 删除我的收藏一条记录
+	 */
+	@RequestMapping(value="/deleteMyCollection", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteMyCollection(HttpServletRequest request) {
+		String openid = request.getParameter("openid");
+		String articleId = request.getParameter("articleId");
+		if(!StringUtils.isEmpty(openid) && !StringUtils.isEmpty(articleId)) {
+			satArticleService.deleteMyCollection(openid, articleId);
+			return "delete success";
+		}
+		return "delete failed";
+	}
+	
+	/**
+	 * 删除我的收藏一条记录
+	 */
+	@RequestMapping(value="/deleteMyShare", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteMyShare(HttpServletRequest request) {
+		String openid = request.getParameter("openid");
+		String articleId = request.getParameter("articleId");
+		if(!StringUtils.isEmpty(openid) && !StringUtils.isEmpty(articleId)) {
+			satArticleService.deleteMyCollection(openid, articleId);
+			return "delete success";
+		}
+		return "delete failed";
 	}
 	
 }

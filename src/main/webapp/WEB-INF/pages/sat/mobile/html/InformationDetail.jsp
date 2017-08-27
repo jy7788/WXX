@@ -86,10 +86,10 @@
 				</div>
 				<div class="main_foot">
 					<span>
-						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="点赞">
+						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="点赞" id="starButton">
 					</span>
 					<span>
-						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="收藏">
+						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="收藏" id="collectButton">
 					</span>
 				</div>
 			</div>
@@ -254,6 +254,41 @@
 	        console.log(file.files[0]);
 	    }
 	}
+	
+	//收藏文章
+	function collectArticle() {
+		var url = "<%=request.getContextPath()%>/satarticle/collectArticle";
+		$.ajax({
+			url : url,
+			type : 'POST',
+			dataType : 'json',
+			async : true,
+			data : {
+				"openid" : mOpenid,
+				"articleId": articleId
+			},
+			success : function(data) {
+				if(data.indexOf("success") > 0){
+					//gotoadList();
+					alert("收藏成功,在个人中心查看");
+				} else if(data.indexOf("collected") > 0) {
+					alert("收藏过了");
+				} else {
+					alert("收藏失败");
+				}
+			},
+			error : function() {
+				alert("网络连接异常");
+			}
+		});
+	}
+	//收藏点击
+	$("#collectButton").click(function(){
+		//alert(openid);
+		if(!isNull(mOpenid) && !isNull(articleId)) {
+			collectArticle();
+		}
+	 });
 	
 	
 	$(function() {

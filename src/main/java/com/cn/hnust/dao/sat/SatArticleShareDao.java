@@ -1,6 +1,7 @@
 package com.cn.hnust.dao.sat;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +28,13 @@ public class SatArticleShareDao extends BaseDao<SatArticleShare> implements ISat
 		params.put("openid", openid);
 		params.put("articleId", articleId);
 		return super.loadBySqlId("loadByUserIdAndArticleId", params);
+	}
+
+	@Override
+	public List<SatArticleShare> listByOpenid(String openid) {
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("openid", openid);
+		return super.list("listSharesByOpenid", params);
 	}
 
 }

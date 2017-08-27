@@ -90,7 +90,7 @@
 						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="点赞">
 					</span>
 					<span>
-						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="收藏">
+						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="收藏" id="collect">
 					</span>
 				</div>
 			</div>
@@ -268,8 +268,46 @@
 		  //初始化库 
 		 loadXMLDoc();
 		 //初始化库结束
-	});	 
+	});	
 	
+	//收藏文章
+	function collectArticle() {
+		var url = "<%=request.getContextPath()%>/ad/insert";
+		$.ajax({
+			url : url,
+			type : 'POST',
+			dataType : 'json',
+			async : true,
+			data : {
+				"name" : newName,
+				"description" : newDescription,
+				"image" : newImageUrl,
+				"linkUrl" : newUrl,
+				"openid" : mOpenid
+			},
+			success : function(data) {
+				if(data.indexOf("open") > 0){
+					//gotoadList();
+					alert("广告添加成功");
+					$("#adOuter").attr("style", "display:none");//显示广告
+					$("#adListDiv").attr("style", "display:none");//显示广告列表
+				} else if(data.indexOf("full") > 0) {
+					alert("广告位满了");
+				} else {
+					alert("新增失败");
+				}
+			},
+			error : function() {
+				alert("网络连接异常");
+			}
+		});
+	}
+	
+	
+	$("#collect").click(function(){
+		alert("collect");
+		
+	 });
 	//取消按钮
 	$("#cancelEdit").click(function(){
 		$("#adOuter").attr("style", "display:none");

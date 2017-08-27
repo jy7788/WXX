@@ -138,4 +138,28 @@ public class SatArticleDao extends BaseDao<SatArticle> implements ISatArticleDao
 		params.put("adId", adId);
 		super.add("insertNewShareArticle", params);
 	}
+
+	@Override
+	public List<SatArticle> listCollectArticles(String userId, String articleId) {
+		Map<String, Object > params = new HashMap<String, Object>();
+		params.put("openid", userId);
+		params.put("articleId", articleId);
+		return super.list("listCollectArticles", params);
+	}
+
+	@Override
+	public void deleteMyCollection(String openid, String articleId) {
+		Map<String, Object > params = new HashMap<String, Object>();
+		params.put("openid", openid);
+		params.put("articleId", articleId);
+		super.deleteByParams("deleteMyCollection", params);
+	}
+
+	@Override
+	public void deleteMyShare(String openid, String articleId) {
+		Map<String, Object > params = new HashMap<String, Object>();
+		params.put("openid", openid);
+		params.put("articleId", articleId);
+		super.deleteByParams("deleteMyShare", params);
+	}
 }

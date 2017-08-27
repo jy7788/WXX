@@ -25,10 +25,10 @@ public interface ISatArticleDao extends IBaseDao<SatArticle>{
 	public List<SatArticle> listArticleByClassifyId(String classifyId);
 	public List<SatArticle> listArticleByClassifyName(String classifyName);
 	public void collectArticle(String userId, String articleId);
-	
+	public List<SatArticle> listCollectArticles(String userId, String articleId);
 	public List<SatArticle> listMyCollections(String openid); 
-	
 	public List<SatArticle> listArticlesLike(String str);
-	
 	public void insertNewShareArticle(String openid, String articleId, String adId);
+	public void deleteMyCollection(String openid, String articleId);
+	public void deleteMyShare(String openid, String articleId); 
 }

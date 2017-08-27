@@ -27,6 +27,7 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/sat/assets/demos.css">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/sat/mobile/css/style.css">
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"> </script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/lrz/lrz.bundle.js"></script>
 </head>
 <body>
 	<div id="myparams" style="display: none">
@@ -92,8 +93,11 @@
 				<div class="weui_cell">
 					<div class="weui_cell_hd"><label class="weui_label">二维码</label></div>
 					<div class="weui_cell_bd weui_cell_primary">
-						<span class="sat_shangchuan"><img id="qrImg" src="${satUser.qrCode} " style="width:.852rem;height:.852rem;" />上传<img  src="<%=request.getContextPath()%>/sat/mobile/img/huisesejiantou-icon.png" width="6" alt=""></span>
-						<input class="weui_input" type="text" id="qrCode" name="qrCode" hidden="true" placeholder="二维码" value="${satUser.qrCode}">
+						<ul class="weui_uploader_files" id='img'></ul>
+						<span class="sat_shangchuan"><img  src="${satUser.qrCode} "  style="width:.852rem;height:.852rem;" />上传<img  src="<%=request.getContextPath()%>/sat/mobile/img/huisesejiantou-icon.png" width="6" alt=""></span>
+						<input class="weui_uploader_input" type="file" id="headimgurl"   accept="image/*" onchange="previewImage(this)">
+						<input  type="text" id="qrCode" name="qrCode" value="" hidden="true" />
+						<!-- <input class="weui_input" type="file" accept="image/*" id="headimgurl" onchange="previewImage(this)"> -->
 					</div>
 				</div>
 	
@@ -139,6 +143,58 @@
 	    
 	  });
 	  
+	//上传图片预览
+		function previewImage(file) {
+		    var MAXWIDTH = 100;
+		    var MAXHEIGHT = 200;
+		    if (file.files && file.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (evt) {         
+		            $("#image").attr("hidden", "true");
+		            //$('#img').html('<li class="weui_uploader_file" style="background-image:url('+evt.target.result+')"></li>');
+		        };
+		        reader.readAsDataURL(file.files[0]);//
+		        
+		        lrz(file.files[0], {width: 800})  
+		        .then(function (rst) {  
+		            var formData = new FormData();  
+		            formData.append("file", rst.file);  
+		            $.ajax({  
+		                type: "POST",  
+		                url: "<%=request.getContextPath()%>/ad/uploadImage/",  
+		                data: formData,  
+		                async: false,  
+		                cache: false,  
+		                contentType: false,  
+		                processData: false,  
+		                beforeSend: function (XMLHttpRequest) {  
+		                    //showLoader();  
+		                },  
+		                success: function (data) {  
+		  					//var dataObj=eval("("+data+")");
+		  					if(data.indexOf("failed") > 0) {
+		  						alert("图片上传失败");
+		  					}else {
+		  						alert("图片上传成功");
+		  						$("#qrCode").val(data);
+		  						//$("#image").attr("src",data);
+		  					}
+		                },  
+		                complete: function (XMLHttpRequest, textStatus) {  
+		                    //hideLoader();  
+		                },  
+		                error: function (XMLHttpRequest, textStatus, errorThrown) { //上传失败  
+		                    //hideLoader();  
+		                    alert('操作错误');  
+		                }  
+		            });  
+		            return rst;  
+		        });  
+		        
+		        console.log(file.files[0]);
+		    }
+		}
+	  
 	  jQuery(document).ready(function(){
 		  //初始化库 
 		 loadXMLDoc();
@@ -156,10 +212,6 @@
 				        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
 				        $("#qrCode").val(localIds);
 				        $("#qrImg").attr("src", localIds);
-				        /* wx.previewImage({
-				            current: localIds, // 当前显示图片的http链接
-				            urls: [localIds, localIds] // 需要预览的图片http链接列表
-				        }); */
 				    }
 				});
 		  });

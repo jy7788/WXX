@@ -43,13 +43,13 @@
 			</div>
 			<div class="head_center" id="hotSearch" >
 				<h6 class="head_sousuo">热门搜索</h6>
-				<ul>
-					<li>腾讯科技</li>
-					<li>重修宪法</li>
-					<li>大连万达</li>
-					<li>中国人民解放军建军80周年</li>
-					<li>高德软件</li>
-					<li>抗战</li>
+				<ul id="hotUl">
+					<li>京东</li>
+					<li>阿里</li>
+					<li>万达</li>
+					<li>谷歌</li>
+					<li>油价</li>
+					<li>万科</li>
 				</ul>
 				<h6 class="head_sousuo">最近搜索</h6>
 				<ol id="recentSearch">
@@ -488,6 +488,36 @@
 			});
 		}
 		
+		//热门搜索
+		function hotSearch(text){
+			var url = "<%=request.getContextPath()%>/satarticle/getLike";
+			$.ajax({
+				url : url,
+				type : 'POST',
+				dataType : 'json',
+				async : true,
+				data : {
+					"title" : text
+				},
+				success : function(data) {
+					if(data.indexOf("unsuccess") > 0){
+						//alert(data);
+					} else {
+						//alert(data);
+						$("#searchListDiv").attr("style", "display:block");
+						$("#hotSearch").attr("style", "display:block");
+						$("#clearRecord").attr("style", "display:none");
+						var dataRole =$.parseJSON(data);
+						//$("#searchListDiv").attr("style", "display:block");
+						DisplayNewsItems(dataRole, $("#searchListDiv"));
+					}
+				},
+				error : function() {
+					alert("网络连接异常");
+				}
+			});
+		}
+		//根据输入数据查询文章列表
 		function getSearchData() {
 			var url = "<%=request.getContextPath()%>/satarticle/getLike";
 			var title = $("#inputKey").val();
@@ -524,6 +554,17 @@
 				}
 			});
 		}
+		$("#inputKey").focus(function(){
+			$("#searchListDiv").attr("style", "display:block");
+			$("#hotSearch").attr("style", "display:block");
+			$("#clearRecord").attr("style", "display:none");
+		});
+		
+		$("#hotUl li").click(function(){
+		    var y = $(this);
+		    //alert(y.text());
+		    hotSearch(y.text());
+		});
 		
 		function clearAllRecords() {
 			$("#recentSearch").children().remove();

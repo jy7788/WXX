@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -108,16 +109,15 @@ public class SatUserController {
 		System.out.println(satUser.getTrade());
 		System.out.println(satUser.getBirthday());
 		System.out.println(satUser.getSex());
-		System.out.println(satUser.getQrCode());
+		System.out.println("qrCode " + satUser.getQrCode());
 		if(user != null) {
 			user.setBirthday(satUser.getBirthday());
 			user.setOrganization(satUser.getOrganization());
-			user.setQrCode(satUser.getQrCode());
 			user.setSex(satUser.getSex());
 			user.setSignature(satUser.getSignature());
 			user.setTrade(satUser.getTrade());
 			user.setUpdateDate(new Date());
-			user.setQrCode(satUser.getQrCode());
+			user.setQrCode(satUser.getQrCode().replaceAll("\"", ""));
 			System.out.println(user.getTrade());
 			satUserService.update(user);
 		}
@@ -182,7 +182,13 @@ public class SatUserController {
 		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeixinFinalValue.APPID +"&redirect_uri=" + WeixinFinalValue.SERVER_URL + "pauser/list&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
 		return "redirect:" + url;
 	}
-	
+	/**
+	 * 进入别人或自己的微站，获取当前用户openid
+	 * @author fanfte
+	 * 
+	 * @return
+	 * 2017年8月27日
+	 */
 	@RequestMapping("/gotoUserCenter")
 	public String gotoUserCenter() {
 		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeixinFinalValue.APPID +"&redirect_uri=" + WeixinFinalValue.SERVER_URL + "satuser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
@@ -228,36 +234,50 @@ public class SatUserController {
 	 */
 	@RequestMapping(value="/goauth" ,method=RequestMethod.GET)
 	public String weixinAuth(HttpServletRequest request,HttpServletResponse response, Model model) {
+		WUser wechatUser = null;
+		String originOpenid = request.getParameter("originOpenid");
+		System.out.println("分享者的openid" + originOpenid);
 		String code = request.getParameter("code");
-		if(code != null) {
-			System.out.println("获取的code: "+ code);
-	        String openid = ExchangeCode2OpenId.exchange(code);
-	        if(openid != null) {
-	        	System.out.println("网页授权获取到的openid: "+openid);
-	        	WUser wechatUser = WeixinUserUtil.getWechatUser(openid);
-	        	if(wechatUser != null) {
-	        		System.out.println(wechatUser.getProvince());
-		        	System.out.println(wechatUser.getHeadimgurl());
-		        	request.getSession().setAttribute("wechatUser", wechatUser);
-		        	SatUser satUser = satUserService.loadByOpenId(openid);
-		        	if(satUser != null) {
-		        		model.addAttribute("mUser", satUser);
-		        		return "sat/mobile/html/PersonalCenter.jsp";
-		        	} else {
-		        		model.addAttribute("mUser", satUser);
-		        		return "sat/mobile/html/SatUserRegist.jsp";
+		try {
+			if(code != null) {
+				System.out.println("获取的code: "+ code);
+		        String openid = ExchangeCode2OpenId.exchange(code);
+		        if(openid != null ) {
+		        	System.out.println("网页授权获取到的openid: "+openid);
+		        	if(StringUtils.isNoneEmpty(originOpenid)) {
+			        	if(openid.equals(originOpenid)) {//分享者和访问者都是同一个人(进入微信的这个用户)
+			        		wechatUser = WeixinUserUtil.getWechatUser(openid);
+			        	} else {//分享者和访问者不是同一个人
+			        		wechatUser = WeixinUserUtil.getWechatUser(originOpenid);
+			        	}
+		        	}else {
+		        		wechatUser = WeixinUserUtil.getWechatUser(openid);
 		        	}
-	        	} else {
-	        		return "sat/mobile/html/PersonalCenter.jsp";
-	        	}
-	        }else {
+		        	if(wechatUser != null) {
+		        		System.out.println(wechatUser.getProvince());
+			        	System.out.println(wechatUser.getHeadimgurl());
+			        	request.getSession().setAttribute("wechatUser", wechatUser);
+			        	SatUser satUser = satUserService.loadByOpenId(wechatUser.getOpenid());
+			        	if(satUser != null) {
+			        		model.addAttribute("mUser", satUser);
+			        		return "sat/mobile/html/PersonalCenter.jsp";
+			        	} else {
+			        		model.addAttribute("mUser", satUser);
+			        		return "sat/mobile/html/SatUserRegist.jsp";
+			        	}
+		        	} else {
+		        		return "sat/mobile/html/PersonalCenter.jsp";
+		        	}
+		        }else {
+		        	return "redirect:" + WeixinFinalValue.SERVER_URL + "satuser/gotoUserCenter";
+		        }
+			}else {
 	        	model.addAttribute("mUser", null);
-	        	return "sat/mobile/html/PersonalCenter.jsp";
+	        	return "/gotoUserCenter";
 	        }
-		}else {
-        	model.addAttribute("mUser", null);
-        	return "/gotoUserCenter";
-        }
+		} catch (Exception e) {//获取code错误
+			return "redirect:" + WeixinFinalValue.SERVER_URL + "satuser/gotoUserCenter";
+		}
 	}
 	/**
 	 * 用户注册接口

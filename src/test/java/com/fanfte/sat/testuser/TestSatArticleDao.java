@@ -230,6 +230,15 @@ public class TestSatArticleDao {
 	}
 	
 	@Test
+	public void testCollections() {
+		List<SatArticle> myCollections = satArticleDao.listCollectArticles("oNG7At-eteDqJ5rBCwwQ1mIWRrF8", "320931");
+		System.out.println(myCollections.size());
+		for(SatArticle a : myCollections) {
+			System.out.println(a.getDescImgUrl());
+		}
+	}
+	
+	@Test
 	public void testListMyArticles() {
 		List<SatArticle> list = satArticleDao.listSatArticlesByOpenId("oNG7At-eteDqJ5rBCwwQ1mIWRrF8");
 		for(SatArticle a : list) {
@@ -243,5 +252,10 @@ public class TestSatArticleDao {
 		for(SatArticle a : list) {
 			System.out.println(a.getDescImgUrl());
 		}
+	}
+	
+	@Test
+	public void testdeleteMyCollection() {
+		satArticleDao.deleteMyCollection("oNG7At-eteDqJ5rBCwwQ1mIWRrF8", "320908");
 	}
 }

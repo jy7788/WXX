@@ -29,9 +29,11 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\PersonDao.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\WeixinQrController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\model\SystemContext.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\sat\SatUserController.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\sat\StatisticController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\exception\MyException.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\pa\IPAUserRequestService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\pa\IPAUserDao.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\sat\ISatArticleShareService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\WqrService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\htmlparser\Test.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\sat\SatUserService.java
@@ -138,6 +140,7 @@ D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\web\servlet\InitSe
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\controller\UploadController.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\dao\sat\SatAdvertisementDao.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\BasicKit.java
+D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\sat\SatArticleShareService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\kit\kit\SecurityKit.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\service\WeixinQrService.java
 D:\hibernate_works\WXXFANFTESIGNIN\src\main\java\com\cn\hnust\util\Sign.java
