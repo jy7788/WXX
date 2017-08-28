@@ -31,18 +31,20 @@
 <body >
 <input hidden="true" value="${openid}" id="openid" type="text">
 	<div class="sat_content">
+		<div class="zhezhaoceng"></div>
 		<div class="zixun_head">
 			<div class="head_top">
 				<div class="search">
 					<input type="text" placeholder="请输入文章关键字" id="inputKey">
-					<span id="searchButton" onclick="getSearchData()"><img src="" alt="搜索"></span>
+					<span id="searchButton" onclick="getSearchData()"><img src="<%=request.getContextPath()%>/sat/mobile/img/fangdajing-icon.png" width="25" alt="搜索"></span>
 				</div>
 				<div class="remove">
 					<span>取消</span>
 				</div>
 			</div>
+			
 			<div class="head_center" id="hotSearch" >
-				<h6 class="head_sousuo">热门搜索</h6>
+				<h6 class="head_sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/zuijinshousuo-icon.png" width="16" alt="">热门搜索</h6>
 				<ul id="hotUl">
 					<li>京东</li>
 					<li>阿里</li>
@@ -51,13 +53,16 @@
 					<li>油价</li>
 					<li>万科</li>
 				</ul>
-				<h6 class="head_sousuo">最近搜索</h6>
+				<h6 class="head_sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/zuijinshousuo-icon.png" width="16" alt="">最近搜索</h6>
 				<ol id="recentSearch">
 					<li>华为</li>
 					<li>百度视频</li>
 					<li>腾讯科技</li>
 				</ol>
 			</div>
+			
+			
+			
 			<div class="head_center" style="display:none" id="searchListDiv">
 				<p class="head_cen_p">搜索到<span>200</span>条相关内容</p>
 				<div class="weui_tab" style="height:auto">
@@ -127,7 +132,7 @@
 			<div class="main_head" style="position:relative;">
 				<div class="search">
 					<input type="text" placeholder="请输入文章关键字" readonly>
-					<span><img src="<%=request.getContextPath()%>/sat/mobile/img/huisesejiantou-icon.png" alt="搜索"></span>
+					<span><img src="<%=request.getContextPath()%>/sat/mobile/img/fangdajing-icon.png" width="25" alt="搜索"></span>
 				</div>
 				<div class="swiper-container">
 					<!-- Additional required wrapper -->
@@ -157,8 +162,8 @@
 				</div>
 				<div class="sat_add">
 					<div class="main_swiper_list">
-						<span id="listOne"><img src="<%=request.getContextPath()%>/sat/mobile/img/huisesejiantou-icon.png" width="11" alt="添加"></span>
-						<div class="main_list_box">
+						<span id="listOne"><img src="<%=request.getContextPath()%>/sat/mobile/img/zengjia-icon.png" width="18" alt="添加"></span>
+						<div class="main_list_box hide">
 							<div class="list_box">
 								<span class="click">金融新干线</span>
 								<span>保险基金</span>
@@ -226,6 +231,21 @@
 		$(".remove").on("click",function(){
 			$(".zixun_head").hide();
 		}) 
+		//添功标签功能
+		$(".list_btn").click(function(){
+			$(".main_list_box").addClass('hide');
+			$(".zhezhaoceng").removeClass('show');
+		})
+	    $("#listOne").on("click",function(){
+	    	$(".zhezhaoceng").toggleClass('show');
+			$(".main_list_box").toggleClass('hide');
+		})
+		$(".zhezhaoceng").click(function(){
+			$(".main_list_box").addClass('hide');
+			$(this).removeClass('show');
+		})
+		
+		
 		//导航点击效果
 		$(".sat_nav").click(function(){
 			$(this).addClass("click").siblings().removeClass("click");

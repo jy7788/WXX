@@ -51,20 +51,20 @@
 			<b id="newAd" onclick="showNewDiv()">+新建</b>
 		</div>
 		<div class="data_header">
-			<div class="head_png weui_cell">
+			<div class="head_png weui_cell" style="display:none">
 				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="42" alt=""></div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<p>${satUser.username}</p>
 					<p><a href="tel:${satUser.phoneNum}">
-					<img src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt=""></a>
-					<img id="getQrCode" src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt="">
-					<img id="visitStation" src="<%=request.getContextPath()%>/sat/mobile/img/sat-dianhua-icon.png" width="20" style="padding-right:10px" alt=""></p>
+					<img src="<%=request.getContextPath()%>/sat/mobile/img/phone-icon.png" width="25" style="padding-right:10px" alt=""></a>
+					<img id="getQrCode" src="<%=request.getContextPath()%>/sat/mobile/img/weixin-icon.png" width="25" style="padding-right:10px" alt="">
+					<img id="visitStation" src="<%=request.getContextPath()%>/sat/mobile/img/wodegerenzhongxin-icon.png" width="25" style="padding-right:10px" alt=""></p>
 				</div>
-				<div class="weui_cell_ft sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/huisesejiantou-icon.png" width="10" alt=""></div>
+				<div class="weui_cell_ft sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/arrow-icon.png" width="15" alt=""></div>
 			</div>
 			<div class="head_png shousuo">
 				<div class="touxiang"><img src="${satUser.imgUrl}" width="42" alt=""></div>
-				<div class="sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/huisesejiantou-icon.png" width="9" alt=""></div>
+				<div class="sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/002-arrow-icon.png" width="15" alt=""></div>
 			</div>
 			<div class="data_main">
 				<div class="main_guanggao"><img src="" alt="广告图"></div>
@@ -94,7 +94,7 @@
 						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="点赞">
 					</span>
 					<span>
-						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="收藏" id="collect">
+						<img src="<%=request.getContextPath()%>/sat/mobile/img/shoucang-but.png" width="65" alt="收藏" id="collect">
 					</span>
 				</div>
 			</div>

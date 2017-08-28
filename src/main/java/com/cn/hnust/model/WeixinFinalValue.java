@@ -27,8 +27,8 @@ public class WeixinFinalValue {
 	public final static String QR_GET = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=ACCESS_TOKEN";
 	public final static String SEND_TEMPLATE_MSG = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
 	public final static String KF_ADD = "https://api.weixin.qq.com/customservice/kfaccount/add?access_token=ACCESS_TOKEN";
-	public final static String WEB_URL = "http://1d6289976g.imwork.net/jsapi";
-	public final static String SERVER_URL = "http://1d6289976g.imwork.net/";
+	public final static String WEB_URL = "http://sat.3w.dkys.org/jsapi";
+	public final static String SERVER_URL = "http://sat.3w.dkys.org/";
 	private Map<String,String> validCodeMap = new HashMap<>();
 	
 }

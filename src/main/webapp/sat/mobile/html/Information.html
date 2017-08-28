@@ -25,18 +25,19 @@
 </head>
 <body >
 	<div class="sat_content">
+		<div class="zhezhaoceng"></div>
 		<div class="zixun_head">
 			<div class="head_top">
 				<div class="search">
 					<input type="text" placeholder="请输入文章关键字">
-					<span><img src="" alt="搜索"></span>
+					<span><img src="../img/fangdajing-icon.png" width="25" alt="搜索"></span>
 				</div>
 				<div class="remove">
 					<span>取消</span>
 				</div>
 			</div>
 			<div class="head_center">
-				<h6 class="head_sousuo">热门搜索</h6>
+				<h6 class="head_sousuo"><img src="../img/zuijinshousuo-icon.png" width="16" alt="">热门搜索</h6>
 				<ul>
 					<li>腾讯科技</li>
 					<li>重修宪法</li>
@@ -45,7 +46,7 @@
 					<li>高德软件</li>
 					<li>抗战</li>
 				</ul>
-				<h6 class="head_sousuo">最近搜索</h6>
+				<h6 class="head_sousuo"><img src="../img/zuijinshousuo-icon.png" width="16" alt="">最近搜索</h6>
 				<ol>
 					<li>华为</li>
 					<li>百度视频</li>
@@ -120,7 +121,7 @@
 			<div class="main_head" style="position:relative;">
 				<div class="search">
 					<input type="text" placeholder="请输入文章关键字" readonly>
-					<span><img src="../img/huisesejiantou-icon.png" alt="搜索"></span>
+					<span><img src="../img/fangdajing-icon.png" width="25" alt="搜索"></span>
 				</div>
 				<div class="swiper-container">
 					<!-- Additional required wrapper -->
@@ -150,8 +151,11 @@
 				</div>
 				<div class="sat_add">
 					<div class="main_swiper_list">
-						<span id="listOne"><img src="../img/huisesejiantou-icon.png" width="11" alt="添加"></span>
-						<div class="main_list_box">
+						<span id="listOne"><img src="../img/zengjia-icon.png" width="18" alt="添加"></span>
+						<div class="main_list_box hide">
+							<div>
+								
+							</div>
 							<div class="list_box">
 								<span class="click">金融新干线</span>
 								<span>保险基金</span>
@@ -167,8 +171,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
-					
+				</div>				
 				
 			</div>
 			<div class="weui_tab">
@@ -396,4 +399,26 @@
 		$(".remove").on("click",function(){
 			$(".zixun_head").hide();
 		})
+		$(".list_box span").on("click",function(){
+			if($(this).hasClass('click')){
+				$(this).removeClass("click")
+			}else{
+				$(this).addClass("click")
+			}
+		})
+		$(".list_btn").click(function(){
+			$(".main_list_box").addClass('hide');
+			$(".zhezhaoceng").removeClass('show');
+		})
+
+	    $("#listOne").on("click",function(){
+	    	$(".zhezhaoceng").toggleClass('show');
+			$(".main_list_box").toggleClass('hide');
+		})
+		$(".zhezhaoceng").click(function(){
+			
+			$(".main_list_box").addClass('hide');
+			$(this).removeClass('show');
+		})
+
 	</script>

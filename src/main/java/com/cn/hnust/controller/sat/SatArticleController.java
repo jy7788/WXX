@@ -88,10 +88,9 @@ public class SatArticleController {
 	        	wechatUser = WeixinUserUtil.getWechatUser(openid);
 	        	model.addAttribute("openid", openid);
 	        	
-	        	if(openid != null && satUserService.loadByOpenId(openid) == null) {
+	        	/*if(openid != null && satUserService.loadByOpenId(openid) == null) {//没注册进入注册页面
 	        		return "redirect:" + WeixinFinalValue.SERVER_URL + "satuser/gotoUserCenter";
-	        	}
-	        	
+	        	}*/
 	        }else { 
 	        	System.out.println("goto article list");
 	        	return "redirect:" + WeixinFinalValue.SERVER_URL + "satarticle/gotoNewsList";
@@ -114,22 +113,22 @@ public class SatArticleController {
 	@RequestMapping(value="/detail",method=RequestMethod.GET)
 	public String satArticleDetail(@RequestParam("id") String id, @RequestParam("openid") String openid, HttpServletRequest request, Model model) {
 		SatArticle satArticle = satArticleService.loadContentById(id);
-		String visitorOpenid = request.getParameter("visitorOpenid");  
+		String visitorOpenid = openid;  
 		String adId = request.getParameter("adId");
 		String from = request.getParameter("from");
 		System.out.println(openid + "adid " + adId + " visitorOpenid " + visitorOpenid);
 		
-		/*Map<String, String[]> parameterMap = request.getParameterMap();
-		StringBuffer url = new StringBuffer();
-		url.append(WeixinFinalValue.SERVER_URL + "satarticle/detail?");
-		for (String key : parameterMap.keySet()) {
-			url.append(key).append("=" + request.getParameter(key) +"&");
-			//System.out.println("key= "+ key + " and value= " + parameterMap.get(key));
-	    }
-		String reqUrl = url.toString();
-		reqUrl = reqUrl.substring(0, reqUrl.length() - 1);
-		System.out.println(reqUrl);*/
-		
+		if(StringUtils.isNoneEmpty(openid)){
+			SatUser satUser = satUserService.loadByOpenId(openid);
+			if(satUser == null) {
+				model.addAttribute("canshare", "usernoshare");
+			} else {
+				model.addAttribute("canshare", "userexists");
+			}
+		}
+		if(StringUtils.isNotEmpty(visitorOpenid)) {
+			model.addAttribute("visitorOpenid", visitorOpenid);
+		}
 		if(satArticle != null) {
 			model.addAttribute("satArticle", satArticle);
 		}

@@ -44,8 +44,8 @@
 		    </div>
 		</div>
 		<div class="weui-row head_b">
-			<div class="weui-col-50 tx_center myguanzhu"><span>我的关注</span><b>888</b></div>
-			<div class="weui-col-50 tx_center myguanzhu"><span>我的金币</span><b>808</b></div>
+			<div class="weui-col-50 tx_center myguanzhu"><span>我的客户</span><b>888</b></div>
+			<div class="weui-col-50 tx_center myguanzhu"><span>金币</span><b>808</b></div>
 		</div>
 		<div class="main">
 		      <div class="bd ">
@@ -63,7 +63,7 @@
 							<img src="<%=request.getContextPath()%>/sat/mobile/img/wenzhanguanli-icon-24-25.png" width="83" alt="">
 						</div>
 						<p class="weui_grid_label">
-							我的文章
+							我的微站
 						</p>
 					</a>
 					<a href="javascript:getData()" class="sat_grid "> 
@@ -79,7 +79,7 @@
 							<img src="<%=request.getContextPath()%>/sat/mobile/img/tuiguang-icon-24-25-25.png" width="83" alt="">
 						</div>
 						<p class="weui_grid_label">
-							推广排行
+							广告签名
 						</p>
 					</a>
 			      </div>

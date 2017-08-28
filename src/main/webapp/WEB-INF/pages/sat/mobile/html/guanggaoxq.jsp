@@ -90,7 +90,7 @@
 		        var reader = new FileReader();
 		        reader.onload = function (evt) {         
 		            $("#image").attr("hidden", "true");
-		            //$('#img').html('<li class="weui_uploader_file" style="background-image:url('+evt.target.result+')"></li>');
+		            $('#img').html('<li class="weui_uploader_file" style="background-image:url('+evt.target.result+')"></li>');
 		        };
 		        reader.readAsDataURL(file.files[0]);//
 		        

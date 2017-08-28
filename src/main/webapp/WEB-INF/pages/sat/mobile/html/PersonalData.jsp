@@ -80,7 +80,7 @@
 				<div class="weui_cell">
 					<div class="weui_cell_hd"><label for="time3" class="weui_label">生日</label></div>
 					<div class="weui_cell_bd weui_cell_primary">
-						<input class="weui_input" id="time3" name="birthday" type="text" readonly="" value="${satUser.birthday}">
+						<input class="weui_input" id="time3" name="birthday" type="text" value="${satUser.birthday}">
 						<input class="weui_input" id="mbirthday" name="mbirthday" type="text" readonly="" value="${satUser.birthday}" hidden="true">
 					</div>
 				</div>
@@ -96,7 +96,7 @@
 						<ul class="weui_uploader_files" id='img'></ul>
 						<span class="sat_shangchuan"><img  src="${satUser.qrCode} "  style="width:.852rem;height:.852rem;" />上传<img  src="<%=request.getContextPath()%>/sat/mobile/img/huisesejiantou-icon.png" width="6" alt=""></span>
 						<input class="weui_uploader_input" type="file" id="headimgurl"   accept="image/*" onchange="previewImage(this)">
-						<input  type="text" id="qrCode" name="qrCode" value="" hidden="true" />
+						<input  type="text" id="qrCode" name="qrCode" value="${satUser.qrCode}" hidden="true" />
 						<!-- <input class="weui_input" type="file" accept="image/*" id="headimgurl" onchange="previewImage(this)"> -->
 					</div>
 				</div>
@@ -122,8 +122,8 @@
 			</div>
 			<div class="foot_btn">
 				<ul class="sat_footbtn_ul">
-					<li class="sat_footer_li"><a class="clicked"><b class="sat_footer_b zixun"></b>修改</a></li>
-					<li class="sat_footer_li" id="saveButton"><!-- <a href ="" class=""> --><b class="sat_footer_b chanpin"></b>保存</a></li>
+					<!-- <li class="sat_footer_li"><a class="clicked"><b class="sat_footer_b zixun"></b>修改</a></li> -->
+					<li class="sat_footer_li" id="saveButton" style="border-radius:10px 10px 0 0;background:#f39800;"><!-- <a href ="" class=""> --><b class="sat_footer_b chanpin"></b>保存</a></li>
 				</ul>
 			</div>
 		</div>
@@ -300,7 +300,7 @@
 
 
 
-     //日期插件
+      //日期插件
       $("#time").datetimePicker({
         title: '出发时间',
         min: "1990-12-12",
@@ -329,17 +329,15 @@
           console.log(values);
         },
       });
-      var mbirth = $("#mbirthday").val();
-      
       $("#time3").datetimePicker({
         times: function () {
           return [
             {
-              values: ['上午', '下午']
+              values: ['', '']
             }
           ];
         },
-        value: mbirth,
+        value: $("#time3").val(),
         onChange: function (picker, values, displayValues) {
           console.log(values);
         }
@@ -398,11 +396,15 @@
           console.log(values);
         }
       })
-      
-      $(document).click(function(e){
+    
+
+
+	$(document).click(function(e){
 		if($(".sat_shangchuan").is(e.target)){
+			$(".sat_alert").show();
 			$(".sat_alert").animate({bottom:'0'});
 		}else{
+			$(".sat_alert").hide();
 			$(".sat_alert").animate({bottom:'-6.39rem'});
 		}
 	})

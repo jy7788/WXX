@@ -48,10 +48,15 @@ public class AdvertisementController {
 	public String adList(@PathVariable("openid") String openid, Model model ) {
 		System.out.println("list ad openid" + openid);
 		List<SatAdvertisement> adList = satAdService.getAdsByUserId(openid);
-		System.out.println(adList.get(0).getOpenid());
-		model.addAttribute("adList", adList);
-		model.addAttribute("size", adList.size());
-		model.addAttribute("openid", openid);
+		if(adList != null && adList.size() > 0) {
+			System.out.println(adList.get(0).getOpenid());
+			model.addAttribute("adList", adList);
+			model.addAttribute("size", adList.size());
+			model.addAttribute("openid", openid);
+		}else {
+			model.addAttribute("size", adList.size());
+			model.addAttribute("openid", openid);
+		}
 		return "sat/mobile/html/guanggaowei.jsp";
 	}
 	/**
@@ -133,10 +138,12 @@ public class AdvertisementController {
 		String description = request.getParameter("description");
 		String linkUrl = request.getParameter("linkUrl");
 		String openid = request.getParameter("openid");
-		System.out.println(image + "name " + name + "desc " + description + "link " + linkUrl + "openid ") ;
+		System.out.println(image + "name " + name + "desc " + description + "link " + linkUrl + "openid " + openid) ;
+		
 		if(!StringUtils.isEmpty(image) && !StringUtils.isEmpty(name)
 			&& !StringUtils.isEmpty(description) && !StringUtils.isEmpty(linkUrl)) {
 			Integer count = satAdService.getCount(openid);
+			System.out.println("count " + count);
 			if(count < 3) {
 				SatAdvertisement ad = new SatAdvertisement();
 				ad.setId(UUID.randomUUID().toString());

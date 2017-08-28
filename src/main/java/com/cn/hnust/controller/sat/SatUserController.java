@@ -310,13 +310,38 @@ public class SatUserController {
 				mSatUser.setSex(wUser.getSex());
 				satUserService.add(mSatUser);
 			} else {
-				throw new WXException("已经注册过");
+				throw new WXException("already registered");
 			}
 		} else {
-			throw new WXException("系统错误!");
+			throw new WXException("system error");
+		}
+		//文章id不为空，进入注册的是分享文章的用户，返回到文章分享列表
+		String articleId = (String) request.getSession().getAttribute("articleId");
+		if(articleId != null) {//id是文章id
+			String urlShare = WeixinFinalValue.SERVER_URL + "satarticle/detail?id=" + articleId + "&openid=" + wUser.getOpenid();
+			System.out.println(urlShare);
+			return "redirect:" + urlShare;
 		}
 		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeixinFinalValue.APPID +"&redirect_uri=" + WeixinFinalValue.SERVER_URL + "satuser/goauth&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
 		return "redirect:" + url;
+	}
+	
+	@RequestMapping("/registerShareUser")
+	public String gotoUserRegisterShare(HttpServletRequest request) {
+		WUser wechatUser = null;
+		String openid = request.getParameter("openid");
+		String articleId = request.getParameter("articleId");
+		System.out.println("registerShareUser " + openid);
+		if(StringUtils.isNoneEmpty(openid)) {
+			wechatUser = WeixinUserUtil.getWechatUser(openid);
+		}
+		if(wechatUser != null) {
+			request.getSession().setAttribute("wechatUser", wechatUser);
+		} 
+		if(StringUtils.isNoneEmpty(articleId)) {
+			request.getSession().setAttribute("articleId", articleId);
+		}
+		return "sat/mobile/html/SatUserRegist.jsp";
 	}
 	
 	@RequestMapping("/goUserList")
@@ -325,14 +350,16 @@ public class SatUserController {
 		return "redirect:" + url;
 	}
 	
-	/*@RequestMapping("/isUserRegistered")
+	@RequestMapping("/isUserRegistered")
 	@ResponseBody
 	public String isUserRegistered(HttpServletRequest request) {
 		String openid = request.getParameter("openid");
-		//satUserService
-		return "redirect:" + url;
-	}*/
-	
-	
+		SatUser satUser = satUserService.loadByOpenId(openid);
+		if(satUser == null) {
+			return "user not registered";
+		} else {
+			return "user exists";
+		}
+	}
 	
 }
