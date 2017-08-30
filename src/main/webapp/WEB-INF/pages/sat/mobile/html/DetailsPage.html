@@ -32,8 +32,9 @@
 					<p>名称 | 公司名称</p>
 					<p>
 						<img src="../img/phone-icon.png" width="25" style="padding-right:10px" alt="">
-						<img src="../img/weixin-icon.png" width="25" style="padding-right:10px" alt="">
+						<img src="../img/weixin-icon.png" width="25" style="padding-right:10px" alt="" class="erwei" >
 						<img src="../img/wodegerenzhongxin-icon.png" width="25" style="padding-right:10px" alt="">
+						<b class="erweima show"><i></i></b>
 					</p>
 				</div>
 				<div class="weui_cell_ft sousuo"><img src="../img/arrow-icon.png" width="15" alt=""></div>
@@ -51,6 +52,7 @@
 						<img src="../img/dianzan-icon.png" width="20" alt=""><span>110</span>
 						<img src="../img/fenxiang-icon.png" width="20" alt=""><span>0</span>
 						<img src="../img/guanzhu-icon.png" width="20" alt=""><span>311</span>
+						
 					</p>
 				</div>
 				<div class="main_cont">
@@ -58,6 +60,11 @@
 				</div>
 				<div class="laiyuan">
 					<p>（毒蛇姐原创）</p>
+				</div>
+
+				<div class="footer_guanggao">
+					<img src="../img/tupian.png" height="340" width="750" />
+					<p>革决策部署上来，从服务党和国家工作大局出发推动改革，敢于担当</p>
 				</div>
 				<div class="main_foot">
 					<span>
@@ -79,10 +86,13 @@
 					<a><img src="../img/mingpian-dianhua-icon.png" width="34" alt=""></a>
 				</div>
 			</div>
+			<div class="xinjian_banner">
+				<b>新建</b>
+			</div>
 		</div>
 		
 	</div>
-	<div class="sat_alert_details">
+	<div class="sat_alert_details" id="etails">
 		<div class="sat_xinjian" style="display:none">
 			<h5 class="sat_alert_h5">新建签名</h5>
 			<div class="weui_cell nobef">
@@ -115,7 +125,7 @@
 					
 				</div>
 		</div>
-		<div class="sat_tianjia">
+		<div class="sat_tianjia" id="sar_tianjia">
 			<h5 class="sat_alert_h5">添加签名<span>+新建</span></h5>
 			<div class="weui_cell nobef weui_cell_select">
                 <div class="weui_cell_bd weui_cell_primary">
@@ -161,7 +171,6 @@
 			</div>
 		</div>
 	</div>
-	
 </body>
 	<script src="../../assets/fastclick.js"></script>
 	<script src='../../assets/jquery.min.js'></script>
@@ -174,6 +183,9 @@
 	$(".sousuo").click(function(){
 		$(this).parents(".head_png").hide();
 		$(this).parents().siblings(".head_png").show();
+	})
+	$(".erwei").click(function(){
+		$(".erweima").toggleClass('show');;
 	})
 </script>
 </html>

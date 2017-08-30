@@ -174,7 +174,7 @@
 						"openid" : openid
 					},
 					success : function(data) {
-						if(data.indexOf("success") > 0){
+						if(data.indexOf("description") > 0){
 							gotoadList();
 						} else if(data.indexOf("full") > 0) {
 							alert("广告位满了");

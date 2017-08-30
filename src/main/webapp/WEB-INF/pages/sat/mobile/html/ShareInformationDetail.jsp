@@ -43,13 +43,15 @@
 <input type="text" id="satArticleImg" hidden="true" value="${satArticle.descImgUrl}">
 <input type="text" id="satArticleId" hidden="true" value="${satArticle.id}">
 <input type="text" id="adUrl" hidden="true" value="${ad.linkUrl}">
+<input type="text" id="adDescription" hidden="true" value="${ad.description}">
 <input type="text" id="auth" hidden="true" value="${auth}">
-
+<input type="text" id="adPosition" hidden="true" value="${share.adPosition}">
+<input type="text" id="adImg" hidden="true" value="${ad.imgUrl}">
 	<div class="sat_content">
-		<div class="sat_zhuanzai">
+		<!-- <div class="sat_zhuanzai">
 			<p><span id="size"> </span><i></i></p>
 			<b id="newAd" onclick="showNewDiv()">+新建</b>
-		</div>
+		</div> -->
 		<div class="data_header">
 			<div class="head_png weui_cell" style="display:none">
 				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="42" alt=""></div>
@@ -59,6 +61,7 @@
 					<img src="<%=request.getContextPath()%>/sat/mobile/img/phone-icon.png" width="25" style="padding-right:10px" alt=""></a>
 					<img id="getQrCode" src="<%=request.getContextPath()%>/sat/mobile/img/weixin-icon.png" width="25" style="padding-right:10px" alt="">
 					<img id="visitStation" src="<%=request.getContextPath()%>/sat/mobile/img/wodegerenzhongxin-icon.png" width="25" style="padding-right:10px" alt=""></p>
+					<b class="erweima"><i></i><img id="gotQrCode" src=""></b>
 				</div>
 				<div class="weui_cell_ft sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/arrow-icon.png" width="15" alt=""></div>
 			</div>
@@ -89,9 +92,15 @@
 				<div class="laiyuan">
 					<p>（毒蛇姐原创）</p>
 				</div>
+				
+				<div class="footer_guanggao" id="upAd" >
+					<img id="upAdImg" src="<%=request.getContextPath()%>/sat/mobile/img/tupian.png" height="340" width="750" />
+					<p id="upAdDescription">革决策部署上来，从服务党和国家工作大局出发推动改革，敢于担当</p>
+				</div>
+				
 				<div class="main_foot">
 					<span>
-						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="点赞">
+						<img id="starButton" src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="点赞">
 					</span>
 					<span>
 						<img src="<%=request.getContextPath()%>/sat/mobile/img/shoucang-but.png" width="65" alt="收藏" id="collect">
@@ -100,9 +109,9 @@
 			</div>
 				
 		</div>
-		<div class="data_footer">
+		<div class="data_footer" id="buttomAd">
 			<div class="foot_png weui_cell" id="advertisement" onclick="updateClickAd()">
-				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="35" alt=""></div>
+				<div class="weui_cell_hd"><img id="buttomAdImg" src="${satUser.imgUrl}" width="35" alt=""></div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<p id="buttomDescription">${ad.description }</p>
 				</div>
@@ -213,7 +222,9 @@
 	  var list;
 	  var newName, newDescription, newImageUrl, newUrl,adId;
 	  var adUrl = $("#adUrl").val();
-	  var auth;
+	  var adDescription = $("#adDescription").val();
+	  var auth, adPosition;
+	  var adImg;
 	//上传图片和预览
 	function previewImage(file) {
 	    var MAXWIDTH = 100;
@@ -274,9 +285,21 @@
 		 loadXMLDoc();
 		 //初始化库结束
 		 auth=$("#auth").val();
-		 //alert(auth);
 		 if(auth.indexOf("read") > 0) {//可编辑，是同一个用户
 			 $("#newAd").attr("hidden", true);
+		 }
+		 adPosition = $("#adPosition").val();
+		 adImg = $("#adImg").val();
+		 if(adPosition.indexOf("up") > 0) {
+			 $("#upAd").show();
+			 $("#upAdImg").attr("src", adImg);
+			 $("#upAdDescription").html(adDescription);
+			 $("#buttomAd").attr("style", "display:none");
+		 }
+		 
+		 if(adPosition.indexOf("buttom") > 0) {
+			 $("#buttomAdImg").attr("src", adImg);
+			 $("#buttomDescription").html(adDescription);
 		 }
 	});	
 	
@@ -312,7 +335,39 @@
 			}
 		});
 	}
-	
+	//更新点赞
+	function updateStar() {//上传两个参数更新分享文章
+		var url = "<%=request.getContextPath()%>/satarticle/starArticle";
+		$.ajax({
+			url : url,
+			type : 'POST',
+			dataType : 'json',
+			async : true,
+			data : {
+				"openid":mOpenid,
+				"articleId": articleId 
+			},
+			success : function(data) {
+				if(data.indexOf("success") > 0){
+					alert("成功点赞");
+				} else if(data.indexOf("failed") > 0) {
+					//alert("收藏过了");
+				} else {
+					//alert("收藏失败");
+				}
+			},
+			error : function() {
+				alert("网络连接异常");
+			}
+		});
+	}
+	//点赞点击
+	$("#starButton").click(function(){
+		alert(articleId);
+		if(!isNull(articleId)) {
+			updateStar();
+		}
+	 });
 	
 	$("#collect").click(function(){
 		alert("collect");
@@ -608,13 +663,36 @@
 		  }
 	  }
 	  
-	//得到用户二维码
-	  $("#getQrCode").click(function() {
-		  
-	  });
 	  //访问微站
 	  $("#visitStation").click(function() {
 		  window.location = "/satarticle/othersStation?openid=" + mOpenid;
 	  });
+	  
+		//得到用户二维码
+		$("#getQrCode").on("click",function(){
+			$(".erweima").toggleClass('show');
+			
+			var url = "<%=request.getContextPath()%>/satuser/getUserQrCode";
+			$.ajax({
+				url : url,
+				type : 'POST',
+				dataType : 'json',
+				async : true,
+				data : {
+					"openid" : mOpenid
+				},
+				success : function(data) {
+					//alert(data);
+					if(data.indexOf("failed") > 0){
+						alert("尚未上传二维码");
+					} else {
+						$("#gotQrCode").attr("src", data);
+					}
+				},
+				error : function() {
+					//alert("网络连接异常");
+				}
+			});
+		})
 	</script>
 </html>

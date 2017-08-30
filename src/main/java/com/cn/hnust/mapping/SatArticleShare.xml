@@ -12,19 +12,20 @@
     <result column="watches" property="watches" jdbcType="INTEGER" />
     <result column="advis_click_count" property="advisClickCount" jdbcType="INTEGER" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ad_position" property="adPosition" jdbcType="VARCHAR" />
     <!-- <result column="type" property="type" jdbcType="INTEGER"/> -->
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, user_id, article_id, advis_id, create_time, shares, stars, watches, advis_click_count, update_time
+    id, user_id, article_id, advis_id, create_time, shares, stars, watches, advis_click_count, update_time, ad_position
   </sql>
   
   <insert id="add" parameterType="com.cn.hnust.model.sat.SatArticleShare">
 		insert into t_sat_article_share
-		(id, user_id,  article_id, advis_id, create_time, shares, stars, watches, advis_click_count, update_time)
+		(id, user_id,  article_id, advis_id, create_time, shares, stars, watches, advis_click_count, update_time, ad_position)
 		values
 		(#{id}, #{userId}, #{articleId}, 
-		 #{advisId},   #{createTime},    #{shares}, #{stars}, #{watches}, #{advisClickCount}, #{updateTime})
+		 #{advisId},   #{createTime},    #{shares}, #{stars}, #{watches}, #{advisClickCount}, #{updateTime}, #{adPosition})
   </insert>
   
   <update id="update" parameterType="com.cn.hnust.model.sat.SatArticleShare" >
@@ -36,7 +37,8 @@
       stars = #{stars,jdbcType=INTEGER},
       watches = #{watches,jdbcType=INTEGER},
       advis_click_count = #{advisClickCount,jdbcType=INTEGER},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      ad_position = #{adPosition,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   

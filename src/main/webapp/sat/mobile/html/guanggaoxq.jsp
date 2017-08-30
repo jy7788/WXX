@@ -117,6 +117,8 @@
 		  						alert("图片上传成功");
 		  						$("#imageUrl").val(data);
 		  						$("#image").attr("src",data);
+		  						//$("#headimgurl").attr("style", "display:none");
+		  						
 		  					}
 		                },  
 		                complete: function (XMLHttpRequest, textStatus) {  

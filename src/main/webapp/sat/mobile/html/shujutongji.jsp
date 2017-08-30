@@ -29,6 +29,7 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/sat/mobile/css/style.css">
 </head>
 <body >
+	<input type="text" hidden="true" value="${openid }" id="openid">
 	<div class="sat_content">
 		<div class="header">
 			<img src="<%=request.getContextPath()%>/sat/mobile/img/panner.PNG" alt="" style="width:100%;">
@@ -37,25 +38,25 @@
 			<div class="weui_cell tongjiri">
 				<div class="weui_cell_hd tongji_hd">周统计</div>
 				<div class="weui_cell_bd tongjibd weui_cell_primary">
-					<p>文章转载次数<span>920</span></p>
+					<p>文章转载次数<span id="wShares"></span></p>
 				</div>
 				<div class="weui_cell_bd tongjibd weui_cell_primary">
-					<p>文章查看次数<span>290</span></p>
+					<p>文章查看次数<span id="wWatches"></span></p>
 				</div>
 				<div class="weui_cell_bd tongjibd weui_cell_primary">
-					<p>广告点击量<span>900</span></p>
+					<p>广告点击量<span id="wAdClicks"></span></p>
 				</div>
 			</div>
 			<div class="weui_cell tongjiri">
 				<div class="weui_cell_hd tongji_hd">总统计</div>
 				<div class="weui_cell_bd tongjibd weui_cell_primary">
-					<p>文章转载次数<span>920</span></p>
+					<p>文章转载次数<span id="tShares"></span></p>
 				</div>
 				<div class="weui_cell_bd tongjibd weui_cell_primary">
-					<p>文章查看次数<span>660</span></p>
+					<p>文章查看次数<span id="tWatches"></span></p>
 				</div>
 				<div class="weui_cell_bd tongjibd weui_cell_primary">
-					<p>广告点击量<span>888</span></p>
+					<p>广告点击量<span id="tAdClicks"></span></p>
 				</div>
 			</div>
 		</div>
@@ -74,9 +75,54 @@
 	<script src='<%=request.getContextPath()%>/sat/assets/jquery-weui.min.js'></script>
 	<script src="<%=request.getContextPath()%>/sat/assets/swiper.js"></script>
 	<script src='<%=request.getContextPath()%>/sat/mobile/js/rem.js'></script>
+	<script src='<%=request.getContextPath()%>/js/base.js'></script>
 	<script>
+		var openid ; 
 		$(".header .swiper-container").swiper({
 			loop: true,
 			autoplay: 1000
 		});
+		$(document).ready(function () {
+			openid = $("#openid").val();
+			//alert(openid);
+			getStatistics();
+		}); 
+		
+		//获取统计数据
+		function getStatistics() {
+			if(!isNull(openid)) {
+				var url = "<%=request.getContextPath()%>/statistics/getData";
+				$.ajax({
+					url : url,
+					type : 'POST',
+					dataType : 'json',
+					async : true,
+					data : {
+						"openid" : openid
+					},
+					success : function(data) {
+						//alert(data);
+						if(data.indexOf("shares") > 0){
+							obj = $.parseJSON(data);
+							//alert(obj.shares + obj.watches + obj.adClicks);
+							$("#wShares").html(obj.shares);
+							$("#wWatches").html(obj.watches);
+							$("#wAdClicks").html(obj.adClicks);
+							$("#tShares").html(obj.shares);
+							$("#tWatches").html(obj.watches);
+							$("#tAdClicks").html(obj.adClicks);
+							//alert(obj.shares);
+							//DisplayNewsItems(sharelist, $("#articleListDisp"));
+						} else if(data.indexOf("failed") > 0) {
+							alert("获取失败");
+						} else {
+							alert("获取失败");
+						}
+					},
+					error : function() {
+						alert("网络连接异常");
+					}
+				});
+			}
+		} 
 	</script>

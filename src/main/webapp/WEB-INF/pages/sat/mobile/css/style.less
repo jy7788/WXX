@@ -37,6 +37,10 @@ body{
 				color:#808080;
 				font-size: .6816rem;
 				font-weight: normal;
+				img{
+					padding-right: .213rem;
+					vertical-align: middle;
+				}
 			}
 			ul,ol{
 				color:#808080;
@@ -137,8 +141,8 @@ body{
 		.head_top{
 			width: 100%;
 			background: red;
-			height: 64px;
-			padding: 14px 20px;
+			height: 2.7264rem;
+			padding: .5964rem .852rem;
 			display: flex;
 			box-sizing:border-box;
 			background: -webkit-linear-gradient(top, #FCC65B, #FF9C3B);
@@ -147,14 +151,14 @@ body{
 			background: linear-gradient(top, #FCC65B, #FF9C3B);
 			.search{
 				-webkit-flex:1;
-				height: 35px;
+				height: 1.491rem;
 				background: rgba(255,255,255,0.4);
 				z-index: 99;
-				border-radius: 18px;
-				top: 14px;
+				border-radius: .7668rem;
+				top: .5964rem;
 				border: 1px solid #FBC95D;
 				display: -webkit-flex;
-				padding: 0 20px;
+				padding: 0 .852rem;
 				box-sizing: border-box;
 				input{
 					-webkit-flex:1;
@@ -162,12 +166,18 @@ body{
 					outline: none;
 					background: none;
 					color:#fff;
-					font-size: 14px;
+					font-size: .5964rem;
 				}
 				span{
-					width: 40px;
+					width: 1.1076rem;
+					line-height: 1.278rem;
+					img{
+						vertical-align: middle;
+					}
 				}
 			}
+			
+
 			.remove{
 				border: 1px solid #FFFCFC;
 				border-radius: 20px;
@@ -207,6 +217,8 @@ body{
 			display: -webkit-flex;
 			padding:0 .426rem;
 			box-sizing:border-box;
+			z-index: 9999;
+			background:#fff;
 			&.bornone{
 				border:none;
 			}
@@ -216,6 +228,9 @@ body{
 						display: inline-block;
 						padding:0 .213rem; 
 						height: 1.5302rem;
+						img{
+							vertical-align: middle;
+						}
 						i{
 							font-style: normal;
 							color:#f39800;
@@ -225,13 +240,16 @@ body{
 						}
 					}
 					.main_list_box{
-						display: none;
+						display: block;
 						width: 100%;
 						background: #fff;
 						position: absolute;
 						top: 40px;
 						left: 0;
 						z-index: 999;
+						&.hide{
+							display: none;
+						}
 						.list_btn{
 							text-align: center;
 							padding-bottom: .852rem;
@@ -251,27 +269,32 @@ body{
 						}
 						.list_box{
 							text-align: center;
-							width:100%;
+							width:80%;
+							margin-left: 10%;
 							padding: 10px;
 							box-sizing:border-box;
 							display: -webkit-flex;
 							-webkit-flex-wrap:wrap;
-							span{
-								width: 21%;
-								margin: 2%;
-								padding: 0;
-								background: #f0f0f0;
-								border-radius: 15px;
-								height: 30px;
-								line-height: 30px;
-								/* height: 40px; */
-								font-size: 12px;
-								color: #6d6d6d;
-								&.click{
-									background: #FEE2A4;
-									color:#F76E0B;
+							li{
+								width: 100%;
+								span{
+									width: 28%;
+									margin: 2%;
+									padding: 0;
+									background: #f0f0f0;
+									border-radius: 15px;
+									height: 30px;
+									line-height: 30px;
+									/* height: 40px; */
+									font-size: 12px;
+									color: #6d6d6d;
+									&.click{
+										background: #FEE2A4;
+										color:#F76E0B;
+									}
 								}
 							}
+							
 						}
 					}
 				}
@@ -319,16 +342,16 @@ body{
 		.search{
 			width: 90%;
 			/* margin: 0 auto; */
-			height: 35px;
+			height: 1.491rem;
 			position: absolute;
 			left: 5%;
 			background: rgba(255,255,255,0.4);
 			z-index: 99;
-			border-radius: 18px;
-			top: 14px;
+			border-radius: .7668rem;
+			top: .5964rem;
 			border: 1px solid #FBC95D;
 			display: -webkit-flex;
-			padding: 0 20px;
+			padding: 0 .852rem;
 			box-sizing: border-box;
 			input{
 				-webkit-flex:1;
@@ -337,7 +360,11 @@ body{
 				background: none;
 			}
 			span{
-				width: 40px;
+				width: 1.1076rem;
+				line-height: 1.278rem;
+				img{
+					vertical-align: middle;
+				}
 			}
 		}
 		.slide_img{
@@ -496,6 +523,20 @@ body{
 	}
 }
 
+
+
+/* 遮罩层 */
+.zhezhaoceng{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.2);
+	position: absolute;
+	z-index: 999;
+	display:none;
+	&.show{
+		display: block;
+	}
+}
 /* 我的中心---个人资料样式 */
 	.head_png{
 		width: 90%!important;
@@ -522,12 +563,14 @@ body{
 			width: 40px;
 			line-height: 2.7286rem;
 			text-align: center;
+			img{
+				vertical-align: middle;
+			}
 		}
 		p{
 			padding-top: 20px;
 			font-size: .6812rem;
 		}
-
 		&.shousuo{
 			width: 92px!important;
 			background: #FDC147ed;
@@ -536,21 +579,25 @@ body{
 			background: -o-linear-gradient(left,#FDC147, #FC9E47); /* Opera 11.1 - 12.0 */
 			background: -moz-linear-gradient(left,#FDC147, #FC9E47); /* Firefox 3.6 - 15 */
 			background: linear-gradient(left,#FDC147, #FC9E47); /* 标准的语法 */
-			display: none;
 			.touxiang{
 				width: 40px;
 				margin-left: .426rem;
-				padding-top: .326rem;
 				display: inline-block;
+				img{
+					vertical-align: middle;
+				}
 			}
 			.sousuo{
-				width: 37px;
+				width: 1.5762rem;
 				display: inline-block;
 				height: 2.7rem;
 				line-height: 2.7rem;
 				position: relative;
-				top: -16px;
 				text-align: center;
+				img{
+					vertical-align: middle;
+				}
+				
 			}
 		}
 	}
@@ -796,6 +843,9 @@ body{
 		.main_cont{
 			color:#666;
 			font-size: .5974rem;
+			img{
+				width:100%;
+			}
 		}
 		.laiyuan{
 			font-size: .5112rem;
@@ -1159,7 +1209,7 @@ body{
 	width: 80%;
 	margin: 0 auto;
 	text-align: center;
-	background: #54C3FF;
+	background: #00E4FF;
     margin-top: .852rem;
     img{
     	padding-left: 10px;
@@ -1196,20 +1246,33 @@ body{
 /* 广告签名页面 */
 .main.guanggao{
 	.sat_zhuanzai{
-		margin:0 .852rem;
+		width: 100%;
+		padding:.426rem .852rem;
 		display: flex;
+		box-sizing:border-box;
 		-webkit-justify-content:space-between;
+		background: -webkit-linear-gradient(top, #FFD57E, #fc9e47);
+		background: -o-linear-gradient(top, #FFD57E, #fc9e47);
+		background: -moz-linear-gradient(top, #FFD57E, #fc9e47);
+		background: linear-gradient(top, #FFD57E, #fc9e47);
 		p{
 			font-size: .5964rem;
-			color:#a6a6a6;
+			color:#fff;
 			padding: .1278rem 0;
+			span{
+				display: inline-block;
+				padding:0px .213rem;
+				margin:0 0 0 .213rem;
+				color:#fff;
+			}
+			i{
+				font-style: normal;
+			}
 		}
 		b{
-			background: #FCA442;
 			display: inline-block;	
 			font-size: .5964rem;
-			border-radius:.852rem;
-			padding:.1278rem .852rem;
+			
 			color:#fff;
 			text-align: center;
 
@@ -1311,8 +1374,38 @@ body{
 /* 广告详情页面 */
 .guanggaoxq{
 	width: 100%;
-	&:last-child{
-		border:none;
+	.sat_zhuanzai{
+		width: 100%;
+		padding:.426rem .852rem;
+		display: flex;
+		box-sizing:border-box;
+		-webkit-justify-content:space-between;
+		background: -webkit-linear-gradient(top, #FFD57E, #fc9e47);
+		background: -o-linear-gradient(top, #FFD57E, #fc9e47);
+		background: -moz-linear-gradient(top, #FFD57E, #fc9e47);
+		background: linear-gradient(top, #FFD57E, #fc9e47);
+		p{
+			font-size: .5964rem;
+			color:#fff;
+			padding: .1278rem 0;
+			span{
+				display: inline-block;
+				padding:0px .213rem;
+				margin:0 0 0 .213rem;
+				color:#fff;
+			}
+			i{
+				font-style: normal;
+			}
+		}
+		b{
+			display: inline-block;	
+			font-size: .5964rem;
+			
+			color:#fff;
+			text-align: center;
+
+		}
 	}
 	.weui_cell{
 		-webkit-align-items: stretch;
@@ -1349,20 +1442,162 @@ body{
 				
 		}
 		.weui_uploader_bd{
-			position: relative;
-			img{
-				width: 100%;
-			}
+			width: 100%;
+			box-sizing:border-box;
+			margin-bottom: -4px;
+			overflow: hidden;
 			.weui_uploader_input_wrp{
-				float: none;
-				position: absolute;
-				margin: 0px;
 				width: 100%;
-				height: 100%;
-				opacity: 0;
-				top:0;
-				border: 1px solid #d9d9d9;
+				box-sizing:border-box;
 			}
 		}
+	}
+}
+
+
+/* 文章转发弹出框 */
+.sat_alert_details{
+	display: none;
+	width:100%;
+	height:100%;
+	background: rgba(0,0,0,.3);
+	position: absolute;
+	z-index: 999;
+	top:0;
+	.sat_xinjian,.sat_tianjia{
+		position: absolute;
+		top:0;
+		left:0;
+		right: 0;
+		bottom:0;
+		margin: auto;
+		width: 80%;
+		height: 360px;
+		background: #fff;
+		.sat_alert_h5{
+			text-align: center;
+			color:#FAAA08;
+			font-weight: normal;
+			font-size: .6816rem;
+			padding:.426rem;
+			span{
+				position: absolute;
+				right: 10px;
+				font-size: 12px;
+				color: #808080;
+			}
+		}
+		.weui_cell{
+			padding:0 10px;
+			.weui_cell_bd{
+				padding:.213rem .426rem ;
+				border:1px solid #f0f0f0;
+				margin:.215rem auto;
+				font-size: 12px;
+				img{
+					width: 100%;
+				}
+				.weui_textarea{
+					color:#808080;
+					font-family: "微软雅黑";
+				}
+			}
+		}
+		.button_sp_area{
+			text-align: center;
+			.weui_btn{
+				padding:0 .852rem;
+				margin:.426rem .213rem;
+			}
+			.weui_btn_default{
+				color:#808080;
+			}
+			.weui_btn_primary{
+				background: #FAAF18;
+				color:#fff;
+			}
+		}
+		.weui_uploader_bd{
+			width: 100%;
+			box-sizing:border-box;
+			margin-bottom: -4px;
+			/* margin-right: -9px; */
+			overflow: hidden;
+			padding: 0 10px;
+			.weui_uploader_input_wrp{
+				width: 100%;
+			}
+		}
+	}
+	.sat_tianjia{
+		height: 300px;
+		.weui_cell_select{
+			.weui_select{
+				height: .852rem;
+				line-height: .852rem;
+			}
+		}
+		.weui_uploader_files{
+			li{
+				img{
+					width: 100%;
+				}
+			}
+		}
+		.weui_cells:after{
+			border:none;
+		}
+		.weui_cells:before{
+			height: 0;
+			border:none;
+		}
+		.weui_cells_radio{
+			display: flex;
+			margin-top: .425rem;
+			.weui_cell_bd{
+				border:none;
+			}
+			p{
+				color:#808080;
+			}
+		}
+	}
+}
+
+
+.erwei:hover{
+	display: inline-block;
+	background: red;
+}
+/* 微信二维码弹框 */
+.erweima{
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	background: #fff;
+	left: 60px;
+	padding: .213rem;
+	top: 60px;
+	z-index: 999;
+	box-shadow: 0 0px 20px #666666;
+	&.show{
+		display: none;
+	}
+   i{
+		position: absolute;
+		top: -7px;
+		left: 37px;
+		border: transparent;
+		/* width: 20px; */
+		width: 0;
+		/* border: 20px red solid; */
+		height: 0;
+		border-left: 8px solid transparent;
+		border-right: 8px solid transparent;
+		border-bottom: 8px solid #fff;
+	}
+	img{
+		width: 100%;
 	}
 }

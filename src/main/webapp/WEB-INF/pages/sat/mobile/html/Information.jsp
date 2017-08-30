@@ -152,34 +152,39 @@
 					<div class="main_swiper_list" onclick="updateNewsCategory()"><span>本周头条</span></div>
 				</div>
 				<div class="sat_nav ">
-					<div class="main_swiper_list"><span>时事政坛</span></div>
+					<div class="main_swiper_list"><span class="sta_nav_tihuan">时事政坛</span></div>
 				</div>
 				<div class="sat_nav">
-					<div class="main_swiper_list"><span>体坛风云</span></div>
+					<div class="main_swiper_list"><span class="sta_nav_tihuan">体坛风云</span></div>
 				</div>
 				<div class="sat_nav">
-					<div class="main_swiper_list"><span>叱咤金融</span></div>
+					<div class="main_swiper_list"><span class="sta_nav_tihuan">叱咤金融</span></div>
 				</div>
 				<div class="sat_add">
 					<div class="main_swiper_list">
 						<span id="listOne"><img src="<%=request.getContextPath()%>/sat/mobile/img/zengjia-icon.png" width="18" alt="添加"></span>
 						<div class="main_list_box hide">
-							<div class="list_box">
-								<span class="click">金融新干线</span>
-								<span>保险基金</span>
-								<span>社会热点</span>
-								<span>生活养生</span>
-								<span>娱乐资本论</span>
-								<span>财经私房</span>
-								<span>贷款微课堂</span>
-								<span>心灵鸡汤</span>
-							</div>
-							<div class="list_btn ">
-								<button>确认</button>
-							</div>
+							<ul class="list_box">
+								<li>
+									<span>时事政坛</span>
+									<span>体坛风云</span>
+									<span>叱咤金融</span>
+								</li>
+								<li>
+									<span class="click">金融新干线</span>
+									<span>保险基金</span>
+									<span>生活养生</span>
+								</li>
+								<li>
+									<span>娱乐资本论</span>
+									<span>财经私房</span>
+									<span>心灵鸡汤</span>
+								</li>
+							</ul>
+								
 						</div>
 					</div>
-				</div>
+				</div>		
 				
 			</div>
 			<div class="weui_tab" style="height:auto">
@@ -231,12 +236,22 @@
 		$(".remove").on("click",function(){
 			$(".zixun_head").hide();
 		}) 
-		//添功标签功能
-		$(".list_btn").click(function(){
-			$(".main_list_box").addClass('hide');
-			$(".zhezhaoceng").removeClass('show');
+		
+		$(".list_box span").on("click",function(){
+			//添加点击效果，取消其他兄弟样式；
+			$(this).addClass("click").siblings().removeClass('click');
+			$(this).parent("li").siblings().find("span").removeClass('click');
+			//获取值更换到页面；
+			var val=$(this).parent().find('span');
+			for(var j=0;j<3;j++){
+				$(".sta_nav_tihuan").eq(j).text(val.eq(j).text());
+			}
+			//遮罩层隐藏，
+			$(".zhezhaoceng").toggleClass('show');
+			$(".main_list_box").toggleClass('hide');
 		})
-	    $("#listOne").on("click",function(){
+
+		$("#listOne").on("click",function(){
 	    	$(".zhezhaoceng").toggleClass('show');
 			$(".main_list_box").toggleClass('hide');
 		})

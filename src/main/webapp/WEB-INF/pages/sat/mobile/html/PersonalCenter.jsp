@@ -85,7 +85,7 @@
 			      </div>
 			   </div>
 		</div>
-		<div class="footer">
+	    <div class="footer">
 			<ul class="sat_footer_ul">
 				<li class="sat_footer_li"><a href="<%=request.getContextPath()%>/satarticle/gotoNewsList" class=""><b class="sat_footer_b zixun"></b>资讯</a></li>
 				<li class="sat_footer_li"><a href="<%=request.getContextPath()%>/product/list" class=""><b class="sat_footer_b chanpin"></b>产品</a></li>

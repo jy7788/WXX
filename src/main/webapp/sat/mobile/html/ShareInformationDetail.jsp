@@ -42,25 +42,30 @@
 <%-- <input type="text" id="articleOpenid" hidden="true" value="${satArticle.openid}"> --%>
 <input type="text" id="satArticleImg" hidden="true" value="${satArticle.descImgUrl}">
 <input type="text" id="satArticleId" hidden="true" value="${satArticle.id}">
+<input type="text" id="adUrl" hidden="true" value="${ad.linkUrl}">
+<input type="text" id="adDescription" hidden="true" value="${ad.description}">
+<input type="text" id="adImg" hidden="true" value="${ad.imgUrl}">
 <input type="text" id="auth" hidden="true" value="${auth}">
-<input type="text" id="canshare" hidden="true" value="${canshare}">
-<input type="text" id="visitorOpenid" hidden="true" value="${visitorOpenid}">
+<input type="text" id="adPosition" hidden="true" value="${share.adPosition}">
 	<div class="sat_content">
-		
-		<div class="data_header" >
-			<div class="head_png weui_cell" style="display:none" >
+		<!-- <div class="sat_zhuanzai">
+			<p><span id="size"> </span><i></i></p>
+			<b id="newAd" onclick="showNewDiv()">+新建</b>
+		</div> -->
+		<div class="data_header">
+			<div class="head_png weui_cell" style="display:none">
 				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="42" alt=""></div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<p>${satUser.username}</p>
-					<p><a href="tel:${satUser.phoneNum}"><img src="<%=request.getContextPath()%>/sat/mobile/img/phone-icon.png"" width="25" style="padding-right:10px" alt=""></a>
-					<img id="getQrCode" src="<%=request.getContextPath()%>/sat/mobile/img/weixin-icon.png" width="25" style="padding-right:10px" alt="" class="erwei">
-					<img id="visitStation" src="<%=request.getContextPath()%>/sat/mobile/img/wodegerenzhongxin-icon.png" width="25" style="padding-right:10px" alt="">
-					<b class="erweima show"><i></i><img id="gotQrCode" src=""></b>
-					</p>						
+					<p><a href="tel:${satUser.phoneNum}">
+					<img src="<%=request.getContextPath()%>/sat/mobile/img/phone-icon.png" width="25" style="padding-right:10px" alt=""></a>
+					<img id="getQrCode" src="<%=request.getContextPath()%>/sat/mobile/img/weixin-icon.png" width="25" style="padding-right:10px" alt="">
+					<img id="visitStation" src="<%=request.getContextPath()%>/sat/mobile/img/wodegerenzhongxin-icon.png" width="25" style="padding-right:10px" alt=""></p>
+					<b class="erweima"><i></i><img id="gotQrCode" src=""></b>
 				</div>
 				<div class="weui_cell_ft sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/arrow-icon.png" width="15" alt=""></div>
 			</div>
-			<div class="head_png shousuo" id="headDiv">
+			<div class="head_png shousuo">
 				<div class="touxiang"><img src="${satUser.imgUrl}" width="42" alt=""></div>
 				<div class="sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/002-arrow-icon.png" width="15" alt=""></div>
 			</div>
@@ -73,10 +78,13 @@
 						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-icon.png" width="20" alt=""><span>${satArticle.stars }</span>
 						<img src="<%=request.getContextPath()%>/sat/mobile/img/fenxiang-icon.png" width="20" alt=""><span>${satArticle.shares }</span>
 						<img src="<%=request.getContextPath()%>/sat/mobile/img/guanzhu-icon.png" width="20" alt=""><span>${satArticle.watches }</span>
-						
 					</p>
 				</div>
 				<div class="main_cont">
+					<!-- 新华社北京7月19日电 中共中央总书记、国家主席、中央军委主席、中央全面深化改革领导小组组长习近平7月19日下午主持召开中央全面深化改革领导小组第三十七次会议并发表重要讲话。他强调，各地区要切实把思想和行动统一到党中央改革决策部署上来，从服务党和国家工作大局出发推动改革，敢于担当、善谋实干、实事求是、锐意进取，扎实推进各项改革落到实处、见到成效。
+					新华社北京7月19日电 中共中央总书记、国家主席、中央军委主席、中央全面深化改革领导小组组长习近平7月19日下午主持召开中央全面深化改革领导小组第三十七次会议并发表重要讲话。他强调，各地区要切实把思想和行动统一到党中央改革决策部署上来，从服务党和国家工作大局出发推动改革，敢于担当、善谋实干、实事求是、锐意进取，扎实推进各项改革落到实处、见到成效。
+					新华社北京7月19日电 中共中央总书记、国家主席、中央军委主席、中央全面深化改革领导小组组长习近平7月19日下午主持召开中央全面深化改革领导小组第三十七次会议并发表重要讲话。他强调，各地区要切实把思想和行动统一到党中央改革决策部署上来，从服务党和国家工作大局出发推动改革，敢于担当、善谋实干、实事求是、锐意进取，扎实推进各项改革落到实处、见到成效。
+					新华社北京7月19日电 中共中央总书记、国家主席、中央军委主席、中央全面深化改革领导小组组长习近平7月19日下午主持召开中央全面深化改革领导小组第三十七次会议并发表重要讲话。他强调，各地区要切实把思想和行动统一到党中央改革决策部署上来，从服务党和国家工作大局出发推动改革，敢于担当、善谋实干、实事求是、锐意进取，扎实推进各项改革落到实处、见到成效。 -->
 					<article>
 					${satArticle.content }
 					</article>
@@ -84,33 +92,36 @@
 				<div class="laiyuan">
 					<p>（毒蛇姐原创）</p>
 				</div>
+				
+				<div class="footer_guanggao" id="upAd" >
+					<img id="upAdImg" src="<%=request.getContextPath()%>/sat/mobile/img/tupian.png" height="340" width="750" />
+					<p id="upAdDescription">革决策部署上来，从服务党和国家工作大局出发推动改革，敢于担当</p>
+				</div>
+				
 				<div class="main_foot">
 					<span>
-						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="点赞" id="starButton">
+						<img id="starButton" src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="点赞">
 					</span>
 					<span>
-						<img src="<%=request.getContextPath()%>/sat/mobile/img/shoucang-but.png" width="65" alt="收藏" id="collectButton">
+						<img src="<%=request.getContextPath()%>/sat/mobile/img/shoucang-but.png" width="65" alt="收藏" id="collect">
 					</span>
 				</div>
 			</div>
 				
 		</div>
-		<div class="data_footer">
-			<div class="foot_png weui_cell">
-				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="35" alt=""></div>
+		<div class="data_footer" id="buttomAd">
+			<div class="foot_png weui_cell" id="advertisement" onclick="updateClickAd()">
+				<div class="weui_cell_hd"><img id="buttomAdImg" src="${satUser.imgUrl}" width="35" alt=""></div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<p id="buttomDescription">${satUser.organization}</p>
+					<p id="buttomDescription">${ad.description }</p>
 				</div>
 				<div class="weui_cell_ft">
-					<a><img src="<%=request.getContextPath()%>/sat/mobile/img/xinwentupian-img.png" width="34" alt="" id="buttomImg"></a>
+					<a><img src="${ad.imgUrl }"></a>
 				</div>
-			</div>
-			<div class="xinjian_banner" id="newAd" onclick="showNewDiv()">
-				<b ></b>
 			</div>
 		</div>
 			
-	<div class="sat_alert_details" style="display:none" id="adOuter">
+		<div class="sat_alert_details" style="display:none" id="adOuter">
 		<div class="sat_xinjian" style="display:none" id="adNewDiv"> <!--style="display:none"-->
 			<h5 class="sat_alert_h5">新建签名</h5>
 			<div class="weui_cell nobef">
@@ -171,7 +182,7 @@
 	                    <span class="weui_icon_checked"></span>
 	                </div>
 	                <div class="weui_cell_bd weui_cell_primary">
-	                    <p>固定吸底</p>
+	                    <p>固定吸顶</p>
 	                </div>
 	            </label>
 	            <label class="weui_cell nobef weui_check_label" for="x13"> 
@@ -200,37 +211,9 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/lrz/lrz.bundle.js"></script>
 	<script>
 	
-	//得到用户二维码
-	$("#getQrCode").on("click",function(){
-		$(".erweima").toggleClass('show');
-		
-		var url = "<%=request.getContextPath()%>/satuser/getUserQrCode";
-		$.ajax({
-			url : url,
-			type : 'POST',
-			dataType : 'json',
-			async : true,
-			data : {
-				"openid" : mOpenid
-			},
-			success : function(data) {
-				//alert(data);
-				if(data.indexOf("failed") > 0){
-					alert("尚未上传二维码");
-				} else {
-					$("#gotQrCode").attr("src", data);
-				}
-			},
-			error : function() {
-				//alert("网络连接异常");
-			}
-		});
-	})
-	
 	  var infoTitle = $("#satArticleTitle").html();
 	  var infoSummary = infoTitle;
 	  var currUrl = window.location.href;
-	  //var currUrl ;
 	  var iconUrl = $("#satArticleImg").attr("src");
 	  var openid = $("#openid").val();//原来的openid
 	  var mOpenid = $("#mOpenid").val();//我的openid
@@ -238,8 +221,10 @@
 	  var articleId = $("#satArticleId").val();
 	  var list;
 	  var newName, newDescription, newImageUrl, newUrl,adId;
-	  var auth, ad ,visitorOpenid,canshare;
-	  var listLen = 0;
+	  var adUrl = $("#adUrl").val();
+	  var adDescription = $("#adDescription").val();
+	  var auth, adPosition;
+	  var adImg;
 	//上传图片和预览
 	function previewImage(file) {
 	    var MAXWIDTH = 100;
@@ -286,26 +271,64 @@
 	    }
 	}
 	
+	
+	$(function() {
+		FastClick.attach(document.body);
+	});
+	$(".sousuo").click(function(){
+		$(this).parents(".head_png").hide();
+		$(this).parents().siblings(".head_png").show();
+	})
+	
+	jQuery(document).ready(function(){
+		  //初始化库 
+		 loadXMLDoc();
+		 //初始化库结束
+		 auth=$("#auth").val();
+		 if(auth.indexOf("read") > 0) {//可编辑，是同一个用户
+			 $("#newAd").attr("hidden", true);
+		 }
+		 adPosition = $("#adPosition").val();
+		 adImg = $("#adImg").val();
+		 alert(adImg);
+		 if(adPosition.indexOf("up") > 0) {
+			 $("#upAd").show();
+			 $("#upAdImg").attr("src", adImg);
+			 $("#upAdDescription").text(upAdDescription);
+		 }
+		 
+		 if(adPosition.indexOf("buttom") > 0) {
+			 $("#upAd").show();
+			 $("#upAdImg").attr("src", adImg);
+			 $("#upAdDescription").text(upAdDescription);
+		 }
+	});	
+	
 	//收藏文章
 	function collectArticle() {
-		var url = "<%=request.getContextPath()%>/satarticle/collectArticle";
+		var url = "<%=request.getContextPath()%>/ad/insert";
 		$.ajax({
 			url : url,
 			type : 'POST',
 			dataType : 'json',
 			async : true,
 			data : {
-				"openid" : mOpenid,
-				"articleId": articleId
+				"name" : newName,
+				"description" : newDescription,
+				"image" : newImageUrl,
+				"linkUrl" : newUrl,
+				"openid" : mOpenid
 			},
 			success : function(data) {
-				if(data.indexOf("success") > 0){
+				if(data.indexOf("open") > 0){
 					//gotoadList();
-					alert("收藏成功,在个人中心查看");
-				} else if(data.indexOf("collected") > 0) {
-					alert("收藏过了");
+					alert("广告添加成功");
+					$("#adOuter").attr("style", "display:none");//显示广告
+					$("#adListDiv").attr("style", "display:none");//显示广告列表
+				} else if(data.indexOf("full") > 0) {
+					alert("广告位满了");
 				} else {
-					alert("收藏失败");
+					alert("新增失败");
 				}
 			},
 			error : function() {
@@ -313,9 +336,8 @@
 			}
 		});
 	}
-	
 	//更新点赞
-	function updateStar() {
+	function updateStar() {//上传两个参数更新分享文章
 		var url = "<%=request.getContextPath()%>/satarticle/starArticle";
 		$.ajax({
 			url : url,
@@ -323,7 +345,8 @@
 			dataType : 'json',
 			async : true,
 			data : {
-				"articleId": articleId //只上传一个参数说明是原文章点赞
+				"openid":mOpenid,
+				"articleId": articleId 
 			},
 			success : function(data) {
 				if(data.indexOf("success") > 0){
@@ -339,13 +362,6 @@
 			}
 		});
 	}
-	//收藏点击
-	$("#collectButton").click(function(){
-		if(!isNull(mOpenid) && !isNull(articleId)) {
-			collectArticle();
-		}
-	 });
-	
 	//点赞点击
 	$("#starButton").click(function(){
 		alert(articleId);
@@ -354,31 +370,10 @@
 		}
 	 });
 	
-	
-	$(function() {
-		FastClick.attach(document.body);
-	});
-	$(".sousuo").click(function(){
-		$(this).parents(".head_png").hide();
-		$(this).parents().siblings(".head_png").show();
-	})
-	
-	jQuery(document).ready(function(){
-		  //初始化库 
-		 loadXMLDoc();
-		 //初始化库结束
-		 auth=$("#auth").val();
-		 canshare=$("#canshare").val();
-		 //alert(canshare);
-		 visitorOpenid = $("#visitorOpenid").val();
-		 currUrl = "/satarticle/detail?id=" + articleId + "&openid=" + mOpenid;
-		 if(isNull(mOpenid)) {
-			 $("#headDiv").attr("style", "display:none");
-		 }else {
-			 $("#headDiv").attr("style", "display:block");
-		 }
-	});	 
-	
+	$("#collect").click(function(){
+		alert("collect");
+		
+	 });
 	//取消按钮
 	$("#cancelEdit").click(function(){
 		$("#adOuter").attr("style", "display:none");
@@ -401,16 +396,14 @@
 	$("#share").click(function(){
 		//alert(adId);
 		$("#adOuter").attr("style", "display:none");
-		//currUrl = currUrl + "&adId=" + adId;
-		//alert(currUrl);
 	 });
 	
 	//新增广告分享按钮
 	$("#share2").click(function(){
-		/* newName =$("#newName").val().trim(); 
+		newName =$("#newName").val().trim(); 
 		newDescription =$("#newDescription").val().trim(); 
 		newImageUrl =$("#imageUrl").val().trim(); 
-		newUrl =$("#newUrl").val().trim();  */
+		newUrl =$("#newUrl").val().trim(); 
 		if(!isNull(newName) && !isNull(newDescription) && 
 				!isNull(newImageUrl) && !isNull(newUrl) && !isNull(mOpenid)) {
 		//alert(newName + newDescription + newImageUrl + newUrl + mOpenid);
@@ -429,6 +422,40 @@
         	$('#newDescription').val($('#newDescription').val().substr(0,300));
         }
 	});
+	//更新广告点击量
+	function updateClickAd() {
+		//alert("article id" + articleId);
+		//alert("openid" + mOpenid);
+		updateAdClickCount();
+		window.location = adUrl;
+	}
+	
+	function updateAdClickCount() {
+		var url = "<%=request.getContextPath()%>/ad/updateAdClickCount";
+		$.ajax({
+			url : url,
+			type : 'POST',
+			dataType : 'json',
+			async : true,
+			data : {
+				"openid" : mOpenid,
+				"articleId" : articleId,
+			},
+			success : function(data) {
+				if(data.indexOf("success") > 0){
+					//gotoadList();
+					alert("更新广告点击量成功");
+				} else if(data.indexOf("failed") > 0) {
+					alert("更新失败");
+				} else {
+					alert("更新失败");
+				}
+			},
+			error : function() {
+				alert("网络连接异常");
+			}
+		});
+	}
 	
 	//上传广告
 	function uploadAd() {
@@ -447,18 +474,10 @@
 			},
 			success : function(data) {
 				if(data.indexOf("open") > 0){
+					//gotoadList();
 					alert("广告添加成功");
 					$("#adOuter").attr("style", "display:none");//显示广告
 					$("#adListDiv").attr("style", "display:none");//显示广告列表
-					ad =$.parseJSON(data);
-					//alert(data);
-					
-					//$("#imgDetail").attr("src", ad.imgUrl);//设置第一个广告的图片
-					//adId = ad.id;//当前广告id
-					//底部广告
-					//$("#buttomImg").attr("src", ad.imgUrl);
-					//$("#buttomDescription").text(adId.description);
-					showNewDiv();
 				} else if(data.indexOf("full") > 0) {
 					alert("广告位满了");
 				} else {
@@ -502,18 +521,14 @@
 		    //描述和图片需要重新定义，描述取正文的第一段文字，没有文字则为空
 		    //图片取正文第一张图片；没有图片用默认的图片；
 		    //alert(infoTitle + "　infoSummary　" +infoSummary + " currUrl " + currUrl);
-		    //alert(currUrl);
 			wx.onMenuShareAppMessage({
 		    	title: infoTitle,
 			    desc: infoSummary,
-			    link: currUrl,
+			    link: currUrl + "&from=client",
 			    imgUrl: iconUrl,
 			    trigger: function (res) {
 			    	//alert("<input type='text' value='aaaa' >");
-			    	if(canshare.indexOf("noshare") > 0) {
-				    	  alert("正在进入注册，请取消分享");
-						  window.location = "/satuser/registerShareUser?openid=" + visitorOpenid + "&articleId=" + articleId ;
-					}
+			    	alert("分享");
 			    },
 			    success: function (res) {
 			        alert('已分享22');
@@ -533,11 +548,9 @@
 		        link: currUrl, // 分享链接
 		        imgUrl: iconUrl, // 分享图标
 		        trigger: function (res) {
-		        	alert("分享time");
-			    	alert(currUrl);
+		        	
 		 	    },
-		        success: function () { 
-		        	updateShareCnt();
+		        success: function () {  
 		        	alert("分享成功");
 		        },
 		        cancel: function (res) {
@@ -562,12 +575,12 @@
 				}
 			});
 		}); 
-	  //更新分享记录
+	  
 	  function updateShareCnt(){
 			var url = "<%=request.getContextPath()%>/satarticle/updateUserShareCount";
-			//alert("adId " + adId);
+			alert("adId " + adId);
 			if(!isNull(articleId) && !isNull(mOpenid) && !isNull(adId)) {
-				//alert(adId);
+				alert(adId);
 				$.ajax({
 					url : url,
 					type : 'POST',
@@ -606,25 +619,14 @@
 					"openid" : mOpenid
 				},
 				success : function(data) {
-					
-					//没有注册进入注册页面
-					if(canshare.indexOf("noshare") > 0) {
-						  window.location = "/satuser/registerShareUser?openid=" + visitorOpenid + "&articleId=" + articleId ;
-					  }
-					
 					if(data.indexOf("failed") > 0){
-						//alert("获取不到广告");
-						listLen = 0;
-						$("#adOuter").attr("style", "display:block");//显示广告
-						  $("#adNewDiv").attr("style", "display:block");
-						  $("#adListDiv").attr("style", "display:none");
-						//addAd();
+						alert("获取不到广告");
 					}else{
 						list =$.parseJSON(data);
 						console.log(list);
 						$("#adOuter").attr("style", "display:block");//显示广告
 						$("#adListDiv").attr("style", "display:block");//显示广告列表
-						$("#adNewDiv").attr("style", "display:none");//新建广告层
+						$("#adNewDiv").attr("style", "display:none");//显示广告列表
 						$("#select1").empty();//清空选择option内容
 						//更新签名标题内容
 						$.each(list, function(index, element) {
@@ -653,66 +655,45 @@
 	  //显示新建签名层
 	  function addAd() {
 		  //alert(getJsonLength(list));
-		  //alert(listLen);
-		  //尚未注册进入注册页面
-		  if(canshare.indexOf("noshare") > 0) {
-			  window.location = "/satuser/registerShareUser?openid=" + visitorOpenid + "&articleId=" + articleId ;
-		  }
-		  if(listLen != 0) {
-		  	listLen = getJsonLength(list);
-		  }
+		  var listLen = getJsonLength(list);
 		  if(listLen < 3) {
-			  $("#adOuter").attr("style", "display:block");//显示广告
 			  $("#adNewDiv").attr("style", "display:block");
 			  $("#adListDiv").attr("style", "display:none");
 		  }else {
 			  alert("广告位已满，无法添加");
 		  }
 	  }
-	  //得到用户二维码
-	  /* $("#getQrCode").click(function() {
-		  
-	  }); */
+	  
 	  //访问微站
 	  $("#visitStation").click(function() {
-		  
+		  window.location = "/satarticle/othersStation?openid=" + mOpenid;
 	  });
 	  
-	  //判断能否转发，不能则进入注册页面
-	  function setUserDir() {
-		  /* if(auth.indexOf("unregistered") > 0) {
-			  alert("unre" + auth);
-			  window.location = "satuser/registerShareUser?openid=" + mOpenid + "&articleId=" + articleId ;
-		  } */
-	  }
-	  
-	  //判断用户是否注册过，没有注册过需要注册再发送广告
-	  function isUserRegistered() {
-		  var url = "<%=request.getContextPath()%>/satuser/isUserRegistered";
-			if(!isNull(articleId) && !isNull(mOpenid) && !isNull(adId)) {
-				$.ajax({
-					url : url,
-					type : 'POST',
-					dataType : 'json',
-					async : true,
-					data : {
-						"openid" : visitorOpenid
-					},
-					success : function(data) {
-						if(data.indexOf("unregistered") > 0){
-							alert("未注册,请注册后再转发");
-						}else{
-							alert("注册过");
-						}
-					},
-					error : function() {
-						alert("网络连接异常");
+		//得到用户二维码
+		$("#getQrCode").on("click",function(){
+			$(".erweima").toggleClass('show');
+			
+			var url = "<%=request.getContextPath()%>/satuser/getUserQrCode";
+			$.ajax({
+				url : url,
+				type : 'POST',
+				dataType : 'json',
+				async : true,
+				data : {
+					"openid" : mOpenid
+				},
+				success : function(data) {
+					//alert(data);
+					if(data.indexOf("failed") > 0){
+						alert("尚未上传二维码");
+					} else {
+						$("#gotQrCode").attr("src", data);
 					}
-				});
-			} else {
-				alert("请选择广告");
-			}
-	  }
-	  
+				},
+				error : function() {
+					//alert("网络连接异常");
+				}
+			});
+		})
 	</script>
 </html>

@@ -31,16 +31,15 @@
 <input type="text" id="openid" hidden="true" value="${openid }">
 <input type="text" id="path" hidden="false" value="<%=request.getContextPath()%>">
 	<div class="sat_content">
-		
+		<div class="header" style="position:relative;">
+			<img src="<%=request.getContextPath()%>/sat/mobile/img/panner.PNG" alt="" style="width:100%;">
+			<div class="weizhan_moshi">
+				<span class="moshi_list">浏览模式</span>
+				<span class="moshi_list chocked">编辑模式</span>
+			</div>
+		</div>
 		<div class="main" >
 			<div>
-			<div class="header" style="position:relative;">
-				<img src="<%=request.getContextPath()%>/sat/mobile/img/panner.PNG" alt="" style="width:100%;">
-				<!-- <div class="weizhan_moshi">
-					<span class="moshi_list">浏览模式</span>
-					<span class="moshi_list chocked">编辑模式</span>
-				</div> -->
-			</div>
 			<div class="nav bornone">
 				<div class="sat_nav click" id="shares">
 					<div class="main_swiper_list"><span>转载</span></div>
@@ -75,13 +74,13 @@
 			</div>
 			</div>
 		</div>
-		<%-- <div class="footer">
+		<div class="footer">
 			<ul class="sat_footer_ul">
 				<li class="sat_footer_li"><a href="<%=request.getContextPath()%>/satarticle/list" class=""><b class="sat_footer_b zixun"></b>资讯</a></li>
 				<li class="sat_footer_li"><a href="<%=request.getContextPath()%>/product/list" class=""><b class="sat_footer_b chanpin"></b>产品</a></li>
 				<li class="sat_footer_li"><a class="clicked"><b class="sat_footer_b user"></b>我的</a></li>
 			</ul>
-		</div>  --%>
+		</div> 
 	</div>
 <%-- 	<div class="right_bottom">
 		<div class="bianxie">
@@ -130,7 +129,7 @@
 			console.log(list);
 			
 		     $.each(list, function(index, element) {
-		    	var content = "<a href='" + "/satarticle/detail?id=" + element.id + "&openid=" + openid + "&from=" + "singleMessage" + "'>"
+		    	var content = "<a href='" + "/satarticle/detail?id=" + element.id + "&openid=" + openid + "'>"
 		    				  + "<div class='weui_cell wenzhang_list'>"
 		    			      + "<div class='weui_cell_hd'><i class='yuan'>转载</i><img src='" + element.descImgUrl + "' width='100' alt=''></div>"
 		    			      + "<div class='weui_cell_bd weui_cell_primary'>"

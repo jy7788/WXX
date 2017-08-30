@@ -51,13 +51,13 @@
 							<input class="weui_input" type="tel" id="phoneNum" name="phoneNum" placeholder="您的电话" value="">
 						</div>
 					</div>
-					<div class="weui_cell">
+					<div class="weui_cell" style="display:none">
 						<div class="weui_cell_hd login_icon"><label for="name" class="weui_label"><img src="<%=request.getContextPath()%>/sat/mobile/img/hangye-icon.png" width="23" alt=""></label></div>
 						<div class="weui_cell_bd weui_cell_primary"> 
 							<input class="weui_input" id="job" id="trade" type="text" name="trade" value="" readonly="" data-values="" placeholder="您的行业">
 						</div>
 					</div>
-					<div class="weui_cell">
+					<div class="weui_cell" >
 						<div class="weui_cell_hd login_icon"><label class="weui_label"> <img src="<%=request.getContextPath()%>/sat/mobile/img/qiye-icon.png" width="23" alt=""></label></div>
 						<div class="weui_cell_bd weui_cell_primary">
 							<input class="weui_input" type="tel" id="organization" name="organization" placeholder="您的公司名称" value="">
@@ -151,20 +151,17 @@
     	//提交信息
 	    $("#registButton").click(function () {
 	    	
-	    		if($("#organization").val() == "" || $("#username").val() == "" 
-	    				|| $("#position").val() == "" || $("#trade").val() == ""
+	    		if($("#organization").val() == "" || $("#username").val() == ""  
 	    				|| $("#validCode").val() == "") {
-	    			showDialog("请将信息填写完整", "确定");
+	    			alert("请将信息填写完整");
 	    		}else {
 	    			$.ajax( {
 	          		    url : "valid?" + "phoneNum=" +  $("#phoneNum").val() + "&validCode=" + $("#validCode").val(),
 	          		    type : "GET", 
 	          		    success : function(msg) {
 	          		    	if(msg.indexOf("success") > 0) {
-	          		    		//alert("valid success");
 	          		    		$("#userForm").submit();
 	          		    	}else {
-	          		    		//alert("验证码错误");
 	          		    		alert("验证码错误");
 	          		    	}
 	          		    },

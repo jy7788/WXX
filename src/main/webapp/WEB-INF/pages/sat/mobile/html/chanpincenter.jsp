@@ -30,9 +30,9 @@
 </head>
 <body >
 	<div class="sat_content">
-		<div class="header">
+		<%-- <div class="header">
 			<img src="<%=request.getContextPath()%>/sat/mobile/img/panner.PNG" alt="" style="width:100%;">
-		</div>
+		</div> --%>
 		<div class="main" >
 			<div class="weui_cell chanpin">
 				<img src="<%=request.getContextPath()%>/sat/mobile/img/tupian.png" height="112" width="274" alt="">

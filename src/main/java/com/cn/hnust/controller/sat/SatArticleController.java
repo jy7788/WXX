@@ -87,7 +87,6 @@ public class SatArticleController {
 	        	System.out.println("网页授权获取到的openid: "+openid);
 	        	wechatUser = WeixinUserUtil.getWechatUser(openid);
 	        	model.addAttribute("openid", openid);
-	        	
 	        	/*if(openid != null && satUserService.loadByOpenId(openid) == null) {//没注册进入注册页面
 	        		return "redirect:" + WeixinFinalValue.SERVER_URL + "satuser/gotoUserCenter";
 	        	}*/
@@ -153,6 +152,13 @@ public class SatArticleController {
 			if(articleShare != null && articleShare.getAdvisId() != null) {
 				System.out.println("adid " + articleShare.getAdvisId());
 				SatAdvertisement ad = satAdService.load(articleShare.getAdvisId());//得到分享文章对应的广告
+				if(StringUtils.isNotEmpty(id) && StringUtils.isNotEmpty(openid)) {
+					SatArticleShare share = satArticleShareService.load(openid, id);
+					if(share !=null) {
+						model.addAttribute("share", share);
+						System.out.println("share " + share.getAdPosition());
+					}
+				}
 				model.addAttribute("ad", ad);
 			}
 			String appId=WeixinContext.getInstance().getAppId();//应用id  
@@ -219,8 +225,12 @@ public class SatArticleController {
 		String adId = request.getParameter("adId");
 		String from = request.getParameter("from");
 		SatAdvertisement ad = satAdService.load(adId);
-		if(ad != null) {
+		if(ad != null) {//有广告,获取分享文章信息，得到广告位置
 			model.addAttribute("ad", ad);
+			if(StringUtils.isNotEmpty(id) && StringUtils.isNotEmpty(openid)) {
+				SatArticleShare share = satArticleShareService.load(openid, id);
+				model.addAttribute("share", share);
+			}
 		}
 		if(!StringUtils.isEmpty(from)) {
 			System.out.println("from " + from);
@@ -365,7 +375,8 @@ public class SatArticleController {
 		String articleId = request.getParameter("articleId");
 		String openid = request.getParameter("openid");
 		String adId = request.getParameter("adId");
-		System.out.println(articleId + "  " + openid + " " + adId);
+		String adPosition = request.getParameter("adPosition");
+		System.out.println(articleId + "  " + openid + "  " + adId + "  "  + adPosition);
 		if(!StringUtils.isEmpty(articleId) && !StringUtils.isEmpty(openid)
 				) {
 			SatArticle satArticle = satArticleService.loadArticleById(articleId);
@@ -380,18 +391,37 @@ public class SatArticleController {
 				if(StringUtils.isNoneEmpty(adId)) {
 					share.setAdvisId(adId);
 				}
+				if(StringUtils.isNoneEmpty(adPosition)) {//广告位置
+					share.setAdPosition(adPosition);
+				}
 				share.setShares(share.getShares() + 1);
 				share.setUpdateTime(new Date());
 				satArticleShareService.update(share);
 			} else {//没有分享过新增文章分享记录  在文章分享表t_sat_article_share
-				SatArticleShare shareArticle = new SatArticleShare();
-				shareArticle.setId(UUID.randomUUID().toString());
-				shareArticle.setArticleId(articleId);
-				shareArticle.setAdvisId(adId);
-				shareArticle.setCreateTime(new Date());
-				shareArticle.setUpdateTime(new Date());
-				shareArticle.setUserId(openid);
-				satArticleShareService.insert(shareArticle);
+				SatArticleShare shareNew= null;
+				if(StringUtils.isNoneEmpty(adId)) {
+					shareNew = new SatArticleShare();
+					
+				}
+				shareNew.setAdvisId(adId);
+				shareNew.setId(UUID.randomUUID().toString());
+				shareNew.setArticleId(articleId);
+				shareNew.setAdvisId(adId);
+				shareNew.setCreateTime(new Date());
+				shareNew.setUpdateTime(new Date());
+				shareNew.setUserId(openid);
+				if(StringUtils.isNoneEmpty(adPosition)) {//广告位置
+					shareNew.setAdPosition(adPosition);
+				}
+				satArticleShareService.insert(shareNew);
+//				SatArticleShare shareArticle = new SatArticleShare();
+//				shareArticle.setId(UUID.randomUUID().toString());
+//				shareArticle.setArticleId(articleId);
+//				shareArticle.setAdvisId(adId);
+//				shareArticle.setCreateTime(new Date());
+//				shareArticle.setUpdateTime(new Date());
+//				shareArticle.setUserId(openid);
+//				satArticleShareService.insert(shareArticle);
 			}
 			return "share success";
 		}
@@ -480,6 +510,39 @@ public class SatArticleController {
 			}
 		}
 		return "collect failed";
+	}
+	
+	/**
+	 * 点赞文章
+	 */
+	@RequestMapping(value="/starArticle", method=RequestMethod.POST)
+	@ResponseBody
+	public String starArticle(HttpServletRequest request) {
+		String articleId = request.getParameter("articleId");
+		String openid = request.getParameter("openid");
+		System.out.println("openid " + openid + "aid " + articleId);
+		if(!StringUtils.isEmpty(articleId) && !StringUtils.isEmpty(openid)) {
+			SatArticleShare share = satArticleShareService.load(openid, articleId);
+			if(share == null){
+				return "star failed";
+			} else {
+				share.setStars(share.getStars() + 1);
+				satArticleShareService.update(share);
+				return "star success";
+			}
+		}
+		//openid为空是原文章点赞
+		if(!StringUtils.isEmpty(articleId) && StringUtils.isEmpty(openid)) {
+			SatArticle satArticle = satArticleService.loadArticleById(articleId);
+			if(satArticle == null){
+				return "star failed";
+			} else {
+				satArticle.setStars(satArticle.getStars() + 1);
+				satArticleService.update(satArticle);
+				return "star success";
+			}
+		}
+		return "star failed";
 	}
 	
 	/**

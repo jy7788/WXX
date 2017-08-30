@@ -31,34 +31,39 @@
 <body >
 <input hidden="true" value="${openid}" id="openid" type="text">
 	<div class="sat_content">
+		<div class="zhezhaoceng"></div>
 		<div class="zixun_head">
 			<div class="head_top">
 				<div class="search">
-					<input type="text" placeholder="请输入文章关键字">
-					<span><img src="" alt="搜索"></span>
+					<input type="text" placeholder="请输入文章关键字" id="inputKey">
+					<span id="searchButton" onclick="getSearchData()"><img src="<%=request.getContextPath()%>/sat/mobile/img/fangdajing-icon.png" width="25" alt="搜索"></span>
 				</div>
 				<div class="remove">
 					<span>取消</span>
 				</div>
 			</div>
-			<div class="head_center">
-				<h6 class="head_sousuo">热门搜索</h6>
-				<ul>
-					<li>腾讯科技</li>
-					<li>重修宪法</li>
-					<li>大连万达</li>
-					<li>中国人民解放军建军80周年</li>
-					<li>高德软件</li>
-					<li>抗战</li>
+			
+			<div class="head_center" id="hotSearch" >
+				<h6 class="head_sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/zuijinshousuo-icon.png" width="16" alt="">热门搜索</h6>
+				<ul id="hotUl">
+					<li>京东</li>
+					<li>阿里</li>
+					<li>万达</li>
+					<li>谷歌</li>
+					<li>油价</li>
+					<li>万科</li>
 				</ul>
-				<h6 class="head_sousuo">最近搜索</h6>
-				<ol>
+				<h6 class="head_sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/zuijinshousuo-icon.png" width="16" alt="">最近搜索</h6>
+				<ol id="recentSearch">
 					<li>华为</li>
 					<li>百度视频</li>
 					<li>腾讯科技</li>
 				</ol>
 			</div>
-			<div class="head_center" style="display:none">
+			
+			
+			
+			<div class="head_center" style="display:none" id="searchListDiv">
 				<p class="head_cen_p">搜索到<span>200</span>条相关内容</p>
 				<div class="weui_tab" style="height:auto">
 					<div class="weui_panel_bd">
@@ -118,7 +123,7 @@
 				</div>
 			</div>
 					
-			<div class="head_bottom">
+			<div class="head_bottom" id="clearRecord" onclick="clearAllRecords()">
 				<p>清空最近搜索记录</p>
 			</div>
 		</div>
@@ -127,7 +132,7 @@
 			<div class="main_head" style="position:relative;">
 				<div class="search">
 					<input type="text" placeholder="请输入文章关键字" readonly>
-					<span><img src="<%=request.getContextPath()%>/sat/mobile/img/huisesejiantou-icon.png" alt="搜索"></span>
+					<span><img src="<%=request.getContextPath()%>/sat/mobile/img/fangdajing-icon.png" width="25" alt="搜索"></span>
 				</div>
 				<div class="swiper-container">
 					<!-- Additional required wrapper -->
@@ -147,34 +152,39 @@
 					<div class="main_swiper_list" onclick="updateNewsCategory()"><span>本周头条</span></div>
 				</div>
 				<div class="sat_nav ">
-					<div class="main_swiper_list"><span>时事政坛</span></div>
+					<div class="main_swiper_list"><span class="sta_nav_tihuan">时事政坛</span></div>
 				</div>
 				<div class="sat_nav">
-					<div class="main_swiper_list"><span>体坛风云</span></div>
+					<div class="main_swiper_list"><span class="sta_nav_tihuan">体坛风云</span></div>
 				</div>
 				<div class="sat_nav">
-					<div class="main_swiper_list"><span>叱咤金融</span></div>
+					<div class="main_swiper_list"><span class="sta_nav_tihuan">叱咤金融</span></div>
 				</div>
 				<div class="sat_add">
 					<div class="main_swiper_list">
-						<span id="listOne"><img src="<%=request.getContextPath()%>/sat/mobile/img/huisesejiantou-icon.png" width="11" alt="添加"></span>
-						<div class="main_list_box">
-							<div class="list_box">
-								<span class="click">金融新干线</span>
-								<span>保险基金</span>
-								<span>社会热点</span>
-								<span>生活养生</span>
-								<span>娱乐资本论</span>
-								<span>财经私房</span>
-								<span>贷款微课堂</span>
-								<span>心灵鸡汤</span>
-							</div>
-							<div class="list_btn ">
-								<button>确认</button>
-							</div>
+						<span id="listOne"><img src="<%=request.getContextPath()%>/sat/mobile/img/zengjia-icon.png" width="18" alt="添加"></span>
+						<div class="main_list_box hide">
+							<ul class="list_box">
+								<li>
+									<span>时事政坛</span>
+									<span>体坛风云</span>
+									<span>叱咤金融</span>
+								</li>
+								<li>
+									<span class="click">金融新干线</span>
+									<span>保险基金</span>
+									<span>生活养生</span>
+								</li>
+								<li>
+									<span>娱乐资本论</span>
+									<span>财经私房</span>
+									<span>心灵鸡汤</span>
+								</li>
+							</ul>
+								
 						</div>
 					</div>
-				</div>
+				</div>		
 				
 			</div>
 			<div class="weui_tab" style="height:auto">
@@ -196,199 +206,6 @@
 						</a>
 					</c:forEach>
 					
-					
-						<%-- <a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="<%=request.getContextPath()%>/sat/mobile/img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a>
-						<a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a>
-						<a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a><a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a>
-						<a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a>
-						<a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a><a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a>
-						<a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a>
-						<a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a><a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a>
-						<a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a>
-						<a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a>
-						<a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a>
-						<a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a>
-						<a href="javascript:;" class="weui_media_box weui_media_appmsg">
-							<div class="weui_media_hd">
-								<img class="weui_media_appmsg_thumb" src="../img/xinwentupian-img.png" alt="">
-							</div>
-							<div class="weui_media_bd">
-								<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-								<p class="zuozhe">
-									<b>毒舌姐原创</b>
-									<span><img src="../img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-									<span><img src="../img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
-								</p>
-							</div>
-						</a> --%>
 					</div>
 				</div>
 			</div>		
@@ -419,6 +236,31 @@
 		$(".remove").on("click",function(){
 			$(".zixun_head").hide();
 		}) 
+		
+		$(".list_box span").on("click",function(){
+			//添加点击效果，取消其他兄弟样式；
+			$(this).addClass("click").siblings().removeClass('click');
+			$(this).parent("li").siblings().find("span").removeClass('click');
+			//获取值更换到页面；
+			var val=$(this).parent().find('span');
+			for(var j=0;j<3;j++){
+				$(".sta_nav_tihuan").eq(j).text(val.eq(j).text());
+			}
+			//遮罩层隐藏，
+			$(".zhezhaoceng").toggleClass('show');
+			$(".main_list_box").toggleClass('hide');
+		})
+
+		$("#listOne").on("click",function(){
+	    	$(".zhezhaoceng").toggleClass('show');
+			$(".main_list_box").toggleClass('hide');
+		})
+		$(".zhezhaoceng").click(function(){
+			$(".main_list_box").addClass('hide');
+			$(this).removeClass('show');
+		})
+		
+		
 		//导航点击效果
 		$(".sat_nav").click(function(){
 			$(this).addClass("click").siblings().removeClass("click");
@@ -428,7 +270,7 @@
 		})
 		var openid = $("#openid").val();
 		//新闻列表展示
-		function DisplayNewsItems(list) {  
+		function DisplayNewsItems(list, obj) {  
 			var dispContent = "";
 			
 			//alert(openid);
@@ -449,10 +291,11 @@
 		    	//$("#dialogText")
 		    	dispContent += content;
 		    });  
-		    $("#newsListDiv").html("");
-			$("#newsListDiv").html(dispContent);
+		    obj.html("");
+			obj.html(dispContent);
 		}  
 		
+		//根据类别获取数据
 		function updateNewsCategory(text){
 			//alert("get more detail");
 			var url = "<%=request.getContextPath()%>/satarticle/listArticlesByClassifyName";
@@ -468,8 +311,70 @@
 					if(data.indexOf("unsuccess") > 0){
 						//alert(data);
 					} else {
+						//alert(data);
 						var dataRole =$.parseJSON(data);
-						DisplayNewsItems(dataRole);
+						//$("#searchListDiv").attr("style", "display:block");
+						DisplayNewsItems(dataRole, $("#newsListDiv"));
+					}
+				},
+				error : function() {
+					//alert("网络连接异常");
+				}
+			});
+		}
+		
+		//热门搜索
+		function hotSearch(text){
+			var url = "<%=request.getContextPath()%>/satarticle/getLike";
+			$.ajax({
+				url : url,
+				type : 'POST',
+				dataType : 'json',
+				async : true,
+				data : {
+					"title" : text
+				},
+				success : function(data) {
+					if(data.indexOf("unsuccess") > 0){
+						//alert(data);
+					} else {
+						//alert(data);
+						$("#searchListDiv").attr("style", "display:block");
+						$("#hotSearch").attr("style", "display:block");
+						$("#clearRecord").attr("style", "display:none");
+						var dataRole =$.parseJSON(data);
+						//$("#searchListDiv").attr("style", "display:block");
+						DisplayNewsItems(dataRole, $("#searchListDiv"));
+					}
+				},
+				error : function() {
+					alert("网络连接异常");
+				}
+			});
+		}
+		//根据输入数据查询文章列表
+		function getSearchData() {
+			var url = "<%=request.getContextPath()%>/satarticle/getLike";
+			var title = $("#inputKey").val();
+			$.ajax({
+				url : url,
+				type : 'POST',
+				dataType : 'json',
+				async : true,
+				data : {
+					"title" : title
+				},
+				success : function(data) {
+					if(data.indexOf("failed") > 0){
+						alert("没有搜索到");
+					} else {
+						//alert(data);
+						//不显示搜索框
+						$("#searchListDiv").attr("style", "display:block");
+						$("#hotSearch").attr("style", "display:none");
+						$("#clearRecord").attr("style", "display:none");
+						var dataRole =$.parseJSON(data);
+						DisplayNewsItems(dataRole,$("#searchListDiv"));
 					}
 					/* if(data.indexOf("success") > 0){
 						//alert("")
@@ -480,8 +385,23 @@
 					} */
 				},
 				error : function() {
-					//alert("网络连接异常");
+					alert("网络连接异常");
 				}
 			});
+		}
+		$("#inputKey").focus(function(){
+			$("#searchListDiv").attr("style", "display:block");
+			$("#hotSearch").attr("style", "display:block");
+			$("#clearRecord").attr("style", "display:none");
+		});
+		
+		$("#hotUl li").click(function(){
+		    var y = $(this);
+		    //alert(y.text());
+		    hotSearch(y.text());
+		});
+		
+		function clearAllRecords() {
+			$("#recentSearch").children().remove();
 		}
 	</script>

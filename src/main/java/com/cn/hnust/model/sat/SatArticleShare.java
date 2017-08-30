@@ -13,7 +13,14 @@ public class SatArticleShare {
 	private int watches;
 	private int advisClickCount;
 	private Date updateTime;
+	private String adPosition;
 	
+	public String getAdPosition() {
+		return adPosition;
+	}
+	public void setAdPosition(String adPosition) {
+		this.adPosition = adPosition;
+	}
 	public Date getUpdateTime() {
 		return updateTime;
 	}

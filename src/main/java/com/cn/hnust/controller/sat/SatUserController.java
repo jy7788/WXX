@@ -362,4 +362,16 @@ public class SatUserController {
 		}
 	}
 	
+	@RequestMapping("/getUserQrCode")
+	@ResponseBody
+	public String getUserQrCode(HttpServletRequest request) {
+		String openid = request.getParameter("openid");
+		SatUser satUser = satUserService.loadByOpenId(openid);
+		if(satUser != null && StringUtils.isNoneEmpty(satUser.getQrCode())) {
+			return satUser.getQrCode();
+		} else {
+			return "get failed";
+		}
+	}
+	
 }

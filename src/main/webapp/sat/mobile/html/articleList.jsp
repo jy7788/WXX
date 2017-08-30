@@ -28,62 +28,51 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/sat/mobile/css/style.css">
 </head>
 <body >
+<input type="text" id="openid" hidden="true" value="${openid }">
 <input type="text" id="path" hidden="false" value="<%=request.getContextPath()%>">
 	<div class="sat_content">
-		<div class="header" style="position:relative;">
-			<img src="<%=request.getContextPath()%>/sat/mobile/img/panner.PNG" alt="" style="width:100%;">
-			<div class="weizhan_moshi">
-				<span class="moshi_list">浏览模式</span>
-				<span class="moshi_list chocked">编辑模式</span>
-			</div>
-		</div>
+		
 		<div class="main" >
 			<div>
+			<div class="header" style="position:relative;">
+				<img src="<%=request.getContextPath()%>/sat/mobile/img/panner.PNG" alt="" style="width:100%;">
+				<!-- <div class="weizhan_moshi">
+					<span class="moshi_list">浏览模式</span>
+					<span class="moshi_list chocked">编辑模式</span>
+				</div> -->
+			</div>
 			<div class="nav bornone">
-				<div class="sat_nav ">
+				<div class="sat_nav click" id="shares">
 					<div class="main_swiper_list"><span>转载</span></div>
 				</div>
-				<div class="sat_nav click">
+				<div class="sat_nav " id="collects">
 					<div class="main_swiper_list"><span>收藏</span></div>
 				</div>
 				<div class="sat_nav lianxiwo" style="display:none">
 					<div class="main_swiper_list"><span>联系我</span></div>
 				</div>
 			</div>
-			<%-- <div class="weui_cell wenzhang_list">
-				<div class="weui_cell_hd"><i class="yuan">原创</i><img src="<%=request.getContextPath()%>/sat/mobile/img/xinwentupian-img.png" width="100" alt=""></div>
+			<div id="articleListDisp">
+			<c:forEach items="${myArticles}" var="satArticle">
+				
+				<a href="<%=request.getContextPath()%>/satarticle/myArticleDetail?id=${satArticle.id}&openid=${openid} "> 
+				<div class="weui_cell wenzhang_list" id="articleTab" onclick="gotoMyArticleDetail(${openid}, ${satArticle.id})">
+				<div class="weui_cell_hd"><i class="yuan">转载</i><img src="${satArticle.descImgUrl}" width="100" alt=""></div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<p class="text">文字标题文字标题文题sssssssssssss</p>
+					<p class="text">${satArticle.title} </p>
 					<div class="wenzhang_eye">
-						<span><img src="<%=request.getContextPath()%>/sat/mobile/img/fenxiang-icon.png" width="20" alt=""><i>0</i></span>
-						<span><img src="<%=request.getContextPath()%>/sat/mobile/img/guanzhu-icon.png" width="20" alt=""><i>12</i></span>
+						<span><img src="<%=request.getContextPath()%>/sat/mobile/img/fenxiang-icon.png" width="20" alt=""><i>${satArticle.shares}</i></span>
+						<span><img src="<%=request.getContextPath()%>/sat/mobile/img/guanzhu-icon.png" width="20" alt=""><i>${satArticle.watches}</i></span>
 						<span></span>
 						<b><i>编辑</i></b>
 						<b><i>删除</i></b>
 					</div>
 				</div>
-			</div> --%>
-			
-			<c:forEach items="${myArticles}" var="satArticle">
-				
-				<a href="<%=request.getContextPath()%>/satarticle/myArticleDetail?id=${satArticle.id}&openid=${openid} "> 
-						<div class="weui_cell wenzhang_list" id="articleTab" onclick="gotoMyArticleDetail(${openid}, ${satArticle.id})">
-						<div class="weui_cell_hd"><i class="yuan">转载</i><img src="${satArticle.descImgUrl}" width="100" alt=""></div>
-						<div class="weui_cell_bd weui_cell_primary">
-							<p class="text">${satArticle.title} </p>
-							<div class="wenzhang_eye">
-								<span><img src="<%=request.getContextPath()%>/sat/mobile/img/fenxiang-icon.png" width="20" alt=""><i>${satArticle.shares}</i></span>
-								<span><img src="<%=request.getContextPath()%>/sat/mobile/img/guanzhu-icon.png" width="20" alt=""><i>${satArticle.watches}</i></span>
-								<span></span>
-								<b><i>编辑</i></b>
-								<b><i>删除</i></b>
-							</div>
-						</div>
-						</div>
-						</a>
+				</div>
+				</a>
 				
 			</c:forEach>
-			
+			</div>
 			</div>
 		</div>
 		<div class="footer">
@@ -107,27 +96,170 @@
 	<script src='<%=request.getContextPath()%>/sat/assets/jquery-weui.min.js'></script>
 	<script src="<%=request.getContextPath()%>/sat/assets/swiper.js"></script>
 	<script src='<%=request.getContextPath()%>/sat/mobile/js/rem.js'></script>
+	<script src='<%=request.getContextPath()%>/js/base.js'></script>
 	<script>
+		var shareList, collectList;
+		var openid , path;
+		$(document).ready(function(){
+			openid = $("#openid").val();
+			path=$("#path").val();
+			
+			$("#collects").attr("class" , "sat_nav");
+			$("#shares").attr("class" , "sat_nav click");
+			listMyShares();
+			//alert(openid + path);
+		});
+		
+		$("#shares").click(function(){
+			$("#collects").attr("class" , "sat_nav");
+			$("#shares").attr("class" , "sat_nav click");
+			listMyShares();
+			//alert(shareList);
+			//DisplayNewsItems(shareList, $("#articleListDisp"));
+		});
+		$("#collects").click(function(){
+			$("#collects").attr("class" , "sat_nav click");
+			$("#shares").attr("class" , "sat_nav");
+			listMyCollects();
+			//alert(collectList);
+		});
+		
+		//新闻列表展示
+		function DisplayNewsItems(list, obj) {  
+			var dispContent = "";
+			console.log(list);
+			
+		     $.each(list, function(index, element) {
+		    	var content = "<a href='" + "/satarticle/detail?id=" + element.id + "&openid=" + openid + "&from=" + "singleMessage" + "'>"
+		    				  + "<div class='weui_cell wenzhang_list'>"
+		    			      + "<div class='weui_cell_hd'><i class='yuan'>转载</i><img src='" + element.descImgUrl + "' width='100' alt=''></div>"
+		    			      + "<div class='weui_cell_bd weui_cell_primary'>"
+		    			      + "<p class='text'>" + element.title + "</p>"
+		    			      + "<div class='wenzhang_eye'>"
+		    			      + "<span><img src='" + path +  "/sat/mobile/img/fenxiang-icon.png' width='20' alt=''><i>" + element.shares + "</i></span>"
+		    			      + "<span><img src='" + path +  "/sat/mobile/img/guanzhu-icon.png' width='20' alt=''><i>" + element.watches + "</i></span>"
+		    			      + "<span></span>"
+		    			      + "<b><i>编辑</i></b>"
+		  					  + "<b onclick='deleteItem(" + index +  ")'><i>删除</i></b>" 
+		  					  + "</div>"
+		  					  + "</div>"
+		  					  + "</div>"
+		  					  + "</a>";
+		    	//alert(content);
+		    	//$("#dialogText")
+		    	dispContent += content;
+		    });   
+		    obj.html("");
+			obj.html(dispContent);
+		}  
+		//我的分享
+		function listMyShares() {
+			if(!isNull(openid)) {
+				//alert(openid + "sds");
+				var url = "<%=request.getContextPath()%>/satarticle/listMyShares";
+				$.ajax({
+					url : url,
+					type : 'POST',
+					dataType : 'json',
+					async : true,
+					data : {
+						"openid" : openid
+					},
+					success : function(data) {
+						//alert(data);
+						if(data.indexOf("title") > 0){
+							sharelist = $.parseJSON(data);
+							DisplayNewsItems(sharelist, $("#articleListDisp"));
+						} else if(data.indexOf("failed") > 0) {
+							alert("获取失败");
+						} else {
+							alert("获取失败");
+						}
+					},
+					error : function() {
+						alert("网络连接异常");
+					}
+				});
+			}
+		} 
+		//我的收藏
+		function listMyCollects() {
+			if(!isNull(openid)) {
+				var url = "<%=request.getContextPath()%>/satarticle/listMyCollections";
+				$.ajax({
+					url : url,
+					type : 'POST',
+					dataType : 'json',
+					async : true,
+					data : {
+						"openid" : openid
+					},
+					success : function(data) {
+						if(data.indexOf("title") > 0){
+							collectList = $.parseJSON(data);
+							DisplayNewsItems(collectList, $("#articleListDisp"));
+						} else if(data.indexOf("failed") > 0) {
+							alert("获取失败");
+						} else {
+							alert("获取失败");
+						}
+					},
+					error : function() {
+						alert("网络连接异常");
+					}
+				});
+			}
+		} 
+		function deleteItem(index) {
+			if($("#collects").attr("class").indexOf("click") > 0) {//选中的是收藏，删除收藏
+				alert(index);
+			}
+			if($("#shares").attr("class").indexOf("click") > 0) {//选中的是分享，删除转载
+				alert(index);
+			}
+			
+		}
+		
+		//删除分享
+		function deleteMyShare() {
+			if(!isNull(openid)) {
+				//alert(openid + "sds");
+				var url = "<%=request.getContextPath()%>/satarticle/listMyShares";
+				$.ajax({
+					url : url,
+					type : 'POST',
+					dataType : 'json',
+					async : true,
+					data : {
+						"openid" : openid
+					},
+					success : function(data) {
+						//alert(data);
+						if(data.indexOf("title") > 0){
+							sharelist = $.parseJSON(data);
+							DisplayNewsItems(sharelist, $("#articleListDisp"));
+						} else if(data.indexOf("failed") > 0) {
+							alert("获取失败");
+						} else {
+							alert("获取失败");
+						}
+					},
+					error : function() {
+						alert("网络连接异常");
+					}
+				});
+			}
+		} 
+	
 		$(".header .swiper-container").swiper({
 			loop: true,
 			autoplay: 1000
 		});
 		$(".bianjipen").click(function(){
 			$(this).siblings().toggleClass('shows');
-		})
+		});
 		
 		function gotoMyArticleDetail(openid, id) {
 			alert("aaa");
-			alert("　id " + id + openid);
 		}
-		<%-- function gotoSelfCreate() {
-			var path = <%=request.getContextPath()%> + "/satarticle/gotoArticleSelfCreate";
-			self.location = path;
-		} 
-		
-		function gotoReproduce() {
-			window.location.href = <%=request.getContextPath()%> + "/satarticle/gotoArticleReproduce";
-			var path = <%=request.getContextPath()%> + "/satarticle/gotoArticleReproduce";
-			self.location = path;
-		} --%>
 	</script>
