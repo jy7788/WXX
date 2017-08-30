@@ -65,7 +65,7 @@
 				<div class="sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/002-arrow-icon.png" width="15" alt=""></div>
 			</div>
 			<div class="data_main">
-				<div class="main_guanggao"><img src="" alt="广告图"></div>
+				<div class="main_guanggao"><img src="<%=request.getContextPath()%>/sat/mobile/img/lvse-banner-50.png" alt="广告图"></div>
 				<h1>${satArticle.title }</h1>
 				<div class="sat_zhuanzai">
 					<p>${satArticle.createTime }</p>
@@ -92,10 +92,12 @@
 				
 				<div class="main_foot">
 					<span>
-						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="点赞" id="starButton">
+						<img class="wei" src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-weixuanze-icon.png" width="65" alt="点赞" id="starButton">
+						<img class="yi" src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="点赞">
 					</span>
 					<span>
-						<img src="<%=request.getContextPath()%>/sat/mobile/img/shoucang-but.png" width="65" alt="收藏" id="collectButton">
+						<img class="wei" src="<%=request.getContextPath()%>/sat/mobile/img/soucang-weixuanze-icon.png" width="65" alt="收藏" id="collectButton">
+						<img class="yi" src="<%=request.getContextPath()%>/sat/mobile/img/shoucang-but.png" width="65" alt="收藏">
 					</span>
 				</div>
 			</div>
@@ -205,7 +207,7 @@
 	<script src='<%=request.getContextPath()%>/js/base.js'></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/lrz/lrz.bundle.js"></script>
 	<script>
-	
+
 	//得到用户二维码
 	$("#getQrCode").on("click",function(){
 		$(".erweima").toggleClass('show');
@@ -369,7 +371,10 @@
 		$(this).parents(".head_png").hide();
 		$(this).parents().siblings(".head_png").show();
 	})
-	
+	$(".main_foot span").on("click",function(){
+		$(this).find(".yi").show().siblings().hide();
+
+	})
 	jQuery(document).ready(function(){
 		  //初始化库 
 		 loadXMLDoc();

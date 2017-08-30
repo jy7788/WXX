@@ -138,6 +138,10 @@ body {
   color: #808080;
   font-size: .5964rem;
 }
+.sat_content .zixun_head .head_bottom img {
+  vertical-align: middle;
+  padding-right: 5px;
+}
 .sat_content .zixun_head .head_top {
   width: 100%;
   background: red;
@@ -178,9 +182,8 @@ body {
   vertical-align: middle;
 }
 .sat_content .zixun_head .head_top .remove {
-  border: 1px solid #FFFCFC;
   border-radius: 20px;
-  padding: 0 15px;
+  padding: 0 10px;
   color: #fff;
   margin-left: 10px;
   line-height: 34px;
@@ -471,30 +474,30 @@ body {
   margin-top: .213rem;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a .sat_footer_b.zixun {
-  background: url(../img/information－weixuanzhong-icon.png) no-repeat;
+  background: url(../img/information-weixuanzhong-icon.png) no-repeat;
   background-size: 100%;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a .sat_footer_b.chanpin {
-  background: url(../img/product－weixuanzhong-icon.png) no-repeat;
+  background: url(../img/product-weixuanzhong-icon.png) no-repeat;
   background-size: 100%;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a .sat_footer_b.user {
-  background: url(../img/Personal-Center－weixuanzhong-icon.png) no-repeat;
+  background: url(../img/Personal-Center-weixuanzhong-icon.png) no-repeat;
   background-size: 100%;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a.clicked {
   color: #f65f5c;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a.clicked .sat_footer_b.zixun {
-  background: url(../img/information－xuanzhong-icon.png) no-repeat;
+  background: url(../img/information-xuanzhong-icon.png) no-repeat;
   background-size: 100%;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a.clicked .sat_footer_b.chanpin {
-  background: url(../img/product－xuanzhong-icon.png) no-repeat;
+  background: url(../img/product-xuanzhong-icon.png) no-repeat;
   background-size: 100%;
 }
 .sat_content .footer .sat_footer_ul .sat_footer_li a.clicked .sat_footer_b.user {
-  background: url(../img/Personal-Center－xuanzhong-icon.png) no-repeat;
+  background: url(../img/Personal-Center-xuanzhong-icon.png) no-repeat;
   background-size: 100%;
 }
 .sat_content .footer .tuiguang_foot {
@@ -825,6 +828,9 @@ body {
   -webkit-flex: 1;
   display: inline-block;
   text-align: center;
+}
+.data_header .data_main .main_foot span img.yi {
+  display: none;
 }
 .data_header .data_main .main_guanggao {
   width: 100%;
@@ -1160,7 +1166,7 @@ body {
   margin-top: .852rem;
 }
 .chanpin img {
-  padding-left: 10px;
+  width: 100%;
 }
 /* 我的微站页面 */
 .weizhan_moshi {

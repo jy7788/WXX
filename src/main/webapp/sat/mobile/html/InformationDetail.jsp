@@ -84,6 +84,12 @@
 				<div class="laiyuan">
 					<p>（毒蛇姐原创）</p>
 				</div>
+				
+				<div class="footer_guanggao" id="upAd" >
+					<img id="upAdImg" src="<%=request.getContextPath()%>/sat/mobile/img/tupian.png" height="340" width="750" />
+					<p id="upAdDescription">革决策部署上来，从服务党和国家工作大局出发推动改革，敢于担当</p>
+				</div>
+				
 				<div class="main_foot">
 					<span>
 						<img src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="点赞" id="starButton">
@@ -95,11 +101,11 @@
 			</div>
 				
 		</div>
-		<div class="data_footer">
+		<div class="data_footer" id="buttomAd">
 			<div class="foot_png weui_cell">
 				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="35" alt=""></div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<p id="buttomDescription">${satUser.organization}</p>
+					<p id="buttomDescription" style="text-align:center">添加广告</p>
 				</div>
 				<div class="weui_cell_ft">
 					<a><img src="<%=request.getContextPath()%>/sat/mobile/img/xinwentupian-img.png" width="34" alt="" id="buttomImg"></a>
@@ -176,7 +182,7 @@
 	            </label>
 	            <label class="weui_cell nobef weui_check_label" for="x13"> 
 	                <div class="weui_cell_ft">
-	                    <input type="radio" name="radio1" class="weui_check" id="x13">
+	                    <input type="radio" name="radio1" class="weui_check" id="x13" >
 	                    <span class="weui_icon_checked"></span>
 	                </div>
 	                <div class="weui_cell_bd weui_cell_primary">
@@ -240,6 +246,7 @@
 	  var newName, newDescription, newImageUrl, newUrl,adId;
 	  var auth, ad ,visitorOpenid,canshare;
 	  var listLen = 0;
+	  var adPosition, index, adImgUrl, adDescription;
 	//上传图片和预览
 	function previewImage(file) {
 	    var MAXWIDTH = 100;
@@ -378,6 +385,17 @@
 			 $("#headDiv").attr("style", "display:block");
 		 }
 	});	 
+	//置底，文章下面
+	$("#x13").click(function(){
+		$("#x11").removeAttr("checked");
+		$("#x13").attr("checked", "checked");
+	 });
+	
+	//吸底
+	$("#x11").click(function(){
+		$("#x13").removeAttr("checked");
+		$("#x11").attr("checked", "checked");
+	 });
 	
 	//取消按钮
 	$("#cancelEdit").click(function(){
@@ -389,12 +407,14 @@
 	 });
 	//选定广告标签更改事件
 	$("#select1").change(function(){
-		 var index =  $("#select1").val();
+		 index =  $("#select1").val();
 		 //alert(list[index].imgUrl);
 		 $("#imgDetail").attr("src", list[index].imgUrl);
 		 adId = list[index].id;
 		 $("#buttomImg").attr("src", list[index].imgUrl);
 		 $("#buttomDescription").text(list[index].description);
+		 adImgUrl = list[index].imgUrl;
+		 adDescription = list[index].description;
 	 });
 	
 	//绑定广告
@@ -402,15 +422,28 @@
 		//alert(adId);
 		$("#adOuter").attr("style", "display:none");
 		//currUrl = currUrl + "&adId=" + adId;
-		//alert(currUrl);
+		//alert($("#x11").attr("checked"));
+		//最下方
+		if($("#x11").attr("checked") == "checked") {
+			adPosition = "ad_buttom";
+		}
+		
+		//文章下面
+		 if($("#x13").attr("checked") == "checked") {
+			adPosition = "ad_up";
+			$("#upAd").show();
+			$("#upAdImg").attr("src", adImgUrl);
+			$("#upAdDescription").attr("src", adDescription);//文章下方的广告
+		} 
 	 });
 	
 	//新增广告分享按钮
 	$("#share2").click(function(){
-		/* newName =$("#newName").val().trim(); 
+		//获取添加的数据
+		newName =$("#newName").val().trim(); 
 		newDescription =$("#newDescription").val().trim(); 
 		newImageUrl =$("#imageUrl").val().trim(); 
-		newUrl =$("#newUrl").val().trim();  */
+		newUrl =$("#newUrl").val().trim();  
 		if(!isNull(newName) && !isNull(newDescription) && 
 				!isNull(newImageUrl) && !isNull(newUrl) && !isNull(mOpenid)) {
 		//alert(newName + newDescription + newImageUrl + newUrl + mOpenid);
@@ -516,6 +549,7 @@
 					}
 			    },
 			    success: function (res) {
+			    	alert(adPosition);
 			        alert('已分享22');
 			        updateShareCnt();
 			        //Toast_msg("分享成功",2000);
@@ -566,7 +600,7 @@
 	  function updateShareCnt(){
 			var url = "<%=request.getContextPath()%>/satarticle/updateUserShareCount";
 			//alert("adId " + adId);
-			if(!isNull(articleId) && !isNull(mOpenid) && !isNull(adId)) {
+			if(!isNull(articleId) && !isNull(mOpenid) && !isNull(adId)&& !isNull(adPosition)) {
 				//alert(adId);
 				$.ajax({
 					url : url,
@@ -576,7 +610,8 @@
 					data : {
 						"articleId" : articleId,
 						"openid" : mOpenid,
-						"adId" : adId
+						"adId" : adId,
+						"adPosition" : adPosition
 					},
 					success : function(data) {
 						if(data.indexOf("success") > 0){
@@ -635,6 +670,10 @@
 						//底部广告
 						$("#buttomImg").attr("src", list[0].imgUrl);
 						$("#buttomDescription").text(list[0].description);
+						
+						//更新全局广告图片信息
+						adImgUrl = list[0].imgUrl;
+						adDescription = list[0].description;
 					}
 				},
 				error : function() {

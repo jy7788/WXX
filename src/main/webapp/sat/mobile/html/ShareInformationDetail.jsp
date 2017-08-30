@@ -44,9 +44,9 @@
 <input type="text" id="satArticleId" hidden="true" value="${satArticle.id}">
 <input type="text" id="adUrl" hidden="true" value="${ad.linkUrl}">
 <input type="text" id="adDescription" hidden="true" value="${ad.description}">
-<input type="text" id="adImg" hidden="true" value="${ad.imgUrl}">
 <input type="text" id="auth" hidden="true" value="${auth}">
 <input type="text" id="adPosition" hidden="true" value="${share.adPosition}">
+<input type="text" id="adImg" hidden="true" value="${ad.imgUrl}">
 	<div class="sat_content">
 		<!-- <div class="sat_zhuanzai">
 			<p><span id="size"> </span><i></i></p>
@@ -290,17 +290,16 @@
 		 }
 		 adPosition = $("#adPosition").val();
 		 adImg = $("#adImg").val();
-		 alert(adImg);
 		 if(adPosition.indexOf("up") > 0) {
 			 $("#upAd").show();
 			 $("#upAdImg").attr("src", adImg);
-			 $("#upAdDescription").text(upAdDescription);
+			 $("#upAdDescription").html(adDescription);
+			 $("#buttomAd").attr("style", "display:none");
 		 }
 		 
 		 if(adPosition.indexOf("buttom") > 0) {
-			 $("#upAd").show();
-			 $("#upAdImg").attr("src", adImg);
-			 $("#upAdDescription").text(upAdDescription);
+			 $("#buttomAdImg").attr("src", adImg);
+			 $("#buttomDescription").html(adDescription);
 		 }
 	});	
 	

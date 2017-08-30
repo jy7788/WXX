@@ -44,7 +44,7 @@
 			</div>
 			
 			<div class="head_center" id="hotSearch" >
-				<h6 class="head_sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/zuijinshousuo-icon.png" width="16" alt="">热门搜索</h6>
+				<h6 class="head_sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/remensousuo-icon.png" width="16" alt="">热门搜索</h6>
 				<ul id="hotUl">
 					<li>京东</li>
 					<li>阿里</li>
@@ -124,7 +124,7 @@
 			</div>
 					
 			<div class="head_bottom" id="clearRecord" onclick="clearAllRecords()">
-				<p>清空最近搜索记录</p>
+				<p><img src="<%=request.getContextPath()%>/sat/mobile/img/qingkongsousuo-icon.png" width="18" alt="">清空最近搜索记录</p>
 			</div>
 		</div>
 			

@@ -35,10 +35,14 @@
 		</div> --%>
 		<div class="main" >
 			<div class="weui_cell chanpin">
-				<img src="<%=request.getContextPath()%>/sat/mobile/img/tupian.png" height="112" width="274" alt="">
+				<a href="https://test-smelp-web.pingan.com.cn/web/shunyiloan_phone/shunyiloan.html">
+					<img src="<%=request.getContextPath()%>/sat/mobile/img/tupian.png" height="112" width="274" alt="">
+				</a>
 			</div>
 			<div class="weui_cell chanpin" style="background:#FF8E62">
-				<img src="<%=request.getContextPath()%>/sat/mobile/img/tupiantwo.png" height="112" width="274" alt="">
+				<a href="https://test-smelp-web.pingan.com.cn/web/h5/shunyi/guide.html">
+					<img src="<%=request.getContextPath()%>/sat/mobile/img/tupiantwo.png" height="112" width="274" alt="">
+				</a>
 			</div>
 		</div>
 		<div class="footer">
