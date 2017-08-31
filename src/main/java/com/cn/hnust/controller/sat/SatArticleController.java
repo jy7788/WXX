@@ -87,6 +87,14 @@ public class SatArticleController {
 	        	System.out.println("网页授权获取到的openid: "+openid);
 	        	wechatUser = WeixinUserUtil.getWechatUser(openid);
 	        	model.addAttribute("openid", openid);
+	        	
+	        	//用户登录时间和次数记录
+	        	SatUser user = satUserService.loadByOpenId(openid);
+	        	if(openid != null && user !=null) {
+	        		user.setLastLoginTime(new Date());
+	        		user.setVisitNum(user.getVisitNum() + 1);
+	        		satUserService.update(user);
+	        	}
 	        	/*if(openid != null && satUserService.loadByOpenId(openid) == null) {//没注册进入注册页面
 	        		return "redirect:" + WeixinFinalValue.SERVER_URL + "satuser/gotoUserCenter";
 	        	}*/

@@ -55,7 +55,7 @@
 					<p><a href="tel:${satUser.phoneNum}"><img src="<%=request.getContextPath()%>/sat/mobile/img/phone-icon.png"" width="25" style="padding-right:10px" alt=""></a>
 					<img id="getQrCode" src="<%=request.getContextPath()%>/sat/mobile/img/weixin-icon.png" width="25" style="padding-right:10px" alt="" class="erwei">
 					<img id="visitStation" src="<%=request.getContextPath()%>/sat/mobile/img/wodegerenzhongxin-icon.png" width="25" style="padding-right:10px" alt="">
-					<b class="erweima show"><i></i><img id="gotQrCode" src=""></b>
+					<b class="erweima show"><i></i><img id="gotQrCode" src="" style="height:100%"></b>
 					</p>						
 				</div>
 				<div class="weui_cell_ft sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/arrow-icon.png" width="15" alt=""></div>

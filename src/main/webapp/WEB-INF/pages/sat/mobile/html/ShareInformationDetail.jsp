@@ -47,6 +47,7 @@
 <input type="text" id="auth" hidden="true" value="${auth}">
 <input type="text" id="adPosition" hidden="true" value="${share.adPosition}">
 <input type="text" id="adImg" hidden="true" value="${ad.imgUrl}">
+<input type="text" id="userImg" hidden="true" value="${satUser.imgUrl}">
 	<div class="sat_content">
 		<!-- <div class="sat_zhuanzai">
 			<p><span id="size"> </span><i></i></p>
@@ -61,7 +62,7 @@
 					<img src="<%=request.getContextPath()%>/sat/mobile/img/phone-icon.png" width="25" style="padding-right:10px" alt=""></a>
 					<img id="getQrCode" src="<%=request.getContextPath()%>/sat/mobile/img/weixin-icon.png" width="25" style="padding-right:10px" alt="">
 					<img id="visitStation" src="<%=request.getContextPath()%>/sat/mobile/img/wodegerenzhongxin-icon.png" width="25" style="padding-right:10px" alt=""></p>
-					<b class="erweima"><i></i><img id="gotQrCode" src=""></b>
+					<b class="erweima show" ><i></i><img id="gotQrCode" src=""></b>
 				</div>
 				<div class="weui_cell_ft sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/arrow-icon.png" width="15" alt=""></div>
 			</div>
@@ -70,7 +71,7 @@
 				<div class="sousuo"><img src="<%=request.getContextPath()%>/sat/mobile/img/002-arrow-icon.png" width="15" alt=""></div>
 			</div>
 			<div class="data_main">
-				<div class="main_guanggao"><img src="" alt="广告图"></div>
+				<div class="main_guanggao"><img src="<%=request.getContextPath()%>/sat/mobile/img/lvse-banner-50.png" alt="广告图"></div>
 				<h1>${satArticle.title }</h1>
 				<div class="sat_zhuanzai">
 					<p>${satArticle.createTime }</p>
@@ -100,23 +101,27 @@
 				
 				<div class="main_foot">
 					<span>
-						<img id="starButton" src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="点赞">
+						<img class="wei" src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-weixuanze-icon.png" width="65" alt="点赞" id="starButton">
+						<img class="yi" src="<%=request.getContextPath()%>/sat/mobile/img/dianzan-but.png" width="65" alt="点赞">
 					</span>
 					<span>
-						<img src="<%=request.getContextPath()%>/sat/mobile/img/shoucang-but.png" width="65" alt="收藏" id="collect">
+						<img class="wei" src="<%=request.getContextPath()%>/sat/mobile/img/soucang-weixuanze-icon.png" width="65" alt="收藏" id="collect">
+						<img class="yi" src="<%=request.getContextPath()%>/sat/mobile/img/shoucang-but.png" width="65" alt="收藏">
 					</span>
+				</div>
+				
 				</div>
 			</div>
 				
 		</div>
 		<div class="data_footer" id="buttomAd">
 			<div class="foot_png weui_cell" id="advertisement" onclick="updateClickAd()">
-				<div class="weui_cell_hd"><img id="buttomAdImg" src="${satUser.imgUrl}" width="35" alt=""></div>
+				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="35" alt=""></div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<p id="buttomDescription">${ad.description }</p>
 				</div>
 				<div class="weui_cell_ft">
-					<a><img src="${ad.imgUrl }"></a>
+					<a><img id="buttomAdImg" src="${ad.imgUrl }"></a>
 				</div>
 			</div>
 		</div>
@@ -224,7 +229,7 @@
 	  var adUrl = $("#adUrl").val();
 	  var adDescription = $("#adDescription").val();
 	  var auth, adPosition;
-	  var adImg;
+	  var adImg, userImg;
 	//上传图片和预览
 	function previewImage(file) {
 	    var MAXWIDTH = 100;
@@ -270,7 +275,11 @@
 	        console.log(file.files[0]);
 	    }
 	}
-	
+	//点赞收藏
+	$(".main_foot span").on("click",function(){
+		$(this).find(".yi").show().siblings().hide();
+
+	})
 	
 	$(function() {
 		FastClick.attach(document.body);
@@ -290,11 +299,15 @@
 		 }
 		 adPosition = $("#adPosition").val();
 		 adImg = $("#adImg").val();
+		 userImg = $("#userImg").val();
 		 if(adPosition.indexOf("up") > 0) {
 			 $("#upAd").show();
 			 $("#upAdImg").attr("src", adImg);
 			 $("#upAdDescription").html(adDescription);
 			 $("#buttomAd").attr("style", "display:none");
+			 $("#upAd").click(function() {
+				 updateClickAd();
+			 });
 		 }
 		 
 		 if(adPosition.indexOf("buttom") > 0) {
@@ -577,7 +590,7 @@
 	  
 	  function updateShareCnt(){
 			var url = "<%=request.getContextPath()%>/satarticle/updateUserShareCount";
-			alert("adId " + adId);
+			//alert("adId " + adId);
 			if(!isNull(articleId) && !isNull(mOpenid) && !isNull(adId)) {
 				alert(adId);
 				$.ajax({

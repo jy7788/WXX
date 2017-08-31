@@ -24,7 +24,39 @@ public class SatUser {
 	private String birthday;
 	private Date createTime;
 	private Date updateTime;
-	
+	private Date lastLoginTime;
+	private int readNum;
+	private int visitNum;
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
+	public int getReadNum() {
+		return readNum;
+	}
+	public void setReadNum(int readNum) {
+		this.readNum = readNum;
+	}
+	public int getVisitNum() {
+		return visitNum;
+	}
+	public void setVisitNum(int visitNum) {
+		this.visitNum = visitNum;
+	}
 	public Date getCreateDate() {
 		return createTime;
 	}

@@ -20,18 +20,24 @@
     <result column="birthday" property="birthday" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="read_num" property="readNum" jdbcType="INTEGER" />
+    <result column="visit_num" property="visitNum" jdbcType="INTEGER" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, username, password, nickname, open_id, status, sex, bind, img_url, qr_code, phone_num, area, birthday, trade, organization, signature
+    id, username, password, nickname, open_id, status, sex, bind, img_url, qr_code, 
+    phone_num, area, birthday, trade, organization, signature, create_time, update_time, last_login_time, read_num, visit_num
   </sql>
   
   <insert id="add" parameterType="com.cn.hnust.model.sat.SatUser">
 		insert into t_sat_user 
-		(id, username, password,  open_id, status, sex, bind, img_url, qr_code, phone_num, area, birthday, trade, organization, signature, create_time)
+		(id, username, password,  open_id, status, sex, bind, img_url, qr_code, phone_num, area, birthday, trade, 
+		organization, signature, create_time, update_time, last_login_time, read_num, visit_num)
 		values
 		(#{id}, #{username}, #{password}, #{openid}, 
-		 #{status},   #{sex},      #{bind},    #{imgUrl},   #{qrCode}, #{phoneNum}, #{area}, #{birthday}, #{trade}, #{organization}, #{signature}, #{createTime})
+		 #{status},   #{sex},      #{bind},    #{imgUrl},   #{qrCode}, #{phoneNum}, #{area}, #{birthday}, 
+		 #{trade}, #{organization}, #{signature}, #{createTime}, #{updateTime}, #{lastLoginTime}, #{readNum}, #{visitNum})
   </insert>
   
   <!-- <select id="load" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -83,7 +89,10 @@
       trade = #{trade,jdbcType=VARCHAR},
       organization = #{organization,jdbcType=VARCHAR},
       signature = #{signature,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      read_num = #{readNum,jdbcType=INTEGER}, 
+      visit_num = #{visitNum,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   
