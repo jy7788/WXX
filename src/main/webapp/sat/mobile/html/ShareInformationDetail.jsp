@@ -111,12 +111,12 @@
 		</div>
 		<div class="data_footer" id="buttomAd">
 			<div class="foot_png weui_cell" id="advertisement" onclick="updateClickAd()">
-				<div class="weui_cell_hd"><img id="buttomAdImg" src="${satUser.imgUrl}" width="35" alt=""></div>
+				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="35" alt=""></div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<p id="buttomDescription">${ad.description }</p>
 				</div>
 				<div class="weui_cell_ft">
-					<a><img src="${ad.imgUrl }"></a>
+					<a><img id="buttomAdImg" src="${ad.imgUrl }"></a>
 				</div>
 			</div>
 		</div>
@@ -298,6 +298,7 @@
 		 }
 		 
 		 if(adPosition.indexOf("buttom") > 0) {
+			 $("#buttomAd").attr("style", "display:block");
 			 $("#buttomAdImg").attr("src", adImg);
 			 $("#buttomDescription").html(adDescription);
 		 }

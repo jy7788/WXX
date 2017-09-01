@@ -75,6 +75,7 @@ public class AudioController {
 	
 	@RequestMapping("/login")
 	public String voiceLogin() {
+		System.out.println(System.getProperty("user.dir") + "/upload" );
 		return "voice/login";
 	}
 	

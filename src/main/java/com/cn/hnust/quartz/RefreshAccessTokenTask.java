@@ -1,6 +1,7 @@
 package com.cn.hnust.quartz;
 
 import java.io.IOException;
+import java.util.Date;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
@@ -29,12 +30,18 @@ public class RefreshAccessTokenTask {
 		url = url.replaceAll("APPSECRET", WeixinContext.getInstance().getAppSecurt());
 		
 		String content = WeixinBasicKit.sendGet(url);
-		
 		if(WeixinBasicKit.checkRequestSucc(content)) {
+			
 			AccessToken at = (AccessToken)JsonUtil.getInstance().json2Obj(content, AccessToken.class);
 			WeixinContext.getInstance().setAccessToken(at);
 			System.out.println("token " + at.getAccess_token());
 		} else {
+			try {
+				Thread.sleep(8000);
+				System.out.println(new Date() + "refresh token ");
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			refreshToken();
 		}
 	}

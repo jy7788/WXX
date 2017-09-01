@@ -10,13 +10,10 @@ import org.slf4j.LoggerFactory;
 import java.security.MessageDigest;
 import java.util.Map;
 
-/**
- * Created by nowcoder on 2016/7/3.
- */
 public class SatUtil {
     private static final Logger logger = LoggerFactory.getLogger(SatUtil.class);
     public static String TOUTIAO_DOMAIN = WeixinFinalValue.SERVER_URL;
-    public static String IMAGE_DIR = "D:/upload/";
+    public static String IMAGE_DIR = System.getProperty("user.dir") + "/upload/";
     private static final String[] IMAGE_FILE_EXT = {"jpg", "png", "gif", "bmp"};
     public static String getJSONString(int code) {
         JSONObject json = new JSONObject();

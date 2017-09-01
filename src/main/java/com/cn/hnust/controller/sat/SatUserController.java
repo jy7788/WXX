@@ -269,6 +269,7 @@ public class SatUserController {
 		        		return "sat/mobile/html/PersonalCenter.jsp";
 		        	}
 		        }else {
+		        	System.out.println("redirect  " + WeixinFinalValue.SERVER_URL + "satuser/gotoUserCenter");
 		        	return "redirect:" + WeixinFinalValue.SERVER_URL + "satuser/gotoUserCenter";
 		        }
 			}else {

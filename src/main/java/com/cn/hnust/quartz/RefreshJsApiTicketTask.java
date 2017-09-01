@@ -1,24 +1,12 @@
 package com.cn.hnust.quartz;
 
-import java.io.IOException;
+import java.util.Date;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Component;
 
-import com.cn.hnust.json.AccessToken;
-import com.cn.hnust.json.ErrorEntity;
 import com.cn.hnust.kit.kit.WeixinBasicKit;
 import com.cn.hnust.model.JsapiTicket;
 import com.cn.hnust.model.WeixinContext;
-import com.cn.hnust.model.WeixinFinalValue;
-import com.cn.hnust.util.JsonUtil;
-import com.cn.hnust.util.PropertiesUtil;
 
 @Component
 public class RefreshJsApiTicketTask {
@@ -31,11 +19,23 @@ public class RefreshJsApiTicketTask {
 //       String access_token=accessToken.getAccess_token();  
        //2,获取调用微信jsapi的凭证  
         try {
-        	JsapiTicket ticket = WeixinBasicKit.getJsapiTicket(appId, appsecret); 
-        	WeixinContext.getInstance().setTicket(ticket);
-        	System.out.println(" ticket " + ticket.getTicket());
+        	if(WeixinContext.getInstance().getAccessToken().getAccess_token() !=null) {
+        		JsapiTicket ticket = WeixinBasicKit.getJsapiTicket(appId, appsecret); 
+        		WeixinContext.getInstance().setTicket(ticket);
+        		System.out.println(" ticket " + ticket.getTicket());
+        	} else {
+        		Thread.sleep(8000);
+        		System.out.println(new Date() + "refresh jsapi ");
+        		refreshJsapiTicket();
+        	}
         } catch (Exception e){
-        	refreshJsapiTicket();
+        	try {
+				Thread.sleep(8000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+    		System.out.println(new Date() + "refresh jsapi ");
+    		refreshJsapiTicket();
         }
 	}
 }

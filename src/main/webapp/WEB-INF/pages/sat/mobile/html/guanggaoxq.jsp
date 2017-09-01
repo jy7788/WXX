@@ -40,16 +40,16 @@
 				<b onclick="setEdit()" id="editButton" >编辑</b>
 			</div>
 			<div class="weui_cell">
-				<div class="weui_cell_hd"><label class="weui_label">名称</label></div>
+				<div class="weui_cell_hd"><label class="weui_label">标题</label></div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="text" placeholder="姓名" value="${ad.name }" readonly id="name">
+					<input class="weui_input" type="text" placeholder="请输入广告标题" value="${ad.name }" readonly id="name">
 				</div>
 			</div>
 			<div class="weui_cell ">
 				<div class="weui_cell_hd"><label for="name" class="weui_label">描述</label></div>
 				<div class="weui_cell_bd weui_cell_primary article_cell">
-					<textarea class="weui_textarea" placeholder="请输入文章标题最多不超过50个字" readonly rows="5" id="description">${ad.description }</textarea>
-					<div class="weui_textarea_counter"><span id="curLen">${fn:length(ad.description)}</span>/300</div>
+					<textarea class="weui_textarea" placeholder="请输入广告内容最多不超过150个字" readonly rows="5" id="description">${ad.description }</textarea>
+					<div class="weui_textarea_counter"><span id="curLen">${fn:length(ad.description)}</span>/150</div>
 				</div>
 			</div>
 			<div class="weui_uploader">
@@ -69,7 +69,7 @@
 			<div class="weui_cell nobef">
 				<div class="weui_cell_hd"><label class="weui_label">链接</label></div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="tel" placeholder="手机号" value="${ad.linkUrl }" readonly id="linkUrl">
+					<input class="weui_input" type="tel" placeholder="请添加广告跳转网址" value="${ad.linkUrl }" readonly id="linkUrl">
 				</div>
 			</div>
 		</div>
@@ -141,14 +141,14 @@
 		});
 		$("#description").bind('propertychange input', function () {  
 	        var counter = $('#description').val().length;
-	        if(counter < 300) {
+	        if(counter < 150) {
 		        $("#curLen").text(counter);
 	        }else {
-	        	$("#curLen").text(300);
-	        	$('#description').val($('#description').val().substr(0,300));
+	        	$("#curLen").text(150);
+	        	$('#description').val($('#description').val().substr(0,150));
 	        }
 	        //alert(counter);
-	        //$('#tips var').text(300 - counter);    
+	        //$('#tips var').text(150 - counter);    
 		});
 		
 		function gotoadList() {
@@ -172,8 +172,8 @@
 				var description = $("#description").val().trim();
 				var image = $("#image").attr("src").trim();
 				var linkUrl = $("#linkUrl").val().trim();
-				//alert(image);
-				if(adId != null && name != null && description != null && image != null && linkUrl != null) {
+				//alert(image + "adId " + "name " + name + "description " + description + "linkUrl " + linkUrl);
+				if(!isNull(adId) && !isNull(name) && !isNull(description) && !isNull(image) && !isNull(linkUrl)) {
 					var url = "<%=request.getContextPath()%>/ad/update";
 					$.ajax({
 						url : url,

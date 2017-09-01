@@ -11,6 +11,7 @@ import java.nio.charset.UnsupportedCharsetException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +53,10 @@ public class WeixinBasicKit {
 	public static JsapiTicket getJsapiTicket(String appid, String appsecret){
 			JsapiTicket ticket=new JsapiTicket();
 			String requestUrl = js_api_ticket_url.replace("ACCESS_TOKEN",WeixinContext.getInstance().getAccessToken().getAccess_token());
+			System.out.println("get ticket url  " + requestUrl);
 			String sendGet = WeixinBasicKit.sendGet(requestUrl);
+			System.out.println(sendGet + new Date());
+			System.out.println("get ticket start " + new Date());
 			JsapiTicket json2Obj = (JsapiTicket) JsonUtil.getInstance().json2Obj(sendGet, JsapiTicket.class);
 			//JSONObject jsonObject =WeixinUtil.httpRequest(requestUrl, "GET", null);
 //			if(jsonObject.getString("errcode").equals("0")){

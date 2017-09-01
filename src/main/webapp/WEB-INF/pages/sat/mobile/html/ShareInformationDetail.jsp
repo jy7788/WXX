@@ -110,10 +110,9 @@
 					</span>
 				</div>
 				
-				</div>
 			</div>
-				
 		</div>
+		
 		<div class="data_footer" id="buttomAd">
 			<div class="foot_png weui_cell" id="advertisement" onclick="updateClickAd()">
 				<div class="weui_cell_hd"><img src="${satUser.imgUrl}" width="35" alt=""></div>
@@ -125,87 +124,87 @@
 				</div>
 			</div>
 		</div>
-			
+
 		<div class="sat_alert_details" style="display:none" id="adOuter">
-		<div class="sat_xinjian" style="display:none" id="adNewDiv"> <!--style="display:none"-->
-			<h5 class="sat_alert_h5">新建签名</h5>
-			<div class="weui_cell nobef">
-				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="text" id="newName" placeholder="请添加名称"> 
-				</div>
-			</div>
-			<div class="weui_cell nobef">
-				<div class="weui_cell_bd weui_cell_primary article_cell">
-					<textarea class="weui_textarea" placeholder="请添加描述" rows="3" id="newDescription"></textarea>
-					<div class="weui_textarea_counter"><span id="curLen"></span>/150</div>
-				</div>
-			</div>
-			<div class="weui_uploader">
-				<div class="weui_uploader_bd">
-					<ul class="weui_uploader_files" id='img'></ul>
-					<div class="weui_uploader_input_wrp">
-						<input class="weui_uploader_input" type="file" accept="image/*" onchange="previewImage(this)">
-						<input  type="text" id="imageUrl" value="" hidden="true" />
+			<div class="sat_xinjian" style="display:none" id="adNewDiv"> <!--style="display:none"-->
+				<h5 class="sat_alert_h5">新建签名</h5>
+				<div class="weui_cell nobef">
+					<div class="weui_cell_bd weui_cell_primary">
+						<input class="weui_input" type="text" id="newName" placeholder="请添加名称"> 
 					</div>
 				</div>
-			</div>
-			<div class="weui_cell nobef">
-				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="text" placeholder="请添加上传路径" val="http://" id="newUrl">
+				<div class="weui_cell nobef">
+					<div class="weui_cell_bd weui_cell_primary article_cell">
+						<textarea class="weui_textarea" placeholder="请添加描述" rows="3" id="newDescription"></textarea>
+						<div class="weui_textarea_counter"><span id="curLen"></span>/150</div>
+					</div>
 				</div>
-			</div>
+				<div class="weui_uploader">
+					<div class="weui_uploader_bd">
+						<ul class="weui_uploader_files" id='img'></ul>
+						<div class="weui_uploader_input_wrp">
+							<input class="weui_uploader_input" type="file" accept="image/*" onchange="previewImage(this)">
+							<input  type="text" id="imageUrl" value="" hidden="true" />
+						</div>
+					</div>
+				</div>
+				<div class="weui_cell nobef">
+					<div class="weui_cell_bd weui_cell_primary">
+						<input class="weui_input" type="text" placeholder="请添加上传路径" val="http://" id="newUrl">
+					</div>
+				</div>
 				<div class="button_sp_area">
-					<a class="weui_btn weui_btn_mini weui_btn_default" id="cancelEdit2">取消</a>
-					<a class="weui_btn weui_btn_mini weui_btn_primary" id="share2">分享</a>
-					
+						<a class="weui_btn weui_btn_mini weui_btn_default" id="cancelEdit2">取消</a>
+						<a class="weui_btn weui_btn_mini weui_btn_primary" id="share2">分享</a>
+						
+					</div>
+			</div>
+			<div class="sat_tianjia" id="adListDiv">
+				<h5 class="sat_alert_h5">添加签名<span id="addAdButton" onclick="addAd()">+新建</span></h5>
+				<div class="weui_cell nobef weui_cell_select">
+	                <div class="weui_cell_bd weui_cell_primary">
+	                    <select class="weui_select" name="select1" id="select1">
+	                        <option selected="" value="1" >理财通发行推广</option>
+	                        <option value="2">夏季上新折扣季</option>
+	                        <option value="3">夏季上新折扣季</option>
+	                    </select>
+	                </div>
+	            </div>
+				<div class="weui_uploader">
+					<div class="weui_uploader_bd">
+						<ul class="weui_uploader_files" >
+							<li>
+								<img id="imgDetail" src="<%=request.getContextPath()%>/sat/mobile/img/tupian.png" height="112" width="274" alt="">
+							</li>
+						</ul>
+					</div>
 				</div>
-		</div>
-		<div class="sat_tianjia" id="adListDiv">
-			<h5 class="sat_alert_h5">添加签名<span id="addAdButton" onclick="addAd()">+新建</span></h5>
-			<div class="weui_cell nobef weui_cell_select">
-                <div class="weui_cell_bd weui_cell_primary">
-                    <select class="weui_select" name="select1" id="select1">
-                        <option selected="" value="1" >理财通发行推广</option>
-                        <option value="2">夏季上新折扣季</option>
-                        <option value="3">夏季上新折扣季</option>
-                    </select>
-                </div>
-            </div>
-			<div class="weui_uploader">
-				<div class="weui_uploader_bd">
-					<ul class="weui_uploader_files" >
-						<li>
-							<img id="imgDetail" src="<%=request.getContextPath()%>/sat/mobile/img/tupian.png" height="112" width="274" alt="">
-						</li>
-					</ul>
+				<div class="weui_cells weui_cells_radio">
+		            <label class="weui_cell nobef weui_check_label" for="x11">
+		                <div class="weui_cell_ft">
+		                    <input type="radio" class="weui_check" name="radio1" id="x11" checked="checked">
+		                    <span class="weui_icon_checked"></span>
+		                </div>
+		                <div class="weui_cell_bd weui_cell_primary">
+		                    <p>固定吸顶</p>
+		                </div>
+		            </label>
+		            <label class="weui_cell nobef weui_check_label" for="x13"> 
+		                <div class="weui_cell_ft">
+		                    <input type="radio" name="radio1" class="weui_check" id="x13">
+		                    <span class="weui_icon_checked"></span>
+		                </div>
+		                <div class="weui_cell_bd weui_cell_primary">
+		                    <p>置于文章底部</p>
+		                </div>
+		            </label>
+		        </div>
+				<div class="button_sp_area">
+					<a class="weui_btn weui_btn_mini weui_btn_default" id="cancelEdit">取消</a>
+					<a class="weui_btn weui_btn_mini weui_btn_primary" id="share">分享</a>
 				</div>
 			</div>
-			<div class="weui_cells weui_cells_radio">
-	            <label class="weui_cell nobef weui_check_label" for="x11">
-	                <div class="weui_cell_ft">
-	                    <input type="radio" class="weui_check" name="radio1" id="x11" checked="checked">
-	                    <span class="weui_icon_checked"></span>
-	                </div>
-	                <div class="weui_cell_bd weui_cell_primary">
-	                    <p>固定吸顶</p>
-	                </div>
-	            </label>
-	            <label class="weui_cell nobef weui_check_label" for="x13"> 
-	                <div class="weui_cell_ft">
-	                    <input type="radio" name="radio1" class="weui_check" id="x13">
-	                    <span class="weui_icon_checked"></span>
-	                </div>
-	                <div class="weui_cell_bd weui_cell_primary">
-	                    <p>置于文章底部</p>
-	                </div>
-	            </label>
-	        </div>
-			<div class="button_sp_area">
-				<a class="weui_btn weui_btn_mini weui_btn_default" id="cancelEdit">取消</a>
-				<a class="weui_btn weui_btn_mini weui_btn_primary" id="share">分享</a>
-			</div>
 		</div>
-	</div>
 	</div>
 </body>
 	<script src="<%=request.getContextPath()%>/sat/assets/fastclick.js"></script>
@@ -311,6 +310,11 @@
 		 }
 		 
 		 if(adPosition.indexOf("buttom") > 0) {
+			 console.log($("#buttomAd"));
+			 $("#buttomAd").attr("style", "display:block");
+			 $("#buttomAd").show();
+			 $("#advertisement").show();
+			 alert(adImg + adDescription);
 			 $("#buttomAdImg").attr("src", adImg);
 			 $("#buttomDescription").html(adDescription);
 		 }
@@ -511,7 +515,7 @@
 	      var signature=jQuery("#signature").text();
 	      wx.config({
 	               beta: true,
-	                debug: false,// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	                debug: true,// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 	                appId: appId, 
 	                timestamp: timestamp,
 	                nonceStr: nonceStr,
@@ -678,7 +682,7 @@
 	  
 	  //访问微站
 	  $("#visitStation").click(function() {
-		  window.location = "/satarticle/othersStation?openid=" + mOpenid;
+		  window.location = <%=request.getContextPath()%> + "/satarticle/othersStation?openid=" + mOpenid;
 	  });
 	  
 		//得到用户二维码
